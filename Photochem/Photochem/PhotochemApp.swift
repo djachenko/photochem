@@ -9,6 +9,7 @@ struct PhotochemApp: App {
     var body: some Scene {
         WindowGroup {
             KitListView()
+                .sessionRecoveryDialog()
                 .environment(\.diContainer, container)
         }
         .modelContainer(for: [ChemistryKit.self, DevelopmentSession.self, FilmRecord.self, StageSnapshot.self])
