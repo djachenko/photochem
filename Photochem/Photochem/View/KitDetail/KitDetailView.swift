@@ -8,25 +8,18 @@ struct KitDetailView: View {
     @Environment(\.diContainer) private var diContainer
     @Environment(\.modelContext) private var modelContext
 
-    @State private var viewModel: KitDetailViewModel?
+    private var viewModel: KitDetailViewModel {
+        KitDetailViewModel(
+            kit: kit,
+            configService: diContainer ~> ConfigService.self,
+            modelContext: modelContext
+        )
+    }
 
     var body: some View {
-        Group {
-            if let viewModel {
-                content(viewModel: viewModel)
-            }
-        }
-        .navigationTitle(kit.processName)
-        .navigationBarTitleDisplayMode(.inline)
-        .task {
-            if viewModel == nil {
-                viewModel = KitDetailViewModel(
-                    kit: kit,
-                    configService: diContainer ~> ConfigService.self,
-                    modelContext: modelContext
-                )
-            }
-        }
+        content(viewModel: viewModel)
+            .navigationTitle(kit.processName)
+            .navigationBarTitleDisplayMode(.inline)
     }
 
     private func content(viewModel: KitDetailViewModel) -> some View {
