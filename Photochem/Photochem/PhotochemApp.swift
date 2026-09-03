@@ -1,3 +1,4 @@
+import SwiftData
 import SwiftUI
 import Swinject
 
@@ -10,5 +11,6 @@ struct PhotochemApp: App {
             KitListView()
                 .environment(\.diContainer, container)
         }
+        .modelContainer(for: [ChemistryKit.self, DevelopmentSession.self, FilmRecord.self, StageSnapshot.self])
     }
 }
