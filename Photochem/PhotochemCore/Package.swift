@@ -9,6 +9,7 @@ let package = Package(
         .library(name: "PhotochemCore", targets: ["PhotochemCore"])
     ],
     targets: [
-        .target(name: "PhotochemCore")
+        .target(name: "PhotochemCore"),
+        .testTarget(name: "PhotochemCoreTests", dependencies: ["PhotochemCore"])
     ]
 )
