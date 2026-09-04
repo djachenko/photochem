@@ -11,5 +11,7 @@ struct AppAssembly: Assembly {
             .inObjectScope(.container)
         container.autoregister(NotificationService.self, initializer: NotificationServiceImpl.init)
             .inObjectScope(.container)
+        container.autoregister(LiveActivityService.self, initializer: LiveActivityServiceImpl.init)
+            .inObjectScope(.container)
     }
 }
