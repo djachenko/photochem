@@ -7,5 +7,9 @@ struct AppAssembly: Assembly {
             .inObjectScope(.container)
         container.autoregister(ConfigService.self, initializer: ConfigServiceImpl.init)
             .inObjectScope(.container)
+        container.autoregister(SoundService.self, initializer: SoundServiceImpl.init)
+            .inObjectScope(.container)
+        container.autoregister(NotificationService.self, initializer: NotificationServiceImpl.init)
+            .inObjectScope(.container)
     }
 }
