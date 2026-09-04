@@ -17,19 +17,38 @@ final class SessionRunner {
     private let stages: [StageSnapshot]
     private let soundService: SoundService
     private let notificationService: NotificationService
+    private let liveActivityService: LiveActivityService
     private let modelContext: ModelContext
 
     init(
         session: DevelopmentSession,
         soundService: SoundService,
         notificationService: NotificationService,
+        liveActivityService: LiveActivityService,
         modelContext: ModelContext
     ) {
         self.session = session
         self.stages = session.orderedStages
         self.soundService = soundService
         self.notificationService = notificationService
+        self.liveActivityService = liveActivityService
         self.modelContext = modelContext
+    }
+
+    func startLiveActivity() async {
+        guard let stage = stage(at: 0) else {
+            return
+        }
+        await liveActivityService.start(
+            processName: session.kit?.processName ?? "",
+            totalStages: stages.count,
+            state: DevelopmentActivityAttributes.ContentState(
+                stageIndex: 0,
+                stageName: stage.name,
+                phase: DevelopmentActivityPhase.preparing,
+                endDate: nil
+            )
+        )
     }
 
     var stageCount: Int {
@@ -61,6 +80,7 @@ final class SessionRunner {
             preAlertAt: isPreAlertApplicable(stage) ? endDate.addingTimeInterval(-TimeInterval(stage.preAlertSeconds)) : nil,
             endAt: endDate
         )
+        publishActivityState(stageIndex: stageIndex, phase: DevelopmentActivityPhase.running, endDate: endDate)
     }
 
     func tick(now: Date) {
@@ -75,6 +95,11 @@ final class SessionRunner {
             }
             notificationService.cancelStageAlerts(sessionID: session.id, stageIndex: stageIndex)
             state = stageIndex + 1 < stages.count ? .preparing(stageIndex: stageIndex + 1) : .finished
+            if case .preparing(let nextIndex) = state {
+                publishActivityState(stageIndex: nextIndex, phase: DevelopmentActivityPhase.preparing, endDate: nil)
+            } else {
+                Task { await liveActivityService.stop() }
+            }
             return
         }
 
@@ -94,6 +119,7 @@ final class SessionRunner {
 
     func abort() {
         notificationService.cancelAll(sessionID: session.id, stageCount: stages.count)
+        Task { await liveActivityService.stop() }
         finish(status: .aborted)
     }
 
@@ -105,6 +131,19 @@ final class SessionRunner {
         session.status = status
         session.finishedAt = .now
         try? modelContext.save()
+    }
+
+    private func publishActivityState(stageIndex: Int, phase: String, endDate: Date?) {
+        guard let stage = stage(at: stageIndex) else {
+            return
+        }
+        let state = DevelopmentActivityAttributes.ContentState(
+            stageIndex: stageIndex,
+            stageName: stage.name,
+            phase: phase,
+            endDate: endDate
+        )
+        Task { await liveActivityService.update(state: state) }
     }
 
     private func isPreAlertApplicable(_ stage: StageSnapshot) -> Bool {

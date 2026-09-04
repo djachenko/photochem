@@ -50,12 +50,15 @@ struct RunnerView: View {
         .interactiveDismissDisabled(true)
         .task {
             if runner == nil {
-                runner = SessionRunner(
+                let newRunner = SessionRunner(
                     session: session,
                     soundService: diContainer ~> SoundService.self,
                     notificationService: diContainer ~> NotificationService.self,
+                    liveActivityService: diContainer ~> LiveActivityService.self,
                     modelContext: modelContext
                 )
+                runner = newRunner
+                await newRunner.startLiveActivity()
             }
             (diContainer ~> SoundService.self).activate()
             UIApplication.shared.isIdleTimerDisabled = true

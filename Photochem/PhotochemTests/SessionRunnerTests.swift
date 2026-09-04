@@ -114,6 +114,7 @@ struct SessionRunnerTests {
                 session: session,
                 soundService: sound,
                 notificationService: notifications,
+                liveActivityService: LiveActivityServiceStub(),
                 modelContext: context
             ),
             sound: sound,
@@ -142,6 +143,13 @@ private final class SoundServiceSpy: SoundService {
     func playStageEnd() {
         stageEndCount += 1
     }
+}
+
+@MainActor
+private final class LiveActivityServiceStub: LiveActivityService {
+    func start(processName: String, totalStages: Int, state: DevelopmentActivityAttributes.ContentState) async {}
+    func update(state: DevelopmentActivityAttributes.ContentState) async {}
+    func stop() async {}
 }
 
 private final class NotificationServiceSpy: NotificationService {
