@@ -20,6 +20,13 @@ struct KitListView: View {
             content
                 .navigationTitle("Химия")
                 .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        NavigationLink {
+                            SettingsView()
+                        } label: {
+                            Label("Настройки", systemImage: "gearshape")
+                        }
+                    }
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("Новый комплект", systemImage: "plus") {
                             isCreatingKit = true
