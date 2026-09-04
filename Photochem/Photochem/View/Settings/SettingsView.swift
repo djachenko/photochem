@@ -31,6 +31,14 @@ struct SettingsView: View {
                 }
             }
 
+            Section("Процессы") {
+                ForEach(configService.availableProcesses()) { process in
+                    NavigationLink(process.name) {
+                        ProcessSpecView(process: process)
+                    }
+                }
+            }
+
             Section {
                 LabeledContent("Версия от", value: configService.config.updatedAt)
                 LabeledContent("Обновлён", value: lastFetchText)

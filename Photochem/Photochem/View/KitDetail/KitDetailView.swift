@@ -1,3 +1,4 @@
+import PhotochemCore
 import SwiftData
 import SwiftUI
 import SwinjectAutoregistration
@@ -49,6 +50,13 @@ struct KitDetailView: View {
                 }
                 if let remainingFilms = viewModel.remainingFilms {
                     LabeledContent("Осталось", value: "\(remainingFilms) плёнок")
+                }
+                if let process = viewModel.process {
+                    NavigationLink {
+                        ProcessSpecView(process: process)
+                    } label: {
+                        LabeledContent("Процесс", value: process.name)
+                    }
                 }
                 if let expiryWarning = viewModel.expiryWarning {
                     Text(expiryWarning)

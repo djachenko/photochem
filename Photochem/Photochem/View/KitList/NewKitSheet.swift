@@ -48,6 +48,11 @@ struct NewKitSheet: View {
                     }
                 }
                 DatePicker("Развёл", selection: $mixedAt, displayedComponents: .date)
+                if let selectedProcess {
+                    NavigationLink("Времена процесса") {
+                        ProcessSpecView(process: selectedProcess)
+                    }
+                }
             }
             .onAppear {
                 selectedProcessID = selectedProcessID ?? processes.first?.id
