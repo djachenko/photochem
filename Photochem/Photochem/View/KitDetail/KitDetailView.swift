@@ -16,10 +16,23 @@ struct KitDetailView: View {
         )
     }
 
+    @State private var isStartingSession = false
+    @State private var runningSession: DevelopmentSession?
+
     var body: some View {
         content(viewModel: viewModel)
             .navigationTitle(kit.processName)
             .navigationBarTitleDisplayMode(.inline)
+            .sheet(isPresented: $isStartingSession) {
+                if let process = viewModel.process {
+                    NewSessionSheet(kit: kit, process: process) { session in
+                        runningSession = session
+                    }
+                }
+            }
+            .fullScreenCover(item: $runningSession) { session in
+                RunnerView(session: session)
+            }
     }
 
     private func content(viewModel: KitDetailViewModel) -> some View {
@@ -48,10 +61,11 @@ struct KitDetailView: View {
 
             Section {
                 Button("Новая проявка") {
+                    isStartingSession = true
                 }
                 .buttonStyle(.borderedProminent)
                 .frame(maxWidth: .infinity)
-                .disabled(true)
+                .disabled(viewModel.startBlockReason != nil)
                 .listRowBackground(Color.clear)
                 if let startBlockReason = viewModel.startBlockReason {
                     Text(startBlockReason)
