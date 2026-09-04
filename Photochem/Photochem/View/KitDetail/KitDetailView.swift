@@ -97,10 +97,11 @@ struct KitDetailView: View {
                     NavigationLink {
                         SessionHistoryView(session: session)
                     } label: {
-                        LabeledContent(
-                            "\(session.startedAt.formatted(.dateAndTime)) · \(session.films.count) плёнок"
-                        ) {
-                            Image(systemName: session.status.iconName)
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("\(session.startedAt.formatted(.dateAndTime)) · \(session.films.count) плёнок")
+                            Label(session.status.title, systemImage: session.status.iconName)
+                                .font(.caption)
+                                .foregroundStyle(session.status == .aborted ? .orange : .secondary)
                         }
                     }
                 }
@@ -112,9 +113,17 @@ struct KitDetailView: View {
 extension SessionStatus {
     var iconName: String {
         switch self {
-        case .completed: "checkmark"
-        case .aborted: "xmark"
+        case .completed: "checkmark.circle"
+        case .aborted: "xmark.circle"
         case .inProgress: "clock"
+        }
+    }
+
+    var title: String {
+        switch self {
+        case .completed: "Завершена"
+        case .aborted: "Прервана"
+        case .inProgress: "Не завершена"
         }
     }
 }

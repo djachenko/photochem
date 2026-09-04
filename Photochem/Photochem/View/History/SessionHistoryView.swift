@@ -7,7 +7,7 @@ struct SessionHistoryView: View {
     var body: some View {
         List {
             Section {
-                LabeledContent("Статус", value: statusText)
+                LabeledContent("Статус", value: session.status.title)
                 LabeledContent("Плёнок", value: "\(session.films.count)")
             }
             Section("Этапы") {
@@ -18,13 +18,5 @@ struct SessionHistoryView: View {
         }
         .navigationTitle(session.startedAt.formatted(.dateAndTime))
         .navigationBarTitleDisplayMode(.inline)
-    }
-
-    private var statusText: String {
-        switch session.status {
-        case .completed: "Завершена"
-        case .aborted: "Прервана"
-        case .inProgress: "Не завершена"
-        }
     }
 }
