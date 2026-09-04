@@ -1,0 +1,173 @@
+import Foundation
+import SwiftData
+import Testing
+@testable import Photochem
+
+@MainActor
+struct SessionRunnerTests {
+    private let start = Date(timeIntervalSince1970: 1_000_000)
+
+    @Test("R1")
+    func startsFirstStage() throws {
+        let context = try makeRunner()
+        context.runner.start(now: start)
+        #expect(context.runner.state == .running(
+            stageIndex: 0,
+            startedAt: start,
+            endDate: start.addingTimeInterval(100),
+            preAlertFired: false
+        ))
+    }
+
+    @Test("R2")
+    func doesNotFirePreAlertTooEarly() throws {
+        let context = try makeRunner()
+        context.runner.start(now: start)
+        context.runner.tick(now: start.addingTimeInterval(89))
+        #expect(context.sound.preAlertCount == 0)
+    }
+
+    @Test("R3")
+    func firesPreAlertOnce() throws {
+        let context = try makeRunner()
+        context.runner.start(now: start)
+        context.runner.tick(now: start.addingTimeInterval(90))
+        context.runner.tick(now: start.addingTimeInterval(91))
+        #expect(context.sound.preAlertCount == 1)
+    }
+
+    @Test("R4")
+    func advancesToNextStageAtEnd() throws {
+        let context = try makeRunner()
+        context.runner.start(now: start)
+        context.runner.tick(now: start.addingTimeInterval(100))
+        #expect(context.sound.stageEndCount == 1)
+        #expect(context.runner.state == .preparing(stageIndex: 1))
+        #expect(context.notifications.cancelledStages == [0])
+    }
+
+    @Test("R5")
+    func skipsLateStageEndSound() throws {
+        let context = try makeRunner()
+        context.runner.start(now: start)
+        context.runner.tick(now: start.addingTimeInterval(160))
+        #expect(context.runner.state == .preparing(stageIndex: 1))
+        #expect(context.sound.stageEndCount == 0)
+    }
+
+    @Test("R6")
+    func finishesAfterLastStage() throws {
+        let context = try makeRunner()
+        context.runner.start(now: start)
+        context.runner.tick(now: start.addingTimeInterval(100))
+        let secondStart = start.addingTimeInterval(200)
+        context.runner.start(now: secondStart)
+        context.runner.tick(now: secondStart.addingTimeInterval(60))
+        #expect(context.runner.state == .finished)
+    }
+
+    @Test("R7")
+    func skipsPreAlertOnShortStage() throws {
+        let context = try makeRunner(stageSeconds: [8], preAlertSeconds: 10)
+        context.runner.start(now: start)
+        context.runner.tick(now: start.addingTimeInterval(7))
+        #expect(context.sound.preAlertCount == 0)
+    }
+
+    @Test("R8")
+    func abortMarksSessionAndCancelsAlerts() throws {
+        let context = try makeRunner()
+        context.runner.start(now: start)
+        context.runner.abort()
+        #expect(context.runner.session.status == .aborted)
+        #expect(context.runner.session.finishedAt != nil)
+        #expect(context.notifications.cancelledAllStageCount == 2)
+    }
+
+    private func makeRunner(
+        stageSeconds: [Int] = [100, 60],
+        preAlertSeconds: Int = 10
+    ) throws -> RunnerContext {
+        let container = try ModelContainer(
+            for: ChemistryKit.self, DevelopmentSession.self, FilmRecord.self, StageSnapshot.self,
+            configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+        )
+        let context = ModelContext(container)
+        let session = DevelopmentSession(startedAt: start, status: .inProgress)
+        context.insert(session)
+        session.stages = stageSeconds.enumerated().map { index, seconds in
+            StageSnapshot(
+                orderIndex: index,
+                stageID: "stage\(index)",
+                name: "Этап \(index)",
+                prepare: nil,
+                tempC: nil,
+                plannedSeconds: seconds,
+                preAlertSeconds: preAlertSeconds
+            )
+        }
+
+        let sound = SoundServiceSpy()
+        let notifications = NotificationServiceSpy()
+        return RunnerContext(
+            runner: SessionRunner(
+                session: session,
+                soundService: sound,
+                notificationService: notifications,
+                modelContext: context
+            ),
+            sound: sound,
+            notifications: notifications
+        )
+    }
+}
+
+private struct RunnerContext {
+    let runner: SessionRunner
+    let sound: SoundServiceSpy
+    let notifications: NotificationServiceSpy
+}
+
+private final class SoundServiceSpy: SoundService {
+    private(set) var preAlertCount = 0
+    private(set) var stageEndCount = 0
+
+    func activate() {}
+    func deactivate() {}
+
+    func playPreAlert() {
+        preAlertCount += 1
+    }
+
+    func playStageEnd() {
+        stageEndCount += 1
+    }
+}
+
+private final class NotificationServiceSpy: NotificationService {
+    private(set) var scheduledStages: [Int] = []
+    private(set) var cancelledStages: [Int] = []
+    private(set) var cancelledAllStageCount: Int?
+
+    func requestAuthorization() async -> Bool {
+        true
+    }
+
+    func scheduleStageAlerts(
+        sessionID: UUID,
+        stageIndex: Int,
+        stageName: String,
+        preAlertAt: Date?,
+        endAt: Date
+    ) {
+        scheduledStages.append(stageIndex)
+    }
+
+    func cancelStageAlerts(sessionID: UUID, stageIndex: Int) {
+        cancelledStages.append(stageIndex)
+    }
+
+    func cancelAll(sessionID: UUID, stageCount: Int) {
+        cancelledAllStageCount = stageCount
+    }
+}
