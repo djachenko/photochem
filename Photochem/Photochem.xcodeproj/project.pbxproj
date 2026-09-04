@@ -14,6 +14,7 @@
 		AA0000000000000000000506 /* DevelopmentActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000505 /* DevelopmentActivityAttributes.swift */; };
 		AA0000000000000000000507 /* DevelopmentActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000505 /* DevelopmentActivityAttributes.swift */; };
 		AA0000000000000000000508 /* PhotochemWidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000502 /* PhotochemWidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		AA0000000000000000000602 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000601 /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,8 +53,19 @@
 		AA0000000000000000000402 /* PhotochemTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhotochemTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA0000000000000000000502 /* PhotochemWidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PhotochemWidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA0000000000000000000505 /* DevelopmentActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopmentActivityAttributes.swift; sourceTree = "<group>"; };
+		AA0000000000000000000601 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		D0943A02304A0F0000C2084A /* Photochem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Photochem.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		AA0000000000000000000518 /* Exceptions for "PhotochemWidgets" folder in "PhotochemWidgetsExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = AA0000000000000000000503 /* PhotochemWidgetsExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		AA0000000000000000000401 /* PhotochemTests */ = {
@@ -64,7 +76,7 @@
 		AA0000000000000000000501 /* PhotochemWidgets */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				AA0000000000000000000518 /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
+				AA0000000000000000000518 /* Exceptions for "PhotochemWidgets" folder in "PhotochemWidgetsExtension" target */,
 			);
 			path = PhotochemWidgets;
 			sourceTree = "<group>";
@@ -75,16 +87,6 @@
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
-
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		AA0000000000000000000518 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = AA0000000000000000000503 /* PhotochemWidgetsExtension */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		AA0000000000000000000406 /* Frameworks */ = {
@@ -122,6 +124,14 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
+		AA0000000000000000000603 /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				AA0000000000000000000601 /* Localizable.xcstrings */,
+			);
+			path = Strings;
+			sourceTree = "<group>";
+		};
 		D09439F9304A0F0000C2084A = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +139,7 @@
 				AA0000000000000000000401 /* PhotochemTests */,
 				AA0000000000000000000501 /* PhotochemWidgets */,
 				AA0000000000000000000509 /* Shared */,
+				AA0000000000000000000603 /* Strings */,
 				AA0000000000000000000004 /* config */,
 				D0943A03304A0F0000C2084A /* Products */,
 			);
@@ -240,10 +251,11 @@
 				};
 			};
 			buildConfigurationList = D09439FD304A0F0000C2084A /* Build configuration list for PBXProject "Photochem" */;
-			developmentRegion = en;
+			developmentRegion = ru;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				ru,
 				Base,
 			);
 			mainGroup = D09439F9304A0F0000C2084A;
@@ -285,6 +297,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA0000000000000000000104 /* config in Resources */,
+				AA0000000000000000000602 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
