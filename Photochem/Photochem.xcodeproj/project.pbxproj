@@ -13,12 +13,28 @@
 		AA0000000000000000000104 /* config in Resources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000004 /* config */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		AA0000000000000000000409 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D09439FA304A0F0000C2084A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D0943A01304A0F0000C2084A;
+			remoteInfo = Photochem;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		AA0000000000000000000004 /* config */ = {isa = PBXFileReference; lastKnownFileType = folder; name = config; path = ../config; sourceTree = "<group>"; };
+		AA0000000000000000000402 /* PhotochemTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhotochemTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0943A02304A0F0000C2084A /* Photochem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Photochem.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		AA0000000000000000000401 /* PhotochemTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = PhotochemTests;
+			sourceTree = "<group>";
+		};
 		D0943A04304A0F0000C2084A /* Photochem */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Photochem;
@@ -27,6 +43,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		AA0000000000000000000406 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D09439FF304A0F0000C2084A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -44,6 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				D0943A04304A0F0000C2084A /* Photochem */,
+				AA0000000000000000000401 /* PhotochemTests */,
 				AA0000000000000000000004 /* config */,
 				D0943A03304A0F0000C2084A /* Products */,
 			);
@@ -53,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				D0943A02304A0F0000C2084A /* Photochem.app */,
+				AA0000000000000000000402 /* PhotochemTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -60,6 +85,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		AA0000000000000000000403 /* PhotochemTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA0000000000000000000404 /* Build configuration list for PBXNativeTarget "PhotochemTests" */;
+			buildPhases = (
+				AA0000000000000000000405 /* Sources */,
+				AA0000000000000000000406 /* Frameworks */,
+				AA0000000000000000000407 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AA0000000000000000000408 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				AA0000000000000000000401 /* PhotochemTests */,
+			);
+			name = PhotochemTests;
+			packageProductDependencies = (
+			);
+			productName = PhotochemTests;
+			productReference = AA0000000000000000000402 /* PhotochemTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		D0943A01304A0F0000C2084A /* Photochem */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D0943A0D304A0F0100C2084A /* Build configuration list for PBXNativeTarget "Photochem" */;
@@ -96,6 +144,10 @@
 				LastSwiftUpdateCheck = 2650;
 				LastUpgradeCheck = 2650;
 				TargetAttributes = {
+					AA0000000000000000000403 = {
+						CreatedOnToolsVersion = 26.5;
+						TestTargetID = D0943A01304A0F0000C2084A;
+					};
 					D0943A01304A0F0000C2084A = {
 						CreatedOnToolsVersion = 26.5;
 					};
@@ -121,11 +173,19 @@
 			projectRoot = "";
 			targets = (
 				D0943A01304A0F0000C2084A /* Photochem */,
+				AA0000000000000000000403 /* PhotochemTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		AA0000000000000000000407 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D0943A00304A0F0000C2084A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -159,6 +219,13 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		AA0000000000000000000405 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D09439FE304A0F0000C2084A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -168,7 +235,55 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		AA0000000000000000000408 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D0943A01304A0F0000C2084A /* Photochem */;
+			targetProxy = AA0000000000000000000409 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		AA0000000000000000000410 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2T7P8BR7NV;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.djachenko.ios.PhotochemTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Photochem.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Photochem";
+			};
+			name = Debug;
+		};
+		AA0000000000000000000411 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2T7P8BR7NV;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.djachenko.ios.PhotochemTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Photochem.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Photochem";
+			};
+			name = Release;
+		};
 		D0943A0B304A0F0100C2084A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -357,6 +472,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		AA0000000000000000000404 /* Build configuration list for PBXNativeTarget "PhotochemTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA0000000000000000000410 /* Debug */,
+				AA0000000000000000000411 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D09439FD304A0F0000C2084A /* Build configuration list for PBXProject "Photochem" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
