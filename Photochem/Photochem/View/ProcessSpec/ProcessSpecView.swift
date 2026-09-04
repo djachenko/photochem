@@ -6,23 +6,30 @@ struct ProcessSpecView: View {
 
     var body: some View {
         List {
-            Section("Комплект") {
-                LabeledContent("Ёмкость", value: "\(process.capacityFilms) плёнок")
-                LabeledContent("Срок годности", value: "\(process.shelfLifeDays) дн")
+            Section(String(localized: .processSpecKitSection)) {
+                LabeledContent(String(localized: .processSpecCapacity), value: String(localized: .processSpecCapacityValue(process.capacityFilms)))
+                LabeledContent(String(localized: .processSpecShelfLife), value: String(localized: .processSpecShelfLifeValue(process.shelfLifeDays)))
             }
 
             ForEach(process.stages) { stage in
                 Section {
                     switch stage.timing {
                     case .fixed(let seconds):
-                        LabeledContent("Время", value: TimeFormatting.format(seconds: seconds))
+                        LabeledContent(String(localized: .processSpecTime), value: TimeFormatting.format(seconds: seconds))
                     case .byFilm(let ranges):
                         ForEach(ranges, id: \.lower) { range in
                             LabeledContent(filmsText(range), value: TimeFormatting.format(seconds: range.seconds))
                         }
                     }
                     if let tempC = stage.tempC {
-                        LabeledContent("Температура", value: "\(tempC.formatted(.number.precision(.fractionLength(1))))°C")
+                        LabeledContent(
+                            String(localized: .processSpecTemperature),
+                            value: String(
+                                localized: .processSpecTemperatureValue(
+                                    tempC.formatted(.number.precision(.fractionLength(1)))
+                                )
+                            )
+                        )
                     }
                 } header: {
                     Text(stage.name)
@@ -38,6 +45,8 @@ struct ProcessSpecView: View {
     }
 
     private func filmsText(_ range: FilmRange) -> String {
-        range.lower == range.upper ? "Плёнка \(range.lower)" : "Плёнки \(range.lower)–\(range.upper)"
+        range.lower == range.upper
+            ? String(localized: .processSpecFilm(range.lower))
+            : String(localized: .processSpecFilmRange(range.lower, range.upper))
     }
 }

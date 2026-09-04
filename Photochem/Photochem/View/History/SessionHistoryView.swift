@@ -7,10 +7,10 @@ struct SessionHistoryView: View {
     var body: some View {
         List {
             Section {
-                LabeledContent("Статус", value: session.status.title)
-                LabeledContent("Плёнок", value: "\(session.films.count)")
+                LabeledContent(String(localized: .historyStatus), value: session.status.title)
+                LabeledContent(String(localized: .historyFilms), value: "\(session.films.count)")
             }
-            Section("Этапы") {
+            Section(String(localized: .historyStagesSection)) {
                 ForEach(session.orderedStages) { stage in
                     LabeledContent(stage.name, value: TimeFormatting.format(seconds: stage.plannedSeconds))
                 }

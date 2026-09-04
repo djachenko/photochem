@@ -23,11 +23,11 @@ struct NewSessionSheet: View {
                     Color.clear
                 }
             }
-            .navigationTitle("Новая проявка")
+            .navigationTitle(String(localized: .newSessionTitle))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Отмена") {
+                    Button(String(localized: .newSessionCancel)) {
                         dismiss()
                     }
                 }
@@ -50,7 +50,7 @@ struct NewSessionSheet: View {
         Form {
             Section {
                 Stepper(
-                    "Плёнок в бачке: \(viewModel.filmsInTank)",
+                    String(localized: .newSessionFilmsInTank(viewModel.filmsInTank)),
                     value: Binding(get: { viewModel.filmsInTank }, set: { viewModel.filmsInTank = $0 }),
                     in: 1...max(1, viewModel.maximumFilms)
                 )
@@ -61,13 +61,13 @@ struct NewSessionSheet: View {
                     LabeledContent(stageTime.stage.name, value: TimeFormatting.format(seconds: stageTime.seconds))
                 }
             } header: {
-                Text("Времена этапов")
+                Text(String(localized: .newSessionStageTimesSection))
             } footer: {
                 Text(viewModel.filmNumbersText)
             }
 
             Section {
-                Button("Начать проявку") {
+                Button(String(localized: .newSessionStart)) {
                     if let session = viewModel.createSession() {
                         onStart(session)
                         dismiss()

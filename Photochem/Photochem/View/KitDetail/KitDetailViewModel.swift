@@ -35,18 +35,18 @@ final class KitDetailViewModel {
         guard let process, kit.ageDays >= process.shelfLifeDays else {
             return nil
         }
-        return "Комплекту \(kit.ageDays) дн — срок годности \(process.shelfLifeDays) дн. Химия могла испортиться."
+        return String(localized: .kitDetailExpiryWarning(kit.ageDays, process.shelfLifeDays))
     }
 
     var startBlockReason: String? {
         guard let process else {
-            return "Процесс не найден в конфиге"
+            return String(localized: .kitDetailProcessMissing)
         }
         if kit.isArchived {
-            return "Комплект в архиве"
+            return String(localized: .kitDetailKitArchived)
         }
         if kit.mileage >= process.capacityFilms {
-            return "Комплект исчерпан"
+            return String(localized: .kitDetailKitExhausted)
         }
         return nil
     }

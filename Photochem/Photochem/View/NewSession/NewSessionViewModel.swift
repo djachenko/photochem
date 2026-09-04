@@ -35,7 +35,9 @@ final class NewSessionViewModel {
     var filmNumbersText: String {
         let first = kit.mileage + 1
         let last = kit.mileage + filmsInTank
-        return first == last ? "Плёнка № \(first)" : "Плёнки № \(first) – \(last) этого комплекта"
+        return first == last
+            ? String(localized: .newSessionFilmNumber(first))
+            : String(localized: .newSessionFilmNumbers(first, last))
     }
 
     func createSession() -> DevelopmentSession? {

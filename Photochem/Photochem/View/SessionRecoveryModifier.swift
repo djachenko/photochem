@@ -9,11 +9,11 @@ struct SessionRecoveryModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .alert("Найдена незавершённая проявка", isPresented: .constant(!unfinishedSessions.isEmpty)) {
-                Button("Завершилась нормально") {
+            .alert(String(localized: .recoveryTitle), isPresented: .constant(!unfinishedSessions.isEmpty)) {
+                Button(String(localized: .recoveryCompleted)) {
                     finish(status: .completed)
                 }
-                Button("Была прервана") {
+                Button(String(localized: .recoveryAborted)) {
                     finish(status: .aborted)
                 }
             } message: {
@@ -25,7 +25,7 @@ struct SessionRecoveryModifier: ViewModifier {
 
     private func description(of session: DevelopmentSession) -> String {
         let kitName = session.kit?.processName ?? ""
-        return "\(kitName), \(session.films.count) плёнок, \(session.startedAt.formatted(.dateAndTime)). Чем закончилась?"
+        return String(localized: .recoveryMessage(kitName, session.films.count, session.startedAt.formatted(.dateAndTime)))
     }
 
     private func finish(status: SessionStatus) {

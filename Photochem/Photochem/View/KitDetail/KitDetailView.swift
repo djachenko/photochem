@@ -39,23 +39,26 @@ struct KitDetailView: View {
     private func content(viewModel: KitDetailViewModel) -> some View {
         List {
             Section {
-                LabeledContent("Развёл", value: "\(kit.mixedAt.formatted(.dateOnly)) (\(kit.ageDays) дн назад)")
-                LabeledContent("Пробег") {
+                LabeledContent(
+                    String(localized: .kitDetailMixedAt),
+                    value: String(localized: .kitDetailMixedAtValue(kit.mixedAt.formatted(.dateOnly), kit.ageDays))
+                )
+                LabeledContent(String(localized: .kitDetailMileage)) {
                     if viewModel.process == nil {
-                        Text("\(viewModel.mileageText) · Процесс не найден в конфиге")
+                        Text(String(localized: .kitDetailMileageWithoutProcess(viewModel.mileageText)))
                             .foregroundStyle(.red)
                     } else {
                         Text(viewModel.mileageText)
                     }
                 }
                 if let remainingFilms = viewModel.remainingFilms {
-                    LabeledContent("Осталось", value: "\(remainingFilms) плёнок")
+                    LabeledContent(String(localized: .kitDetailRemaining), value: String(localized: .kitDetailRemainingValue(remainingFilms)))
                 }
                 if let process = viewModel.process {
                     NavigationLink {
                         ProcessSpecView(process: process)
                     } label: {
-                        LabeledContent("Процесс", value: process.name)
+                        LabeledContent(String(localized: .kitDetailProcess), value: process.name)
                     }
                 }
                 if let expiryWarning = viewModel.expiryWarning {
@@ -68,7 +71,7 @@ struct KitDetailView: View {
             }
 
             Section {
-                Button("Новая проявка") {
+                Button(String(localized: .kitDetailNewSession)) {
                     isStartingSession = true
                 }
                 .buttonStyle(.borderedProminent)
@@ -87,8 +90,8 @@ struct KitDetailView: View {
             sessionsSection(viewModel: viewModel)
         }
         .toolbar {
-            Menu("Ещё", systemImage: "ellipsis.circle") {
-                Button(kit.isArchived ? "Вернуть" : "В архив") {
+            Menu(String(localized: .kitDetailMore), systemImage: "ellipsis.circle") {
+                Button(kit.isArchived ? String(localized: .kitDetailUnarchive) : String(localized: .kitDetailArchive)) {
                     viewModel.toggleArchived()
                 }
             }
@@ -96,9 +99,9 @@ struct KitDetailView: View {
     }
 
     private func sessionsSection(viewModel: KitDetailViewModel) -> some View {
-        Section("Проявки") {
+        Section(String(localized: .kitDetailSessionsSection)) {
             if viewModel.sessions.isEmpty {
-                Text("Проявок ещё не было")
+                Text(String(localized: .kitDetailNoSessions))
                     .foregroundStyle(.secondary)
             } else {
                 ForEach(viewModel.sessions) { session in
@@ -106,7 +109,7 @@ struct KitDetailView: View {
                         SessionHistoryView(session: session)
                     } label: {
                         VStack(alignment: .leading, spacing: 2) {
-                            Text("\(session.startedAt.formatted(.dateAndTime)) · \(session.films.count) плёнок")
+                            Text(String(localized: .kitDetailSessionRow(session.startedAt.formatted(.dateAndTime), session.films.count)))
                             Label(session.status.title, systemImage: session.status.iconName)
                                 .font(.caption)
                                 .foregroundStyle(session.status == .aborted ? .orange : .secondary)
@@ -129,9 +132,9 @@ extension SessionStatus {
 
     var title: String {
         switch self {
-        case .completed: "Завершена"
-        case .aborted: "Прервана"
-        case .inProgress: "Не завершена"
+        case .completed: String(localized: .sessionStatusCompleted)
+        case .aborted: String(localized: .sessionStatusAborted)
+        case .inProgress: String(localized: .sessionStatusInProgress)
         }
     }
 }

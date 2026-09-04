@@ -17,9 +17,9 @@ final class KitListViewModel {
 
     func subtitle(for kit: ChemistryKit) -> String {
         guard let process = configService.process(id: kit.processID) else {
-            return "Пробег \(kit.mileage) · процесс не найден"
+            return String(localized: .kitListSubtitleWithoutProcess(kit.mileage))
         }
-        return "Пробег \(kit.mileage) из \(process.capacityFilms) · возраст \(kit.ageDays) дн"
+        return String(localized: .kitListSubtitle(kit.mileage, process.capacityFilms, kit.ageDays))
     }
 
     func isExpired(_ kit: ChemistryKit) -> Bool {

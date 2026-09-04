@@ -22,16 +22,16 @@ struct SettingsView: View {
 
     var body: some View {
         Form {
-            Section("Проявка") {
-                Stepper("Бачок, плёнок: \(tankSize)", value: $tankSize, in: 1...10)
-                Picker("Предупик, сек", selection: $preAlertSeconds) {
+            Section(String(localized: .settingsDevelopmentSection)) {
+                Stepper(String(localized: .settingsTankSize(tankSize)), value: $tankSize, in: 1...10)
+                Picker(String(localized: .settingsPreAlert), selection: $preAlertSeconds) {
                     ForEach([5, 10, 15, 20], id: \.self) { seconds in
                         Text("\(seconds)").tag(seconds)
                     }
                 }
             }
 
-            Section("Процессы") {
+            Section(String(localized: .settingsProcessesSection)) {
                 ForEach(configService.availableProcesses()) { process in
                     NavigationLink(process.name) {
                         ProcessSpecView(process: process)
@@ -40,31 +40,31 @@ struct SettingsView: View {
             }
 
             Section {
-                LabeledContent("Версия от", value: configService.config.updatedAt)
-                LabeledContent("Обновлён", value: lastFetchText)
-                TextField("URL", text: $remoteURL)
+                LabeledContent(String(localized: .settingsUpdatedAt), value: configService.config.updatedAt)
+                LabeledContent(String(localized: .settingsLastFetch), value: lastFetchText)
+                TextField(String(localized: .settingsURL), text: $remoteURL)
                     .keyboardType(.URL)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
-                Button("Обновить сейчас") {
+                Button(String(localized: .settingsRefresh)) {
                     refresh()
                 }
                 .disabled(isRefreshing)
-                Button("Сбросить на встроенный") {
+                Button(String(localized: .settingsResetToBundled)) {
                     configService.resetToBundled()
-                    statusMessage = "Встроенный конфиг применён"
+                    statusMessage = String(localized: .settingsBundledApplied)
                 }
             } header: {
-                Text("Конфиг")
+                Text(String(localized: .settingsConfigSection))
             } footer: {
                 if let statusMessage {
                     Text(statusMessage)
                 }
             }
         }
-        .navigationTitle("Настройки")
-        .alert("Конфиг не обновлён", isPresented: .constant(failureMessage != nil)) {
-            Button("Ок") {
+        .navigationTitle(String(localized: .settingsTitle))
+        .alert(String(localized: .settingsFailureTitle), isPresented: .constant(failureMessage != nil)) {
+            Button(String(localized: .settingsOk)) {
                 failureMessage = nil
             }
         } message: {
@@ -90,7 +90,7 @@ struct SettingsView: View {
     }
 
     private var lastFetchText: String {
-        settings.lastFetchAt.map { $0.formatted(.dateAndTime) } ?? "—"
+        settings.lastFetchAt.map { $0.formatted(.dateAndTime) } ?? String(localized: .settingsNever)
     }
 
     private func refresh() {
@@ -100,17 +100,17 @@ struct SettingsView: View {
             isRefreshing = false
             switch result {
             case .upToDate:
-                statusMessage = "Конфиг актуален"
+                statusMessage = String(localized: .settingsConfigUpToDate)
             case .updated(let updatedAt):
-                statusMessage = "Конфиг обновлён (от \(updatedAt))"
+                statusMessage = String(localized: .settingsConfigUpdated(updatedAt))
             case .rejected(let reason):
-                failureMessage = "Конфиг отклонён: \(reason)"
+                failureMessage = String(localized: .settingsConfigRejected(reason))
             case .serverError(let statusCode):
-                failureMessage = "Ошибка сервера: \(statusCode)"
+                failureMessage = String(localized: .settingsServerError(statusCode))
             case .unreachable:
-                failureMessage = "Нет сети или сервер недоступен"
+                failureMessage = String(localized: .settingsUnreachable)
             case .insecureURL:
-                failureMessage = "Только https"
+                failureMessage = String(localized: .settingsInsecureURL)
             }
         }
     }

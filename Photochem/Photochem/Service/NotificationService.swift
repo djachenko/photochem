@@ -24,14 +24,14 @@ final class NotificationServiceImpl: NotificationService {
         if let preAlertAt {
             add(
                 identifier: Self.preAlertID(sessionID: sessionID, stageIndex: stageIndex),
-                body: "Скоро конец: \(stageName)",
+                body: String(localized: .notificationPreAlert(stageName)),
                 soundName: "sound_pre.caf",
                 date: preAlertAt
             )
         }
         add(
             identifier: Self.stageEndID(sessionID: sessionID, stageIndex: stageIndex),
-            body: "Этап \(stageName) закончился — сливай",
+            body: String(localized: .notificationStageEnd(stageName)),
             soundName: "sound_end.caf",
             date: endAt
         )

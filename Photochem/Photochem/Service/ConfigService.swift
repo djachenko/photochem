@@ -108,12 +108,12 @@ final class ConfigServiceImpl: ConfigService {
 
     private static func bundledConfig() -> ProcessConfig {
         guard let url = Bundle.main.url(forResource: "processes", withExtension: "json", subdirectory: "config") else {
-            fatalError("Встроенный конфиг не найден в бандле")
+            fatalError(String(localized: .configBundledMissing))
         }
         do {
             return try ConfigParser.parse(try Data(contentsOf: url))
         } catch {
-            fatalError("Встроенный конфиг не парсится: \(error)")
+            fatalError(String(localized: .configBundledUnparsable(String(describing: error))))
         }
     }
 }

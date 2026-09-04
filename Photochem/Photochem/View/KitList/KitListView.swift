@@ -18,17 +18,17 @@ struct KitListView: View {
     var body: some View {
         NavigationStack {
             content
-                .navigationTitle("Химия")
+                .navigationTitle(String(localized: .kitListTitle))
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
                         NavigationLink {
                             SettingsView()
                         } label: {
-                            Label("Настройки", systemImage: "gearshape")
+                            Label(String(localized: .kitListSettings), systemImage: "gearshape")
                         }
                     }
                     ToolbarItem(placement: .topBarTrailing) {
-                        Button("Новый комплект", systemImage: "plus") {
+                        Button(String(localized: .kitListNewKit), systemImage: "plus") {
                             isCreatingKit = true
                         }
                     }
@@ -51,7 +51,11 @@ struct KitListView: View {
     private var content: some View {
         if let viewModel {
             if activeKits.isEmpty, archivedKits.isEmpty {
-                ContentUnavailableView("Нет комплектов", systemImage: "flask", description: Text("Нажми «+» и добавь первый"))
+                ContentUnavailableView(
+                    String(localized: .kitListEmptyTitle),
+                    systemImage: "flask",
+                    description: Text(String(localized: .kitListEmptyDescription))
+                )
             } else {
                 kitList(viewModel: viewModel)
             }
@@ -60,26 +64,26 @@ struct KitListView: View {
 
     private func kitList(viewModel: KitListViewModel) -> some View {
         List {
-            Section("Активные") {
+            Section(String(localized: .kitListActiveSection)) {
                 ForEach(activeKits) { kit in
                     row(kit, viewModel: viewModel)
                         .swipeActions {
-                            Button("В архив") {
+                            Button(String(localized: .kitListArchive)) {
                                 viewModel.archive(kit)
                             }
                         }
                 }
             }
             if !archivedKits.isEmpty {
-                Section("Архив") {
+                Section(String(localized: .kitListArchiveSection)) {
                     ForEach(archivedKits) { kit in
                         row(kit, viewModel: viewModel)
                             .foregroundStyle(.secondary)
                             .swipeActions {
-                                Button("Удалить", role: .destructive) {
+                                Button(String(localized: .kitListDelete), role: .destructive) {
                                     viewModel.kitPendingDeletion = kit
                                 }
-                                Button("Вернуть") {
+                                Button(String(localized: .kitListUnarchive)) {
                                     viewModel.unarchive(kit)
                                 }
                             }
@@ -88,7 +92,7 @@ struct KitListView: View {
             }
         }
         .confirmationDialog(
-            "Удалить комплект и всю его историю?",
+            String(localized: .kitListDeleteConfirmation),
             isPresented: Binding(
                 get: { viewModel.kitPendingDeletion != nil },
                 set: { isPresented in
@@ -99,10 +103,10 @@ struct KitListView: View {
             ),
             titleVisibility: .visible
         ) {
-            Button("Удалить", role: .destructive) {
+            Button(String(localized: .kitListDelete), role: .destructive) {
                 viewModel.confirmDeletion()
             }
-            Button("Отмена", role: .cancel) {
+            Button(String(localized: .kitListCancel), role: .cancel) {
                 viewModel.kitPendingDeletion = nil
             }
         }
@@ -124,7 +128,7 @@ struct KitListView: View {
                             .font(.subheadline)
                     }
                     if viewModel.isExhausted(kit) {
-                        Text("Исчерпан")
+                        Text(String(localized: .kitListExhausted))
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                     }

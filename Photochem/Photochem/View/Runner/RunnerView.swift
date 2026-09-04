@@ -31,20 +31,20 @@ struct RunnerView: View {
             .toolbar {
                 if runner?.state != .finished {
                     ToolbarItem(placement: .topBarLeading) {
-                        Button("Прервать", role: .destructive) {
+                        Button(String(localized: .runnerAbort), role: .destructive) {
                             isConfirmingAbort = true
                         }
                     }
                 }
             }
-            .confirmationDialog("Прервать проявку?", isPresented: $isConfirmingAbort, titleVisibility: .visible) {
-                Button("Прервать", role: .destructive) {
+            .confirmationDialog(String(localized: .runnerAbortConfirmation), isPresented: $isConfirmingAbort, titleVisibility: .visible) {
+                Button(String(localized: .runnerAbort), role: .destructive) {
                     runner?.abort()
                     dismiss()
                 }
-                Button("Продолжить проявку", role: .cancel) {}
+                Button(String(localized: .runnerResume), role: .cancel) {}
             } message: {
-                Text("Плёнки всё равно будут засчитаны в пробег.")
+                Text(String(localized: .runnerAbortWarning))
             }
         }
         .interactiveDismissDisabled(true)
@@ -104,20 +104,20 @@ struct RunnerView: View {
                         .multilineTextAlignment(.center)
                 }
                 if let tempC = stage.tempC {
-                    Text("t° \(tempC.formatted(.number.precision(.fractionLength(1))))°C")
+                    Text(String(localized: .runnerTemperature(tempC.formatted(.number.precision(.fractionLength(1))))))
                         .foregroundStyle(.secondary)
                 }
                 Text(TimeFormatting.format(seconds: stage.plannedSeconds))
                     .font(.title.monospacedDigit())
                 Spacer()
-                Button("Старт") {
+                Button(String(localized: .runnerStart)) {
                     runner.start()
                 }
                 .buttonStyle(.borderedProminent)
                 .controlSize(.extraLarge)
                 .frame(maxWidth: .infinity, minHeight: 60)
                 if let next = runner.stage(at: stageIndex + 1) {
-                    Text("Дальше: \(next.name)")
+                    Text(String(localized: .runnerNextStage(next.name)))
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
@@ -138,12 +138,12 @@ struct RunnerView: View {
                 Text(stage.name)
                     .font(.title2)
                 if let tempC = stage.tempC {
-                    Text("t° \(tempC.formatted(.number.precision(.fractionLength(1))))°C")
+                    Text(String(localized: .runnerTemperature(tempC.formatted(.number.precision(.fractionLength(1))))))
                         .foregroundStyle(.secondary)
                 }
                 Spacer()
                 if let next = runner.stage(at: stageIndex + 1) {
-                    Text("Дальше: \(next.name)\(next.prepare.map { " — \($0)" } ?? "")")
+                    Text(String(localized: .runnerNextStageWithPrepare(next.name, next.prepare ?? "")))
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
@@ -154,7 +154,7 @@ struct RunnerView: View {
     }
 
     private func progressLabel(runner: SessionRunner, stageIndex: Int) -> some View {
-        Text("Этап \(stageIndex + 1) из \(runner.stageCount)")
+        Text(String(localized: .runnerStageProgress(stageIndex + 1, runner.stageCount)))
             .font(.headline)
             .foregroundStyle(.secondary)
     }

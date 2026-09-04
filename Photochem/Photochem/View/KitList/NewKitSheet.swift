@@ -18,16 +18,16 @@ struct NewKitSheet: View {
     var body: some View {
         NavigationStack {
             form
-                .navigationTitle("Новый комплект")
+                .navigationTitle(String(localized: .newKitTitle))
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) {
-                        Button("Отмена") {
+                        Button(String(localized: .newKitCancel)) {
                             dismiss()
                         }
                     }
                     ToolbarItem(placement: .confirmationAction) {
-                        Button("Создать") {
+                        Button(String(localized: .newKitCreate)) {
                             create()
                         }
                         .disabled(selectedProcess == nil)
@@ -39,17 +39,17 @@ struct NewKitSheet: View {
     @ViewBuilder
     private var form: some View {
         if processes.isEmpty {
-            ContentUnavailableView("В конфиге нет процессов", systemImage: "exclamationmark.triangle")
+            ContentUnavailableView(String(localized: .newKitNoProcesses), systemImage: "exclamationmark.triangle")
         } else {
             Form {
-                Picker("Процесс", selection: $selectedProcessID) {
+                Picker(String(localized: .newKitProcess), selection: $selectedProcessID) {
                     ForEach(processes) { process in
                         Text(process.name).tag(process.id as String?)
                     }
                 }
-                DatePicker("Развёл", selection: $mixedAt, displayedComponents: .date)
+                DatePicker(String(localized: .newKitMixedAt), selection: $mixedAt, displayedComponents: .date)
                 if let selectedProcess {
-                    NavigationLink("Времена процесса") {
+                    NavigationLink(String(localized: .newKitProcessTimes)) {
                         ProcessSpecView(process: selectedProcess)
                     }
                 }

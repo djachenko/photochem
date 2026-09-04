@@ -11,18 +11,18 @@ struct SummaryView: View {
     var body: some View {
         List {
             Section {
-                Text("\(session.films.count) плёнок проявлено")
+                Text(String(localized: .summaryFilmsDeveloped(session.films.count)))
                 if let mileageText {
-                    Text("Пробег теперь: \(mileageText)")
+                    Text(String(localized: .summaryMileageNow(mileageText)))
                 }
             }
-            Section("Этапы") {
+            Section(String(localized: .summaryStagesSection)) {
                 ForEach(session.orderedStages) { stage in
                     LabeledContent(stage.name, value: TimeFormatting.format(seconds: stage.plannedSeconds))
                 }
             }
             Section {
-                Button("Завершить") {
+                Button(String(localized: .summaryFinish)) {
                     onFinish()
                 }
                 .buttonStyle(.borderedProminent)
@@ -30,7 +30,7 @@ struct SummaryView: View {
                 .listRowBackground(Color.clear)
             }
         }
-        .navigationTitle("Готово")
+        .navigationTitle(String(localized: .summaryTitle))
     }
 
     private var mileageText: String? {
