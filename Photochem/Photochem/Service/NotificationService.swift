@@ -57,6 +57,7 @@ final class NotificationServiceImpl: NotificationService {
     private func add(identifier: String, body: String, soundName: String, date: Date) {
         let content = UNMutableNotificationContent()
         content.body = body
+        content.interruptionLevel = .timeSensitive
         content.sound = UNNotificationSound(named: UNNotificationSoundName(soundName))
 
         let components = Calendar.current.dateComponents(
