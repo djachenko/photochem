@@ -1,11 +1,13 @@
-import JustKitDI
+import ParaMap
 import SwiftData
 import SwiftUI
+import Swinject
 import SwinjectAutoregistration
 
 struct KitListView: View {
-    @Environment(\.diContainer) private var diContainer
-    @Environment(\.modelContext) private var modelContext
+    @State private var viewModel: KitListViewModel
+
+    private let resolver: Resolver
 
     @Query(filter: #Predicate<ChemistryKit> { $0.archivedAt == nil }, sort: \ChemistryKit.mixedAt, order: .reverse)
     private var activeKits: [ChemistryKit]
@@ -13,8 +15,12 @@ struct KitListView: View {
     @Query(filter: #Predicate<ChemistryKit> { $0.archivedAt != nil }, sort: \ChemistryKit.archivedAt, order: .reverse)
     private var archivedKits: [ChemistryKit]
 
-    @State private var viewModel: KitListViewModel?
     @State private var isCreatingKit = false
+
+    init(viewModel: KitListViewModel, resolver: Resolver) {
+        _viewModel = State(initialValue: viewModel)
+        self.resolver = resolver
+    }
 
     var body: some View {
         NavigationStack {
@@ -23,7 +29,7 @@ struct KitListView: View {
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
                         NavigationLink {
-                            SettingsView()
+                            resolver ~> SettingsView.self
                         } label: {
                             Label(String(localized: .kitListSettings), systemImage: "gearshape")
                         }
@@ -35,39 +41,29 @@ struct KitListView: View {
                     }
                 }
                 .sheet(isPresented: $isCreatingKit) {
-                    NewKitSheet()
+                    resolver ~> NewKitSheet.self
                 }
-        }
-        .task {
-            if viewModel == nil {
-                viewModel = KitListViewModel(
-                    configService: diContainer ~> ConfigService.self,
-                    modelContext: modelContext
-                )
-            }
         }
     }
 
     @ViewBuilder
     private var content: some View {
-        if let viewModel {
-            if activeKits.isEmpty, archivedKits.isEmpty {
-                ContentUnavailableView(
-                    String(localized: .kitListEmptyTitle),
-                    systemImage: "flask",
-                    description: Text(String(localized: .kitListEmptyDescription))
-                )
-            } else {
-                kitList(viewModel: viewModel)
-            }
+        if activeKits.isEmpty, archivedKits.isEmpty {
+            ContentUnavailableView(
+                String(localized: .kitListEmptyTitle),
+                systemImage: "flask",
+                description: Text(String(localized: .kitListEmptyDescription))
+            )
+        } else {
+            kitList
         }
     }
 
-    private func kitList(viewModel: KitListViewModel) -> some View {
+    private var kitList: some View {
         List {
             Section(String(localized: .kitListActiveSection)) {
                 ForEach(activeKits) { kit in
-                    row(kit, viewModel: viewModel)
+                    row(kit)
                         .swipeActions {
                             Button(String(localized: .kitListArchive)) {
                                 viewModel.archive(kit)
@@ -79,7 +75,7 @@ struct KitListView: View {
             if !archivedKits.isEmpty {
                 Section(String(localized: .kitListArchiveSection)) {
                     ForEach(archivedKits) { kit in
-                        row(kit, viewModel: viewModel)
+                        row(kit)
                             .foregroundStyle(.secondary)
                             .swipeActions {
                                 Button(String(localized: .kitListDelete), role: .destructive) {
@@ -116,9 +112,9 @@ struct KitListView: View {
         }
     }
 
-    private func row(_ kit: ChemistryKit, viewModel: KitListViewModel) -> some View {
+    private func row(_ kit: ChemistryKit) -> some View {
         NavigationLink {
-            KitDetailView(kit: kit)
+            resolver ~> (KitDetailView.self, with: kit)
         } label: {
             VStack(alignment: .leading, spacing: 4) {
                 Text(kit.processName)

@@ -1,25 +1,26 @@
-import JustKitDI
+import ParaMap
 import PhotochemCore
 import SwiftData
 import SwiftUI
+import Swinject
 import SwinjectAutoregistration
 
 struct KitDetailView: View {
-    let kit: ChemistryKit
+    let viewModel: KitDetailViewModel
 
-    @Environment(\.diContainer) private var diContainer
-    @Environment(\.modelContext) private var modelContext
+    private let resolver: Resolver
 
-    private var viewModel: KitDetailViewModel {
-        KitDetailViewModel(
-            kit: kit,
-            configService: diContainer ~> ConfigService.self,
-            modelContext: modelContext
-        )
+    private var kit: ChemistryKit {
+        viewModel.kit
     }
 
     @State private var isStartingSession = false
     @State private var runningSession: DevelopmentSession?
+
+    init(viewModel: KitDetailViewModel, resolver: Resolver) {
+        self.viewModel = viewModel
+        self.resolver = resolver
+    }
 
     var body: some View {
         content(viewModel: viewModel)
@@ -27,13 +28,15 @@ struct KitDetailView: View {
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $isStartingSession) {
                 if let process = viewModel.process {
-                    NewSessionSheet(kit: kit, process: process) { session in
+                    let onStart: (DevelopmentSession) -> Void = { session in
                         runningSession = session
                     }
+
+                    resolver ~> (NewSessionSheet.self, with: kit, process, onStart)
                 }
             }
             .fullScreenCover(item: $runningSession) { session in
-                RunnerView(session: session)
+                resolver ~> (RunnerView.self, with: session)
             }
     }
 

@@ -1,36 +1,37 @@
 import Combine
-import JustKitDI
+import ParaMap
 import PhotochemCore
 import SwiftData
 import SwiftUI
+import Swinject
 import SwinjectAutoregistration
 
 struct RunnerView: View {
-    let session: DevelopmentSession
+    @State private var runner: SessionRunner
 
-    @Environment(\.diContainer) private var diContainer
-    @Environment(\.modelContext) private var modelContext
+    private let soundService: SoundService
+    private let resolver: Resolver
+
     @Environment(\.dismiss) private var dismiss
     @Environment(\.scenePhase) private var scenePhase
 
-    @State private var runner: SessionRunner?
     @State private var now = Date.now
     @State private var isConfirmingAbort = false
 
     private let tick = Timer.publish(every: 0.25, on: .main, in: .common).autoconnect()
 
+    init(runner: SessionRunner, soundService: SoundService, resolver: Resolver) {
+        _runner = State(initialValue: runner)
+        self.soundService = soundService
+        self.resolver = resolver
+    }
+
     var body: some View {
         NavigationStack {
-            Group {
-                if let runner {
-                    content(runner: runner)
-                } else {
-                    Color.clear
-                }
-            }
+            content
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                if runner?.state != .finished {
+                if runner.state != .finished {
                     ToolbarItem(placement: .topBarLeading) {
                         Button(String(localized: .runnerAbort), role: .destructive) {
                             isConfirmingAbort = true
@@ -40,7 +41,7 @@ struct RunnerView: View {
             }
             .confirmationDialog(String(localized: .runnerAbortConfirmation), isPresented: $isConfirmingAbort, titleVisibility: .visible) {
                 Button(String(localized: .runnerAbort), role: .destructive) {
-                    runner?.abort()
+                    runner.abort()
                     dismiss()
                 }
                 Button(String(localized: .runnerResume), role: .cancel) {}
@@ -50,47 +51,39 @@ struct RunnerView: View {
         }
         .interactiveDismissDisabled(true)
         .task {
-            if runner == nil {
-                let newRunner = SessionRunner(
-                    session: session,
-                    soundService: diContainer ~> SoundService.self,
-                    notificationService: diContainer ~> NotificationService.self,
-                    liveActivityService: diContainer ~> LiveActivityService.self,
-                    modelContext: modelContext
-                )
-                runner = newRunner
-                await newRunner.startLiveActivity()
-            }
-            (diContainer ~> SoundService.self).activate()
+            await runner.startLiveActivity()
+            soundService.activate()
             UIApplication.shared.isIdleTimerDisabled = true
         }
         .onDisappear {
-            (diContainer ~> SoundService.self).deactivate()
+            soundService.deactivate()
             UIApplication.shared.isIdleTimerDisabled = false
         }
         .onReceive(tick) { date in
             now = date
-            runner?.tick(now: date)
+            runner.tick(now: date)
         }
         .onChange(of: scenePhase) { _, phase in
             if phase == .active {
-                runner?.tick(now: .now)
+                runner.tick(now: .now)
             }
         }
     }
 
     @ViewBuilder
-    private func content(runner: SessionRunner) -> some View {
+    private var content: some View {
         switch runner.state {
         case .preparing(let stageIndex):
             preparing(runner: runner, stageIndex: stageIndex)
         case .running(let stageIndex, _, _, let preAlertFired):
             running(runner: runner, stageIndex: stageIndex, preAlertFired: preAlertFired)
         case .finished:
-            SummaryView(session: session) {
+            let onFinish: () -> Void = {
                 runner.complete()
                 dismiss()
             }
+
+            resolver ~> (SummaryView.self, with: runner.session, onFinish)
         }
     }
 

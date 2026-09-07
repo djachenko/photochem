@@ -1,13 +1,17 @@
-import JustKitDI
 import PhotochemCore
 import SwiftUI
-import SwinjectAutoregistration
 
 struct SummaryView: View {
     let session: DevelopmentSession
-    let onFinish: () -> Void
 
-    @Environment(\.diContainer) private var diContainer
+    private let onFinish: () -> Void
+    private let configService: ConfigService
+
+    init(session: DevelopmentSession, onFinish: @escaping () -> Void, configService: ConfigService) {
+        self.session = session
+        self.onFinish = onFinish
+        self.configService = configService
+    }
 
     var body: some View {
         List {
@@ -38,7 +42,7 @@ struct SummaryView: View {
         guard let kit = session.kit else {
             return nil
         }
-        guard let process = (diContainer ~> ConfigService.self).process(id: kit.processID) else {
+        guard let process = configService.process(id: kit.processID) else {
             return "\(kit.mileage)"
         }
         return "\(kit.mileage) из \(process.capacityFilms)"

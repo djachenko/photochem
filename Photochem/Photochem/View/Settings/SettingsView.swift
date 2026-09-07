@@ -1,10 +1,9 @@
-import JustKitDI
 import PhotochemCore
 import SwiftUI
-import SwinjectAutoregistration
 
 struct SettingsView: View {
-    @Environment(\.diContainer) private var diContainer
+    private let settings: SettingsStore
+    private let configService: ConfigService
 
     @State private var tankSize = 5
     @State private var preAlertSeconds = 10
@@ -13,12 +12,9 @@ struct SettingsView: View {
     @State private var statusMessage: String?
     @State private var failureMessage: String?
 
-    private var settings: SettingsStore {
-        diContainer ~> SettingsStore.self
-    }
-
-    private var configService: ConfigService {
-        diContainer ~> ConfigService.self
+    init(settings: SettingsStore, configService: ConfigService) {
+        self.settings = settings
+        self.configService = configService
     }
 
     var body: some View {

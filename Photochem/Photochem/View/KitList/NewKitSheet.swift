@@ -1,19 +1,23 @@
-import JustKitDI
 import PhotochemCore
 import SwiftData
 import SwiftUI
-import SwinjectAutoregistration
 
 struct NewKitSheet: View {
-    @Environment(\.diContainer) private var diContainer
-    @Environment(\.modelContext) private var modelContext
+    private let configService: ConfigService
+    private let modelContext: ModelContext
+
     @Environment(\.dismiss) private var dismiss
 
     @State private var selectedProcessID: String?
     @State private var mixedAt = Date.now
 
+    init(configService: ConfigService, modelContext: ModelContext) {
+        self.configService = configService
+        self.modelContext = modelContext
+    }
+
     private var processes: [DevelopmentProcess] {
-        (diContainer ~> ConfigService.self).availableProcesses()
+        configService.availableProcesses()
     }
 
     var body: some View {

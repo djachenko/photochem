@@ -1,18 +1,27 @@
-import JustKitDI
 import SwiftData
 import SwiftUI
 import Swinject
+import SwinjectAutoregistration
 
 @main
 struct PhotochemApp: App {
-    private let container = Assembler([AppAssembly()]).resolver
-
     var body: some Scene {
         WindowGroup {
-            KitListView()
+            (Self.resolver ~> KitListView.self)
                 .sessionRecoveryDialog()
-                .environment(\.diContainer, container)
         }
-        .modelContainer(for: [ChemistryKit.self, DevelopmentSession.self, FilmRecord.self, StageSnapshot.self])
+        .modelContainer(Self.resolver ~> ModelContainer.self)
     }
+}
+
+extension PhotochemApp {
+    static let resolver = Assembler([
+        AppAssembly(),
+        ModelAssembly(),
+        KitListAssembly(),
+        KitDetailAssembly(),
+        NewSessionAssembly(),
+        RunnerAssembly(),
+        SettingsAssembly(),
+    ]).resolver
 }

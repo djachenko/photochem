@@ -1,53 +1,44 @@
-import JustKitDI
 import PhotochemCore
 import SwiftData
 import SwiftUI
-import SwinjectAutoregistration
 
 struct NewSessionSheet: View {
-    let kit: ChemistryKit
-    let process: DevelopmentProcess
-    let onStart: (DevelopmentSession) -> Void
+    @State private var viewModel: NewSessionViewModel
 
-    @Environment(\.diContainer) private var diContainer
-    @Environment(\.modelContext) private var modelContext
+    private let onStart: (DevelopmentSession) -> Void
+    private let notificationService: NotificationService
+
     @Environment(\.dismiss) private var dismiss
 
-    @State private var viewModel: NewSessionViewModel?
+    init(
+        viewModel: NewSessionViewModel,
+        onStart: @escaping (DevelopmentSession) -> Void,
+        notificationService: NotificationService
+    ) {
+        _viewModel = State(initialValue: viewModel)
+        self.onStart = onStart
+        self.notificationService = notificationService
+    }
 
     var body: some View {
         NavigationStack {
-            Group {
-                if let viewModel {
-                    form(viewModel: viewModel)
-                } else {
-                    Color.clear
-                }
-            }
-            .navigationTitle(String(localized: .newSessionTitle))
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button(String(localized: .newSessionCancel)) {
-                        dismiss()
+            form
+                .navigationTitle(String(localized: .newSessionTitle))
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button(String(localized: .newSessionCancel)) {
+                            dismiss()
+                        }
                     }
                 }
-            }
         }
         .task {
-            if viewModel == nil {
-                viewModel = NewSessionViewModel(
-                    kit: kit,
-                    process: process,
-                    settings: diContainer ~> SettingsStore.self,
-                    modelContext: modelContext
-                )
-            }
-            _ = await (diContainer ~> NotificationService.self).requestAuthorization()
+            _ = await notificationService.requestAuthorization()
         }
     }
 
-    private func form(viewModel: NewSessionViewModel) -> some View {
+    private var form: some View {
         Form {
             Section {
                 Stepper(

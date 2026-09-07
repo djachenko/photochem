@@ -3,6 +3,10 @@ import SwinjectAutoregistration
 
 struct AppAssembly: Assembly {
     func assemble(container: Container) {
+        // Экранам, которые открывают другие экраны, резолвер приходит через init —
+        // как AppCoordinatorView в Cullen, только без координатора.
+        container.register(Resolver.self) { $0 }
+
         container.autoregister(SettingsStore.self, initializer: SettingsStore.init)
             .inObjectScope(.container)
 

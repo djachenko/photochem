@@ -12,6 +12,7 @@
 		AA0000000000000000000103 /* PhotochemCore in Frameworks */ = {isa = PBXBuildFile; productRef = AA0000000000000000000003 /* PhotochemCore */; };
 		AA0000000000000000000106 /* JustKit in Frameworks */ = {isa = PBXBuildFile; productRef = AA0000000000000000000006 /* JustKit */; };
 		AA0000000000000000000107 /* JustKitDI in Frameworks */ = {isa = PBXBuildFile; productRef = AA0000000000000000000007 /* JustKitDI */; };
+		AA0000000000000000000108 /* ParaMap in Frameworks */ = {isa = PBXBuildFile; productRef = AA0000000000000000000008 /* ParaMap */; };
 		AA0000000000000000000104 /* config in Resources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000004 /* config */; };
 		AA0000000000000000000506 /* DevelopmentActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000505 /* DevelopmentActivityAttributes.swift */; };
 		AA0000000000000000000507 /* DevelopmentActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000505 /* DevelopmentActivityAttributes.swift */; };
@@ -115,6 +116,7 @@
 				AA0000000000000000000103 /* PhotochemCore in Frameworks */,
 				AA0000000000000000000106 /* JustKit in Frameworks */,
 				AA0000000000000000000107 /* JustKitDI in Frameworks */,
+				AA0000000000000000000108 /* ParaMap in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,6 +235,7 @@
 				AA0000000000000000000003 /* PhotochemCore */,
 				AA0000000000000000000006 /* JustKit */,
 				AA0000000000000000000007 /* JustKitDI */,
+				AA0000000000000000000008 /* ParaMap */,
 			);
 			productName = Photochem;
 			productReference = D0943A02304A0F0000C2084A /* Photochem.app */;
@@ -751,6 +754,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AA0000000000000000000304 /* XCLocalSwiftPackageReference "JustKit" */;
 			productName = JustKitDI;
+		};
+		AA0000000000000000000008 /* ParaMap */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA0000000000000000000304 /* XCLocalSwiftPackageReference "JustKit" */;
+			productName = ParaMap;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
