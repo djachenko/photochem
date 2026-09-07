@@ -1,3 +1,4 @@
+import JustKitDI
 import SwiftData
 import SwiftUI
 import Swinject
