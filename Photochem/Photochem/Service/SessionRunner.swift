@@ -39,6 +39,7 @@ final class SessionRunner {
         guard let stage = stage(at: 0) else {
             return
         }
+
         await liveActivityService.start(
             processName: session.kit?.processName ?? "",
             totalStages: stages.count,

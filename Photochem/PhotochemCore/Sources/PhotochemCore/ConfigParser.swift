@@ -3,6 +3,7 @@ import Foundation
 public enum ConfigParser {
     public static func parse(_ data: Data) throws -> ProcessConfig {
         let raw: RawConfig
+
         do {
             raw = try JSONDecoder().decode(RawConfig.self, from: data)
         } catch {
@@ -12,10 +13,13 @@ public enum ConfigParser {
         guard raw.schemaVersion == 1 else {
             throw CoreError.unsupportedSchemaVersion(raw.schemaVersion)
         }
+
         guard !raw.processes.isEmpty else {
             throw CoreError.validationFailed(rule: "V2", detail: "Список процессов пуст")
         }
+
         let processIds = raw.processes.map(\.id)
+
         guard Set(processIds).count == processIds.count else {
             throw CoreError.validationFailed(rule: "V3", detail: "Идентификаторы процессов не уникальны")
         }
@@ -34,10 +38,13 @@ public enum ConfigParser {
                 detail: "Процесс \(raw.id): ёмкость и срок годности должны быть не меньше 1"
             )
         }
+
         guard !raw.stages.isEmpty else {
             throw CoreError.validationFailed(rule: "V5", detail: "Процесс \(raw.id): нет этапов")
         }
+
         let stageIds = raw.stages.map(\.id)
+
         guard Set(stageIds).count == stageIds.count else {
             throw CoreError.validationFailed(
                 rule: "V6",

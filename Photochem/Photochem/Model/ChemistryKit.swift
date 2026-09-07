@@ -3,7 +3,9 @@ import SwiftData
 
 @Model
 final class ChemistryKit {
-    @Attribute(.unique) var id: UUID
+    @Attribute(.unique)
+    var id: UUID
+
     var processID: String
     var processName: String
     var mixedAt: Date
@@ -29,6 +31,7 @@ final class ChemistryKit {
         let calendar = Calendar.current
         let mixedDay = calendar.startOfDay(for: mixedAt)
         let today = calendar.startOfDay(for: .now)
+
         return calendar.dateComponents([.day], from: mixedDay, to: today).day ?? 0
     }
 

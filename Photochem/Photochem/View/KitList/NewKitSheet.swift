@@ -1,3 +1,4 @@
+import JustKitDI
 import PhotochemCore
 import SwiftData
 import SwiftUI
@@ -26,6 +27,7 @@ struct NewKitSheet: View {
                             dismiss()
                         }
                     }
+
                     ToolbarItem(placement: .confirmationAction) {
                         Button(String(localized: .newKitCreate)) {
                             create()
@@ -47,7 +49,9 @@ struct NewKitSheet: View {
                         Text(process.name).tag(process.id as String?)
                     }
                 }
+
                 DatePicker(String(localized: .newKitMixedAt), selection: $mixedAt, displayedComponents: .date)
+
                 if let selectedProcess {
                     NavigationLink(String(localized: .newKitProcessTimes)) {
                         ProcessSpecView(process: selectedProcess)
@@ -68,10 +72,17 @@ struct NewKitSheet: View {
         guard let process = selectedProcess else {
             return
         }
+
         modelContext.insert(
-            ChemistryKit(processID: process.id, processName: process.name, mixedAt: mixedAt)
+            ChemistryKit(
+                processID: process.id,
+                processName: process.name,
+                mixedAt: mixedAt
+            )
         )
+
         try? modelContext.save()
+
         dismiss()
     }
 }

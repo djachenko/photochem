@@ -43,11 +43,13 @@ final class ConfigServiceImpl: ConfigService {
     }
 
     func refreshFromRemote() async -> ConfigRefreshResult {
-        guard let url = URL(string: settings.remoteURL), url.scheme == "https" else {
+        guard let url = URL(string: settings.remoteURL),
+              url.scheme == "https" else {
             return .insecureURL
         }
 
         var request = URLRequest(url: url, timeoutInterval: 15)
+
         if let etag = settings.etag {
             request.setValue(etag, forHTTPHeaderField: "If-None-Match")
         }

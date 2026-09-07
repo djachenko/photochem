@@ -3,7 +3,9 @@ import SwiftData
 
 @Model
 final class StageSnapshot {
-    @Attribute(.unique) var id: UUID
+    @Attribute(.unique)
+    var id: UUID
+
     var orderIndex: Int
     var stageID: String
     var name: String
@@ -23,6 +25,7 @@ final class StageSnapshot {
         preAlertSeconds: Int
     ) {
         self.id = UUID()
+
         self.orderIndex = orderIndex
         self.stageID = stageID
         self.name = name

@@ -3,8 +3,11 @@ import SwiftData
 
 @Model
 final class DevelopmentSession {
-    @Attribute(.unique) var id: UUID
+    @Attribute(.unique)
+    var id: UUID
+
     var kit: ChemistryKit?
+
     var startedAt: Date
     var finishedAt: Date?
     var statusRaw: String
@@ -17,6 +20,7 @@ final class DevelopmentSession {
 
     init(startedAt: Date, status: SessionStatus) {
         self.id = UUID()
+
         self.startedAt = startedAt
         self.finishedAt = nil
         self.statusRaw = status.rawValue

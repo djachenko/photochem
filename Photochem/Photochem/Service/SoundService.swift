@@ -14,6 +14,7 @@ final class SoundServiceImpl: SoundService {
     init() {
         preAlertPlayer = Self.player(named: "sound_pre")
         stageEndPlayer = Self.player(named: "sound_end")
+
         preAlertPlayer?.prepareToPlay()
         stageEndPlayer?.prepareToPlay()
     }
@@ -44,6 +45,7 @@ final class SoundServiceImpl: SoundService {
         guard let url = Bundle.main.url(forResource: name, withExtension: "caf") else {
             return nil
         }
+
         return try? AVAudioPlayer(contentsOf: url)
     }
 }

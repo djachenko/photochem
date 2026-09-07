@@ -26,6 +26,7 @@ final class KitListViewModel {
         guard let process = configService.process(id: kit.processID) else {
             return false
         }
+        
         return kit.ageDays >= process.shelfLifeDays
     }
 
@@ -33,6 +34,7 @@ final class KitListViewModel {
         guard let process = configService.process(id: kit.processID) else {
             return false
         }
+
         return kit.mileage >= process.capacityFilms
     }
 

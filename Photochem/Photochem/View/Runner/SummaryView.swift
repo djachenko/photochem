@@ -1,3 +1,4 @@
+import JustKitDI
 import PhotochemCore
 import SwiftUI
 import SwinjectAutoregistration

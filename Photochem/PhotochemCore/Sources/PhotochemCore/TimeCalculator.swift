@@ -12,9 +12,11 @@ public enum TimeCalculator {
         guard filmsInTank >= 1 else {
             throw CoreError.invalidFilmCount(filmsInTank)
         }
+
         guard currentMileage >= 0 else {
             throw CoreError.invalidFilmCount(currentMileage)
         }
+
         guard currentMileage + filmsInTank <= process.capacityFilms else {
             throw CoreError.capacityExceeded(
                 mileage: currentMileage,
@@ -24,6 +26,7 @@ public enum TimeCalculator {
         }
 
         let filmNumbers = (currentMileage + 1)...(currentMileage + filmsInTank)
+
         return process.stages.map { stage in
             StageTime(stage: stage, seconds: seconds(for: stage.timing, filmNumbers: filmNumbers))
         }
@@ -31,14 +34,16 @@ public enum TimeCalculator {
 
     private static func seconds(for timing: StageTiming, filmNumbers: ClosedRange<Int>) -> Int {
         switch timing {
-        case .fixed(let seconds):
-            return seconds
-        case .byFilm(let ranges):
-            let sum = filmNumbers.reduce(0) { total, filmNumber in
-                total + (ranges.first { $0.lower <= filmNumber && filmNumber <= $0.upper }?.seconds ?? 0)
-            }
-            let average = Double(sum) / Double(filmNumbers.count)
-            return Int((average / 5.0).rounded() * 5.0)
+            case .fixed(let seconds):
+                return seconds
+            case .byFilm(let ranges):
+                let sum = filmNumbers.reduce(0) { total, filmNumber in
+                    total + (ranges.first { $0.lower <= filmNumber && filmNumber <= $0.upper }?.seconds ?? 0)
+                }
+
+                let average = Double(sum) / Double(filmNumbers.count)
+
+                return Int((average / 5.0).rounded() * 5.0)
         }
     }
 }
