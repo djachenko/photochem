@@ -8,7 +8,7 @@ struct SessionHistoryView: View {
         List {
             Section {
                 LabeledContent(String(localized: .historyStatus), value: session.status.title)
-                LabeledContent(String(localized: .historyFilms), value: "\(session.films.count)")
+                LabeledContent(String(localized: .historyFilms), value: session.films.count.formatted())
             }
             Section(String(localized: .historyStagesSection)) {
                 ForEach(session.orderedStages) { stage in

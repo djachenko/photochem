@@ -1,3 +1,4 @@
+import JustKitDI
 import SwiftData
 import SwiftUI
 import SwinjectAutoregistration
@@ -74,6 +75,7 @@ struct KitListView: View {
                         }
                 }
             }
+
             if !archivedKits.isEmpty {
                 Section(String(localized: .kitListArchiveSection)) {
                     ForEach(archivedKits) { kit in
@@ -83,6 +85,7 @@ struct KitListView: View {
                                 Button(String(localized: .kitListDelete), role: .destructive) {
                                     viewModel.kitPendingDeletion = kit
                                 }
+
                                 Button(String(localized: .kitListUnarchive)) {
                                     viewModel.unarchive(kit)
                                 }
@@ -106,6 +109,7 @@ struct KitListView: View {
             Button(String(localized: .kitListDelete), role: .destructive) {
                 viewModel.confirmDeletion()
             }
+
             Button(String(localized: .kitListCancel), role: .cancel) {
                 viewModel.kitPendingDeletion = nil
             }
@@ -119,14 +123,18 @@ struct KitListView: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(kit.processName)
                     .fontWeight(.bold)
+
                 HStack(spacing: 6) {
                     Text(viewModel.subtitle(for: kit))
                         .font(.subheadline)
                         .foregroundStyle(viewModel.isExpired(kit) ? .orange : .secondary)
+
                     if viewModel.isExpired(kit) {
-                        Text("⚠️")
+                        Image(systemName: "exclamationmark.triangle.fill")
                             .font(.subheadline)
+                            .foregroundStyle(.orange)
                     }
+
                     if viewModel.isExhausted(kit) {
                         Text(String(localized: .kitListExhausted))
                             .font(.subheadline)

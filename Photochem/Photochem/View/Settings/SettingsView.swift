@@ -1,3 +1,4 @@
+import JustKitDI
 import PhotochemCore
 import SwiftUI
 import SwinjectAutoregistration
@@ -26,7 +27,7 @@ struct SettingsView: View {
                 Stepper(String(localized: .settingsTankSize(tankSize)), value: $tankSize, in: 1...10)
                 Picker(String(localized: .settingsPreAlert), selection: $preAlertSeconds) {
                     ForEach([5, 10, 15, 20], id: \.self) { seconds in
-                        Text("\(seconds)").tag(seconds)
+                        Text(seconds.formatted()).tag(seconds)
                     }
                 }
             }

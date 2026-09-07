@@ -14,10 +14,13 @@ struct DevelopmentActivityWidget: Widget {
                 }
             } compactLeading: {
                 Text("\(context.state.stageIndex + 1)/\(context.attributes.totalStages)")
+                    .background(.green)
             } compactTrailing: {
                 countdown(context: context)
+                    .background(.red)
             } minimal: {
                 Text("\(context.state.stageIndex + 1)")
+                    .background(.yellow)
             }
         }
     }
@@ -26,7 +29,13 @@ struct DevelopmentActivityWidget: Widget {
         VStack(alignment: .leading, spacing: 8) {
             Text(context.attributes.processName)
                 .font(.headline)
-            Text("Этап \(context.state.stageIndex + 1) из \(context.attributes.totalStages) · \(context.state.stageName)")
+            Text(String(
+                localized: .widgetStageProgress(
+                    context.state.stageIndex + 1,
+                    context.attributes.totalStages,
+                    context.state.stageName
+                )
+            ))
                 .font(.subheadline)
             countdown(context: context)
                 .font(.system(size: 32, weight: .bold, design: .monospaced))
@@ -36,10 +45,11 @@ struct DevelopmentActivityWidget: Widget {
 
     @ViewBuilder
     private func countdown(context: ActivityViewContext<DevelopmentActivityAttributes>) -> some View {
-        if let endDate = context.state.endDate, context.state.phase == DevelopmentActivityPhase.running {
+        if let endDate = context.state.endDate,
+           context.state.phase == DevelopmentActivityPhase.running {
             Text(timerInterval: Date.now...endDate, countsDown: true)
         } else {
-            Text("Жми Старт")
+            Text(String(localized: .widgetPressStart))
         }
     }
 }

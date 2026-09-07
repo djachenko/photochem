@@ -1,430 +1,243 @@
 {
-  "sourceLanguage": "ru",
-  "strings": {
-    "kitListTitle": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Химия"
+  "sourceLanguage" : "ru",
+  "strings" : {
+    "configBundledMissing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Встроенный конфиг не найден в бандле"
           }
         }
       }
     },
-    "kitListSettings": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Настройки"
+    "configBundledUnparsable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Встроенный конфиг не парсится: %@"
           }
         }
       }
     },
-    "kitListNewKit": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Новый комплект"
+    "historyFilms" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Плёнок"
           }
         }
       }
     },
-    "kitListActiveSection": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Активные"
+    "historyStagesSection" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Этапы"
           }
         }
       }
     },
-    "kitListArchiveSection": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Архив"
+    "historyStatus" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Статус"
           }
         }
       }
     },
-    "kitListArchive": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "В архив"
+    "kitDetailArchive" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "В архив"
           }
         }
       }
     },
-    "kitListUnarchive": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Вернуть"
+    "kitDetailExpiryWarning" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Комплекту %1$lld дн — срок годности %2$lld дн. Химия могла испортиться."
           }
         }
       }
     },
-    "kitListDelete": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Удалить"
+    "kitDetailKitArchived" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Комплект в архиве"
           }
         }
       }
     },
-    "kitListCancel": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Отмена"
+    "kitDetailKitExhausted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Комплект исчерпан"
           }
         }
       }
     },
-    "kitListDeleteConfirmation": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Удалить комплект и всю его историю?"
+    "kitDetailMileage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пробег"
           }
         }
       }
     },
-    "kitListExhausted": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Исчерпан"
+    "kitDetailMileageWithoutProcess" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ · Процесс не найден в конфиге"
           }
         }
       }
     },
-    "kitListEmptyTitle": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Нет комплектов"
+    "kitDetailMixedAt" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Развёл"
           }
         }
       }
     },
-    "kitListEmptyDescription": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Нажми «+» и добавь первый"
+    "kitDetailMixedAtValue" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ (%2$lld дн назад)"
           }
         }
       }
     },
-    "kitListSubtitle": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Пробег %1$lld из %2$lld · возраст %3$lld дн"
+    "kitDetailMore" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ещё"
           }
         }
       }
     },
-    "kitListSubtitleWithoutProcess": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Пробег %lld · процесс не найден"
+    "kitDetailNewSession" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Новая проявка"
           }
         }
       }
     },
-    "newKitTitle": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Новый комплект"
+    "kitDetailNoSessions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Проявок ещё не было"
           }
         }
       }
     },
-    "newKitCancel": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Отмена"
+    "kitDetailProcess" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Процесс"
           }
         }
       }
     },
-    "newKitCreate": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Создать"
+    "kitDetailProcessMissing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Процесс не найден в конфиге"
           }
         }
       }
     },
-    "newKitNoProcesses": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "В конфиге нет процессов"
+    "kitDetailRemaining" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Осталось"
           }
         }
       }
     },
-    "newKitProcess": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Процесс"
-          }
-        }
-      }
-    },
-    "newKitMixedAt": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Развёл"
-          }
-        }
-      }
-    },
-    "newKitProcessTimes": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Времена процесса"
-          }
-        }
-      }
-    },
-    "kitDetailMore": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ещё"
-          }
-        }
-      }
-    },
-    "kitDetailArchive": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "В архив"
-          }
-        }
-      }
-    },
-    "kitDetailUnarchive": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Вернуть"
-          }
-        }
-      }
-    },
-    "kitDetailMixedAt": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Развёл"
-          }
-        }
-      }
-    },
-    "kitDetailMileage": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Пробег"
-          }
-        }
-      }
-    },
-    "kitDetailRemaining": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Осталось"
-          }
-        }
-      }
-    },
-    "kitDetailProcess": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Процесс"
-          }
-        }
-      }
-    },
-    "kitDetailNewSession": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Новая проявка"
-          }
-        }
-      }
-    },
-    "kitDetailSessionsSection": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Проявки"
-          }
-        }
-      }
-    },
-    "kitDetailNoSessions": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Проявок ещё не было"
-          }
-        }
-      }
-    },
-    "kitDetailProcessMissing": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Процесс не найден в конфиге"
-          }
-        }
-      }
-    },
-    "kitDetailKitArchived": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Комплект в архиве"
-          }
-        }
-      }
-    },
-    "kitDetailKitExhausted": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Комплект исчерпан"
-          }
-        }
-      }
-    },
-    "kitDetailMixedAtValue": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$@ (%2$lld дн назад)"
-          }
-        }
-      }
-    },
-    "kitDetailRemainingValue": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "variations": {
-            "plural": {
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld плёнка"
+    "kitDetailRemainingValue" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld плёнки"
                 }
               },
-              "few": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld плёнки"
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld плёнок"
                 }
               },
-              "many": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld плёнок"
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld плёнка"
                 }
               },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld плёнки"
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld плёнки"
                 }
               }
             }
@@ -432,56 +245,34 @@
         }
       }
     },
-    "kitDetailMileageWithoutProcess": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ · Процесс не найден в конфиге"
-          }
-        }
-      }
-    },
-    "kitDetailExpiryWarning": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Комплекту %1$lld дн — срок годности %2$lld дн. Химия могла испортиться."
-          }
-        }
-      }
-    },
-    "kitDetailSessionRow": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "variations": {
-            "plural": {
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%1$@ · %2$lld плёнка"
+    "kitDetailSessionRow" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$@ · %2$lld плёнки"
                 }
               },
-              "few": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%1$@ · %2$lld плёнки"
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$@ · %2$lld плёнок"
                 }
               },
-              "many": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%1$@ · %2$lld плёнок"
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$@ · %2$lld плёнка"
                 }
               },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%1$@ · %2$lld плёнки"
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$@ · %2$lld плёнки"
                 }
               }
             }
@@ -489,309 +280,408 @@
         }
       }
     },
-    "sessionStatusCompleted": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Завершена"
+    "kitDetailSessionsSection" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Проявки"
           }
         }
       }
     },
-    "sessionStatusAborted": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Прервана"
+    "kitDetailUnarchive" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вернуть"
           }
         }
       }
     },
-    "sessionStatusInProgress": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Не завершена"
+    "kitListActiveSection" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Активные"
           }
         }
       }
     },
-    "historyStatus": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Статус"
+    "kitListArchive" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "В архив"
           }
         }
       }
     },
-    "historyFilms": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Плёнок"
+    "kitListArchiveSection" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Архив"
           }
         }
       }
     },
-    "historyStagesSection": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Этапы"
+    "kitListCancel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отмена"
           }
         }
       }
     },
-    "newSessionTitle": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Новая проявка"
+    "kitListDelete" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Удалить"
           }
         }
       }
     },
-    "newSessionCancel": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Отмена"
+    "kitListDeleteConfirmation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Удалить комплект и всю его историю?"
           }
         }
       }
     },
-    "newSessionStageTimesSection": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Времена этапов"
+    "kitListEmptyDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нажми «+» и добавь первый"
           }
         }
       }
     },
-    "newSessionStart": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Начать проявку"
+    "kitListEmptyTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нет комплектов"
           }
         }
       }
     },
-    "newSessionFilmsInTank": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Плёнок в бачке: %lld"
+    "kitListExhausted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Исчерпан"
           }
         }
       }
     },
-    "newSessionFilmNumber": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Плёнка № %lld"
+    "kitListNewKit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Новый комплект"
           }
         }
       }
     },
-    "newSessionFilmNumbers": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Плёнки № %1$lld – %2$lld этого комплекта"
+    "kitListSettings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Настройки"
           }
         }
       }
     },
-    "runnerAbort": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Прервать"
+    "kitListSubtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пробег %1$lld из %2$lld · возраст %3$lld дн"
           }
         }
       }
     },
-    "runnerAbortConfirmation": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Прервать проявку?"
+    "kitListSubtitleWithoutProcess" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пробег %lld · процесс не найден"
           }
         }
       }
     },
-    "runnerAbortWarning": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Плёнки всё равно будут засчитаны в пробег."
+    "kitListTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Химия"
           }
         }
       }
     },
-    "runnerResume": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Продолжить проявку"
+    "kitListUnarchive" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вернуть"
           }
         }
       }
     },
-    "runnerStart": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Старт"
+    "newKitCancel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отмена"
           }
         }
       }
     },
-    "runnerStageProgress": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Этап %1$lld из %2$lld"
+    "newKitCreate" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Создать"
           }
         }
       }
     },
-    "runnerNextStage": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Дальше: %@"
+    "newKitMixedAt" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Развёл"
           }
         }
       }
     },
-    "runnerNextStageWithPrepare": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Дальше: %1$@ — %2$@"
+    "newKitNoProcesses" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "В конфиге нет процессов"
           }
         }
       }
     },
-    "runnerTemperature": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "t° %@°C"
+    "newKitProcess" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Процесс"
           }
         }
       }
     },
-    "summaryTitle": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Готово"
+    "newKitProcessTimes" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Времена процесса"
           }
         }
       }
     },
-    "summaryStagesSection": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Этапы"
+    "newKitTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Новый комплект"
           }
         }
       }
     },
-    "summaryFinish": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Завершить"
+    "newSessionCancel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отмена"
           }
         }
       }
     },
-    "summaryFilmsDeveloped": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "variations": {
-            "plural": {
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld плёнка проявлена"
+    "newSessionFilmNumber" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Плёнка № %lld"
+          }
+        }
+      }
+    },
+    "newSessionFilmNumbers" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Плёнки № %1$lld – %2$lld этого комплекта"
+          }
+        }
+      }
+    },
+    "newSessionFilmsInTank" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Плёнок в бачке: %lld"
+          }
+        }
+      }
+    },
+    "newSessionStageTimesSection" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Времена этапов"
+          }
+        }
+      }
+    },
+    "newSessionStart" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Начать проявку"
+          }
+        }
+      }
+    },
+    "newSessionTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Новая проявка"
+          }
+        }
+      }
+    },
+    "notificationPreAlert" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Скоро конец: %@"
+          }
+        }
+      }
+    },
+    "notificationStageEnd" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Этап %@ закончился — сливай"
+          }
+        }
+      }
+    },
+    "processSpecCapacity" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ёмкость"
+          }
+        }
+      }
+    },
+    "processSpecCapacityValue" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld плёнки"
                 }
               },
-              "few": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld плёнки проявлено"
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld плёнок"
                 }
               },
-              "many": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld плёнок проявлено"
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld плёнка"
                 }
               },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld плёнки проявлено"
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld плёнки"
                 }
               }
             }
@@ -799,78 +689,144 @@
         }
       }
     },
-    "summaryMileageNow": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Пробег теперь: %@"
+    "processSpecFilm" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Плёнка %lld"
           }
         }
       }
     },
-    "recoveryTitle": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Найдена незавершённая проявка"
+    "processSpecFilmRange" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Плёнки %1$lld–%2$lld"
           }
         }
       }
     },
-    "recoveryCompleted": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Завершилась нормально"
+    "processSpecKitSection" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Комплект"
           }
         }
       }
     },
-    "recoveryAborted": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Была прервана"
+    "processSpecShelfLife" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Срок годности"
           }
         }
       }
     },
-    "recoveryMessage": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "variations": {
-            "plural": {
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%1$@, %2$lld плёнка, %3$@. Чем закончилась?"
+    "processSpecShelfLifeValue" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld дн"
+          }
+        }
+      }
+    },
+    "processSpecTemperature" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Температура"
+          }
+        }
+      }
+    },
+    "processSpecTemperatureValue" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@°C"
+          }
+        }
+      }
+    },
+    "processSpecTime" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Время"
+          }
+        }
+      }
+    },
+    "recoveryAborted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Была прервана"
+          }
+        }
+      }
+    },
+    "recoveryCompleted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Завершилась нормально"
+          }
+        }
+      }
+    },
+    "recoveryMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$@, %2$lld плёнки, %3$@. Чем закончилась?"
                 }
               },
-              "few": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%1$@, %2$lld плёнки, %3$@. Чем закончилась?"
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$@, %2$lld плёнок, %3$@. Чем закончилась?"
                 }
               },
-              "many": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%1$@, %2$lld плёнок, %3$@. Чем закончилась?"
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$@, %2$lld плёнка, %3$@. Чем закончилась?"
                 }
               },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%1$@, %2$lld плёнки, %3$@. Чем закончилась?"
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$@, %2$lld плёнки, %3$@. Чем закончилась?"
                 }
               }
             }
@@ -878,89 +834,430 @@
         }
       }
     },
-    "processSpecKitSection": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Комплект"
+    "recoveryTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Найдена незавершённая проявка"
           }
         }
       }
     },
-    "processSpecCapacity": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ёмкость"
+    "runnerAbort" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Прервать"
           }
         }
       }
     },
-    "processSpecShelfLife": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Срок годности"
+    "runnerAbortConfirmation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Прервать проявку?"
           }
         }
       }
     },
-    "processSpecTime": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Время"
+    "runnerAbortWarning" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Плёнки всё равно будут засчитаны в пробег."
           }
         }
       }
     },
-    "processSpecTemperature": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Температура"
+    "runnerNextStage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дальше: %@"
           }
         }
       }
     },
-    "processSpecCapacityValue": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "variations": {
-            "plural": {
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld плёнка"
+    "runnerNextStageWithPrepare" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дальше: %1$@ — %2$@"
+          }
+        }
+      }
+    },
+    "runnerResume" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Продолжить проявку"
+          }
+        }
+      }
+    },
+    "runnerStageProgress" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Этап %1$lld из %2$lld"
+          }
+        }
+      }
+    },
+    "runnerStart" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Старт"
+          }
+        }
+      }
+    },
+    "runnerTemperature" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "t° %@°C"
+          }
+        }
+      }
+    },
+    "sessionStatusAborted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Прервана"
+          }
+        }
+      }
+    },
+    "sessionStatusCompleted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Завершена"
+          }
+        }
+      }
+    },
+    "sessionStatusInProgress" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не завершена"
+          }
+        }
+      }
+    },
+    "settingsBundledApplied" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Встроенный конфиг применён"
+          }
+        }
+      }
+    },
+    "settingsConfigRejected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Конфиг отклонён: %@"
+          }
+        }
+      }
+    },
+    "settingsConfigSection" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Конфиг"
+          }
+        }
+      }
+    },
+    "settingsConfigUpdated" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Конфиг обновлён (от %@)"
+          }
+        }
+      }
+    },
+    "settingsConfigUpToDate" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Конфиг актуален"
+          }
+        }
+      }
+    },
+    "settingsDevelopmentSection" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Проявка"
+          }
+        }
+      }
+    },
+    "settingsFailureTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Конфиг не обновлён"
+          }
+        }
+      }
+    },
+    "settingsInsecureURL" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Только https"
+          }
+        }
+      }
+    },
+    "settingsLastFetch" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Обновлён"
+          }
+        }
+      }
+    },
+    "settingsNever" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "—"
+          }
+        }
+      }
+    },
+    "settingsOk" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ок"
+          }
+        }
+      }
+    },
+    "settingsPreAlert" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Предупик, сек"
+          }
+        }
+      }
+    },
+    "settingsProcessesSection" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Процессы"
+          }
+        }
+      }
+    },
+    "settingsRefresh" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Обновить сейчас"
+          }
+        }
+      }
+    },
+    "settingsResetToBundled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сбросить на встроенный"
+          }
+        }
+      }
+    },
+    "settingsServerError" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ошибка сервера: %lld"
+          }
+        }
+      }
+    },
+    "settingsTankSize" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Бачок, плёнок: %lld"
+          }
+        }
+      }
+    },
+    "settingsTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Настройки"
+          }
+        }
+      }
+    },
+    "settingsUnreachable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нет сети или сервер недоступен"
+          }
+        }
+      }
+    },
+    "settingsUpdatedAt" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Версия от"
+          }
+        }
+      }
+    },
+    "settingsURL" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL"
+          }
+        }
+      }
+    },
+    "widgetPressStart" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Жми Старт"
+          }
+        }
+      }
+    },
+    "widgetStageProgress" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Этап %1$lld из %2$lld · %3$@"
+          }
+        }
+      }
+    },
+    "summaryFilmsDeveloped" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld плёнки проявлено"
                 }
               },
-              "few": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld плёнки"
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld плёнок проявлено"
                 }
               },
-              "many": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld плёнок"
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld плёнка проявлена"
                 }
               },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld плёнки"
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld плёнки проявлено"
                 }
               }
             }
@@ -968,325 +1265,50 @@
         }
       }
     },
-    "processSpecShelfLifeValue": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld дн"
+    "summaryFinish" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Завершить"
           }
         }
       }
     },
-    "processSpecTemperatureValue": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@°C"
+    "summaryMileageNow" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пробег теперь: %@"
           }
         }
       }
     },
-    "processSpecFilm": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Плёнка %lld"
+    "summaryStagesSection" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Этапы"
           }
         }
       }
     },
-    "processSpecFilmRange": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Плёнки %1$lld–%2$lld"
-          }
-        }
-      }
-    },
-    "settingsTitle": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Настройки"
-          }
-        }
-      }
-    },
-    "settingsDevelopmentSection": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Проявка"
-          }
-        }
-      }
-    },
-    "settingsProcessesSection": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Процессы"
-          }
-        }
-      }
-    },
-    "settingsConfigSection": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Конфиг"
-          }
-        }
-      }
-    },
-    "settingsPreAlert": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Предупик, сек"
-          }
-        }
-      }
-    },
-    "settingsUpdatedAt": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Версия от"
-          }
-        }
-      }
-    },
-    "settingsLastFetch": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Обновлён"
-          }
-        }
-      }
-    },
-    "settingsNever": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "—"
-          }
-        }
-      }
-    },
-    "settingsURL": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "URL"
-          }
-        }
-      }
-    },
-    "settingsRefresh": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Обновить сейчас"
-          }
-        }
-      }
-    },
-    "settingsResetToBundled": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Сбросить на встроенный"
-          }
-        }
-      }
-    },
-    "settingsBundledApplied": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Встроенный конфиг применён"
-          }
-        }
-      }
-    },
-    "settingsConfigUpToDate": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Конфиг актуален"
-          }
-        }
-      }
-    },
-    "settingsFailureTitle": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Конфиг не обновлён"
-          }
-        }
-      }
-    },
-    "settingsOk": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ок"
-          }
-        }
-      }
-    },
-    "settingsInsecureURL": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Только https"
-          }
-        }
-      }
-    },
-    "settingsUnreachable": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Нет сети или сервер недоступен"
-          }
-        }
-      }
-    },
-    "settingsTankSize": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Бачок, плёнок: %lld"
-          }
-        }
-      }
-    },
-    "settingsConfigUpdated": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Конфиг обновлён (от %@)"
-          }
-        }
-      }
-    },
-    "settingsConfigRejected": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Конфиг отклонён: %@"
-          }
-        }
-      }
-    },
-    "settingsServerError": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ошибка сервера: %lld"
-          }
-        }
-      }
-    },
-    "notificationPreAlert": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Скоро конец: %@"
-          }
-        }
-      }
-    },
-    "notificationStageEnd": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Этап %@ закончился — сливай"
-          }
-        }
-      }
-    },
-    "configBundledMissing": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Встроенный конфиг не найден в бандле"
-          }
-        }
-      }
-    },
-    "configBundledUnparsable": {
-      "extractionState": "manual",
-      "localizations": {
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Встроенный конфиг не парсится: %@"
+    "summaryTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Готово"
           }
         }
       }
     }
   },
-  "version": "1.0"
+  "version" : "1.0"
 }
