@@ -60,13 +60,13 @@ final class ConfigServiceImpl: ConfigService {
         }
 
         switch httpResponse.statusCode {
-        case 304:
-            settings.lastFetchAt = .now
-            return .upToDate
-        case 200:
-            return apply(downloaded: data, response: httpResponse)
-        default:
-            return .serverError(statusCode: httpResponse.statusCode)
+            case 304:
+                settings.lastFetchAt = .now
+                return .upToDate
+            case 200:
+                return apply(downloaded: data, response: httpResponse)
+            default:
+                return .serverError(statusCode: httpResponse.statusCode)
         }
     }
 

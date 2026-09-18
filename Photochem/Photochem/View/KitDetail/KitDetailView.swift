@@ -128,17 +128,17 @@ struct KitDetailView: View {
 extension SessionStatus {
     var iconName: String {
         switch self {
-        case .completed: "checkmark.circle"
-        case .aborted: "xmark.circle"
-        case .inProgress: "clock"
+            case .completed: "checkmark.circle"
+            case .aborted: "xmark.circle"
+            case .inProgress: "clock"
         }
     }
 
     var title: String {
         switch self {
-        case .completed: String(localized: .sessionStatusCompleted)
-        case .aborted: String(localized: .sessionStatusAborted)
-        case .inProgress: String(localized: .sessionStatusInProgress)
+            case .completed: String(localized: .sessionStatusCompleted)
+            case .aborted: String(localized: .sessionStatusAborted)
+            case .inProgress: String(localized: .sessionStatusInProgress)
         }
     }
 }

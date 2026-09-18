@@ -73,17 +73,17 @@ struct RunnerView: View {
     @ViewBuilder
     private var content: some View {
         switch runner.state {
-        case .preparing(let stageIndex):
-            preparing(runner: runner, stageIndex: stageIndex)
-        case .running(let stageIndex, _, _, let preAlertFired):
-            running(runner: runner, stageIndex: stageIndex, preAlertFired: preAlertFired)
-        case .finished:
-            let onFinish: () -> Void = {
-                runner.complete()
-                dismiss()
-            }
+            case .preparing(let stageIndex):
+                preparing(runner: runner, stageIndex: stageIndex)
+            case .running(let stageIndex, _, _, let preAlertFired):
+                running(runner: runner, stageIndex: stageIndex, preAlertFired: preAlertFired)
+            case .finished:
+                let onFinish: () -> Void = {
+                    runner.complete()
+                    dismiss()
+                }
 
-            resolver ~> (SummaryView.self, with: runner.session, onFinish)
+                resolver ~> (SummaryView.self, with: runner.session, onFinish)
         }
     }
 
