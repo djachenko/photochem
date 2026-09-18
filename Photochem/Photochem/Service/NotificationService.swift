@@ -40,7 +40,7 @@ final class NotificationServiceImpl: NotificationService {
     func cancelStageAlerts(sessionID: UUID, stageIndex: Int) {
         center.removePendingNotificationRequests(withIdentifiers: [
             Self.preAlertID(sessionID: sessionID, stageIndex: stageIndex),
-            Self.stageEndID(sessionID: sessionID, stageIndex: stageIndex)
+            Self.stageEndID(sessionID: sessionID, stageIndex: stageIndex),
         ])
     }
 
@@ -48,7 +48,7 @@ final class NotificationServiceImpl: NotificationService {
         let identifiers = (0..<stageCount).flatMap { stageIndex in
             [
                 Self.preAlertID(sessionID: sessionID, stageIndex: stageIndex),
-                Self.stageEndID(sessionID: sessionID, stageIndex: stageIndex)
+                Self.stageEndID(sessionID: sessionID, stageIndex: stageIndex),
             ]
         }
         center.removePendingNotificationRequests(withIdentifiers: identifiers)
