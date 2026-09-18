@@ -81,18 +81,18 @@ public enum ConfigParser {
 
     private static func timing(from raw: RawStage, capacityFilms: Int) throws -> StageTiming {
         switch (raw.time, raw.timeByFilm) {
-        case (let time?, nil):
-            guard let seconds = TimeFormatting.parse(time) else {
-                throw CoreError.validationFailed(rule: "V8", detail: "Этап \(raw.id): время «\(time)» не в формате M:SS")
-            }
-            return .fixed(seconds: seconds)
-        case (nil, let table?):
-            return .byFilm(ranges: try ranges(from: table, stageId: raw.id, capacityFilms: capacityFilms))
-        default:
-            throw CoreError.validationFailed(
-                rule: "V7",
-                detail: "Этап \(raw.id): нужно ровно одно из time и time_by_film"
-            )
+            case (let time?, nil):
+                guard let seconds = TimeFormatting.parse(time) else {
+                    throw CoreError.validationFailed(rule: "V8", detail: "Этап \(raw.id): время «\(time)» не в формате M:SS")
+                }
+                return .fixed(seconds: seconds)
+            case (nil, let table?):
+                return .byFilm(ranges: try ranges(from: table, stageId: raw.id, capacityFilms: capacityFilms))
+            default:
+                throw CoreError.validationFailed(
+                    rule: "V7",
+                    detail: "Этап \(raw.id): нужно ровно одно из time и time_by_film"
+                )
         }
     }
 
