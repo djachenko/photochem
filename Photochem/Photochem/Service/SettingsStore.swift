@@ -2,7 +2,11 @@ import Foundation
 
 @Observable
 final class SettingsStore {
-    private let defaults = UserDefaults.standard
+    private let defaults: UserDefaults
+
+    init(defaults: UserDefaults) {
+        self.defaults = defaults
+    }
 
     var tankSize: Int {
         get { defaults.object(forKey: Key.tankSize) as? Int ?? 5 }

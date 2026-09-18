@@ -16,6 +16,7 @@ struct PhotochemApp: App {
 
 extension PhotochemApp {
     static let resolver = Assembler([
+        SystemAssembly(),
         AppAssembly(),
         ModelAssembly(),
         KitListAssembly(),

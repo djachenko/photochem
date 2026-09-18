@@ -8,10 +8,14 @@ protocol SoundService: AnyObject {
 }
 
 final class SoundServiceImpl: SoundService {
+    private let audioSession: AVAudioSession
+
     private let preAlertPlayer: AVAudioPlayer?
     private let stageEndPlayer: AVAudioPlayer?
 
-    init() {
+    init(audioSession: AVAudioSession) {
+        self.audioSession = audioSession
+
         preAlertPlayer = Self.player(named: "sound_pre")
         stageEndPlayer = Self.player(named: "sound_end")
 
@@ -20,12 +24,12 @@ final class SoundServiceImpl: SoundService {
     }
 
     func activate() {
-        try? AVAudioSession.sharedInstance().setCategory(.playback, options: [.duckOthers])
-        try? AVAudioSession.sharedInstance().setActive(true)
+        try? audioSession.setCategory(.playback, options: [.duckOthers])
+        try? audioSession.setActive(true)
     }
 
     func deactivate() {
-        try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+        try? audioSession.setActive(false, options: .notifyOthersOnDeactivation)
     }
 
     func playPreAlert() {

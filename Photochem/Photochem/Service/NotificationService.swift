@@ -8,7 +8,11 @@ protocol NotificationService: AnyObject {
 }
 
 final class NotificationServiceImpl: NotificationService {
-    private let center = UNUserNotificationCenter.current()
+    private let center: UNUserNotificationCenter
+
+    init(center: UNUserNotificationCenter) {
+        self.center = center
+    }
 
     func requestAuthorization() async -> Bool {
         (try? await center.requestAuthorization(options: [.alert, .sound])) ?? false
