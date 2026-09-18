@@ -1,4 +1,5 @@
 import AVFoundation
+import UIKit
 
 protocol SoundService: AnyObject {
     func activate()
@@ -10,6 +11,8 @@ protocol SoundService: AnyObject {
 final class SoundServiceImpl: SoundService {
     private let audioSession: AVAudioSession
 
+    private let haptics = UINotificationFeedbackGenerator()
+    private let endHaptics = UIImpactFeedbackGenerator(style: .heavy)
     private let preAlertPlayer: AVAudioPlayer?
     private let stageEndPlayer: AVAudioPlayer?
 
@@ -33,11 +36,21 @@ final class SoundServiceImpl: SoundService {
     }
 
     func playPreAlert() {
+        haptics.notificationOccurred(.warning)
         play(preAlertPlayer)
     }
 
     func playStageEnd() {
         play(stageEndPlayer)
+        // Удар на каждый из трёх бипов sound_end (0 / 0.8 / 1.6 с) — одиночный success не чувствуется.
+        Task { @MainActor in
+            for beat in 0..<3 {
+                if beat > 0 {
+                    try? await Task.sleep(for: .milliseconds(800))
+                }
+                endHaptics.impactOccurred()
+            }
+        }
     }
 
     private func play(_ player: AVAudioPlayer?) {
