@@ -1,5 +1,6 @@
 import PhotochemCore
 import SwiftUI
+import SwinjectAutoregistration
 
 struct SettingsView: View {
     private let settings: SettingsStore
@@ -112,3 +113,11 @@ struct SettingsView: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    NavigationStack {
+        PreviewEnvironment.resolver ~> SettingsView.self
+    }
+}
+#endif

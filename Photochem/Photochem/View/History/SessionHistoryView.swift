@@ -20,3 +20,11 @@ struct SessionHistoryView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
 }
+
+#if DEBUG
+#Preview {
+    NavigationStack {
+        SessionHistoryView(session: PreviewEnvironment.session)
+    }
+}
+#endif

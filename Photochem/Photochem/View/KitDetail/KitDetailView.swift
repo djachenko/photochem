@@ -152,3 +152,12 @@ extension FormatStyle where Self == Date.FormatStyle {
         .dateTime.day(.twoDigits).month(.twoDigits).year().hour(.twoDigits(amPM: .omitted)).minute(.twoDigits)
     }
 }
+
+#if DEBUG
+#Preview {
+    NavigationStack {
+        PreviewEnvironment.resolver ~> (KitDetailView.self, with: PreviewEnvironment.kit)
+    }
+    .modelContainer(PreviewEnvironment.modelContainer)
+}
+#endif

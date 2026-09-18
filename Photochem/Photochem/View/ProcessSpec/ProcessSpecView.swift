@@ -50,3 +50,11 @@ struct ProcessSpecView: View {
             : String(localized: .processSpecFilmRange(range.lower, range.upper))
     }
 }
+
+#if DEBUG
+#Preview {
+    NavigationStack {
+        ProcessSpecView(process: PreviewEnvironment.process)
+    }
+}
+#endif

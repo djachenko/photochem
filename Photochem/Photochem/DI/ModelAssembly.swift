@@ -4,11 +4,21 @@ import Swinject
 import SwinjectAutoregistration
 
 struct ModelAssembly: Assembly {
+    var isStoredInMemoryOnly = false
+
     func assemble(container: Container) {
         container.register(ModelContainer.self) { _ in
-            try! ModelContainer(
-                for: ChemistryKit.self, DevelopmentSession.self, FilmRecord.self, StageSnapshot.self
-            )
+            do {
+                return try ModelContainer(
+                    for: ChemistryKit.self,
+                    DevelopmentSession.self,
+                    FilmRecord.self,
+                    StageSnapshot.self,
+                    configurations: ModelConfiguration(isStoredInMemoryOnly: isStoredInMemoryOnly)
+                )
+            } catch {
+                fatalError(String(describing: error))
+            }
         }
         .inObjectScope(.container)
 

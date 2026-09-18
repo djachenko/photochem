@@ -160,3 +160,9 @@ struct RunnerView: View {
         return Double(runner.remainingSeconds(now: now)) / Double(stage.plannedSeconds)
     }
 }
+
+#if DEBUG
+#Preview {
+    PreviewEnvironment.resolver ~> (RunnerView.self, with: PreviewEnvironment.session)
+}
+#endif

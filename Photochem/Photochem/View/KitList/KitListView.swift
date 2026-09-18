@@ -141,3 +141,10 @@ struct KitListView: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    (PreviewEnvironment.resolver ~> KitListView.self)
+        .modelContainer(PreviewEnvironment.modelContainer)
+}
+#endif
