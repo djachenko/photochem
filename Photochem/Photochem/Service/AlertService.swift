@@ -1,34 +1,43 @@
 import AVFoundation
 import UIKit
 
-protocol SoundService: AnyObject {
+/// Сигналы раннера — звук и хаптик вместе: у раковины руки мокрые, телефон поодаль,
+/// и вибрация дублирует звук над шумом воды.
+protocol AlertService: AnyObject {
     func activate()
     func deactivate()
     func playPreAlert()
+    func playTick()
     func playStageEnd()
 }
 
-final class SoundServiceImpl: SoundService {
+final class AlertServiceImpl: AlertService {
     private let audioSession: AVAudioSession
 
-    private let haptics = UINotificationFeedbackGenerator()
-    private let endHaptics = UIImpactFeedbackGenerator(style: .heavy)
+    private let preAlertHaptics = UINotificationFeedbackGenerator()
+    private let tickHaptics = UIImpactFeedbackGenerator(style: .light)
+    private let stageEndHaptics = UIImpactFeedbackGenerator(style: .heavy)
+
     private let preAlertPlayer: AVAudioPlayer?
+    private let tickPlayer: AVAudioPlayer?
     private let stageEndPlayer: AVAudioPlayer?
 
     init(audioSession: AVAudioSession) {
         self.audioSession = audioSession
 
         preAlertPlayer = Self.player(named: "sound_pre")
+        tickPlayer = Self.player(named: "sound_tick")
         stageEndPlayer = Self.player(named: "sound_end")
 
         preAlertPlayer?.prepareToPlay()
+        tickPlayer?.prepareToPlay()
         stageEndPlayer?.prepareToPlay()
     }
 
     func activate() {
         try? audioSession.setCategory(.playback, options: [.duckOthers])
         try? audioSession.setActive(true)
+        tickHaptics.prepare()
     }
 
     func deactivate() {
@@ -36,8 +45,13 @@ final class SoundServiceImpl: SoundService {
     }
 
     func playPreAlert() {
-        haptics.notificationOccurred(.warning)
+        preAlertHaptics.notificationOccurred(.warning)
         play(preAlertPlayer)
+    }
+
+    func playTick() {
+        tickHaptics.impactOccurred()
+        play(tickPlayer)
     }
 
     func playStageEnd() {
@@ -48,7 +62,7 @@ final class SoundServiceImpl: SoundService {
                 if beat > 0 {
                     try? await Task.sleep(for: .milliseconds(800))
                 }
-                endHaptics.impactOccurred()
+                stageEndHaptics.impactOccurred()
             }
         }
     }

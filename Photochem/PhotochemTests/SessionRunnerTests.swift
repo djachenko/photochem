@@ -1,4 +1,5 @@
 import Foundation
+import PhotochemCore
 import SwiftData
 import Testing
 @testable import Photochem
@@ -15,7 +16,8 @@ struct SessionRunnerTests {
             stageIndex: 0,
             startedAt: start,
             endDate: start.addingTimeInterval(100),
-            preAlertFired: false
+            preAlertFired: false,
+            nextTickAt: nil
         ))
     }
 
@@ -84,6 +86,52 @@ struct SessionRunnerTests {
         #expect(context.notifications.cancelledAllStageCount == 2)
     }
 
+    @Test("R9")
+    func ticksFollowTheCurveInsideTheWindow() throws {
+        let context = try makeRunner(stageSeconds: [100], preAlertSeconds: 30)
+        context.runner.start(now: start)
+
+        // Прогон тиками раннера по 0.25 с через всё окно: первый сигнал — предупик,
+        // дальше пики по кривой; интервал между пиками сокращается.
+        var tickMoments: [TimeInterval] = []
+        var previousTicks = 0
+        for step in stride(from: 70.0, to: 100.0, by: 0.25) {
+            context.runner.tick(now: start.addingTimeInterval(step))
+            if context.sound.tickCount > previousTicks {
+                tickMoments.append(step)
+                previousTicks = context.sound.tickCount
+            }
+        }
+
+        let gaps = zip(tickMoments.dropFirst(), tickMoments).map { $0 - $1 }
+        #expect(context.sound.preAlertCount == 1)
+        #expect(gaps.count > 10)
+        #expect(gaps == gaps.sorted(by: >))
+        #expect(gaps.first ?? 0 >= 3)
+        #expect(gaps.last ?? 0 <= 0.5)
+    }
+
+    @Test("R10")
+    func ticksAtMostOncePerCallAfterAJump() throws {
+        let context = try makeRunner(stageSeconds: [100], preAlertSeconds: 30)
+        context.runner.start(now: start)
+        context.runner.tick(now: start.addingTimeInterval(70))
+        context.runner.tick(now: start.addingTimeInterval(95))
+        #expect(context.sound.preAlertCount == 1)
+        #expect(context.sound.tickCount == 1)
+    }
+
+    @Test("R11")
+    func noTicksOutsideTheWindow() throws {
+        let context = try makeRunner(stageSeconds: [100], preAlertSeconds: 30)
+        context.runner.start(now: start)
+        for step in stride(from: 0.0, to: 70.0, by: 0.25) {
+            context.runner.tick(now: start.addingTimeInterval(step))
+        }
+        #expect(context.sound.tickCount == 0)
+        #expect(context.sound.preAlertCount == 0)
+    }
+
     private func makeRunner(
         stageSeconds: [Int] = [100, 60],
         preAlertSeconds: Int = 10
@@ -107,12 +155,13 @@ struct SessionRunnerTests {
             )
         }
 
-        let sound = SoundServiceSpy()
+        let sound = AlertServiceSpy()
         let notifications = NotificationServiceSpy()
         return RunnerContext(
             runner: SessionRunner(
                 session: session,
-                soundService: sound,
+                geigerCurve: .standard,
+                alertService: sound,
                 notificationService: notifications,
                 liveActivityService: LiveActivityServiceStub(),
                 modelContext: context
@@ -125,12 +174,13 @@ struct SessionRunnerTests {
 
 private struct RunnerContext {
     let runner: SessionRunner
-    let sound: SoundServiceSpy
+    let sound: AlertServiceSpy
     let notifications: NotificationServiceSpy
 }
 
-private final class SoundServiceSpy: SoundService {
+private final class AlertServiceSpy: AlertService {
     private(set) var preAlertCount = 0
+    private(set) var tickCount = 0
     private(set) var stageEndCount = 0
 
     func activate() {}
@@ -138,6 +188,10 @@ private final class SoundServiceSpy: SoundService {
 
     func playPreAlert() {
         preAlertCount += 1
+    }
+
+    func playTick() {
+        tickCount += 1
     }
 
     func playStageEnd() {

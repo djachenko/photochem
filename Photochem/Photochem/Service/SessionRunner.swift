@@ -1,9 +1,10 @@
 import Foundation
+import PhotochemCore
 import SwiftData
 
 enum RunnerState: Equatable {
     case preparing(stageIndex: Int)
-    case running(stageIndex: Int, startedAt: Date, endDate: Date, preAlertFired: Bool)
+    case running(stageIndex: Int, startedAt: Date, endDate: Date, preAlertFired: Bool, nextTickAt: Date?)
     case finished
 }
 
@@ -15,21 +16,24 @@ final class SessionRunner {
     let session: DevelopmentSession
 
     private let stages: [StageSnapshot]
-    private let soundService: SoundService
+    private let geigerCurve: GeigerCurve
+    private let alertService: AlertService
     private let notificationService: NotificationService
     private let liveActivityService: LiveActivityService
     private let modelContext: ModelContext
 
     init(
         session: DevelopmentSession,
-        soundService: SoundService,
+        geigerCurve: GeigerCurve,
+        alertService: AlertService,
         notificationService: NotificationService,
         liveActivityService: LiveActivityService,
         modelContext: ModelContext
     ) {
         self.session = session
         self.stages = session.orderedStages
-        self.soundService = soundService
+        self.geigerCurve = geigerCurve
+        self.alertService = alertService
         self.notificationService = notificationService
         self.liveActivityService = liveActivityService
         self.modelContext = modelContext
@@ -63,7 +67,7 @@ final class SessionRunner {
     var currentStageIndex: Int? {
         switch state {
             case .preparing(let stageIndex): stageIndex
-            case .running(let stageIndex, _, _, _): stageIndex
+            case .running(let stageIndex, _, _, _, _): stageIndex
             case .finished: nil
         }
     }
@@ -73,7 +77,7 @@ final class SessionRunner {
             return
         }
         let endDate = now.addingTimeInterval(TimeInterval(stage.plannedSeconds))
-        state = .running(stageIndex: stageIndex, startedAt: now, endDate: endDate, preAlertFired: false)
+        state = .running(stageIndex: stageIndex, startedAt: now, endDate: endDate, preAlertFired: false, nextTickAt: nil)
         notificationService.scheduleStageAlerts(
             sessionID: session.id,
             stageIndex: stageIndex,
@@ -85,14 +89,14 @@ final class SessionRunner {
     }
 
     func tick(now: Date) {
-        guard case .running(let stageIndex, let startedAt, let endDate, let preAlertFired) = state,
+        guard case .running(let stageIndex, let startedAt, let endDate, let preAlertFired, let nextTickAt) = state,
               let stage = stage(at: stageIndex) else {
             return
         }
 
         if now >= endDate {
             if now.timeIntervalSince(endDate) <= 3 {
-                soundService.playStageEnd()
+                alertService.playStageEnd()
             }
             notificationService.cancelStageAlerts(sessionID: session.id, stageIndex: stageIndex)
             state = stageIndex + 1 < stages.count ? .preparing(stageIndex: stageIndex + 1) : .finished
@@ -104,15 +108,32 @@ final class SessionRunner {
             return
         }
 
-        let preAlertDate = endDate.addingTimeInterval(-TimeInterval(stage.preAlertSeconds))
-        if !preAlertFired, isPreAlertApplicable(stage), now >= preAlertDate {
-            soundService.playPreAlert()
-            state = .running(stageIndex: stageIndex, startedAt: startedAt, endDate: endDate, preAlertFired: true)
+        let windowStart = endDate.addingTimeInterval(-TimeInterval(stage.preAlertSeconds))
+        guard isPreAlertApplicable(stage), now >= windowStart else {
+            return
         }
+
+        // Не больше одного сигнала за тик: сначала предупик, пики — со следующего.
+        if !preAlertFired {
+            alertService.playPreAlert()
+        } else if let nextTickAt, now >= nextTickAt {
+            alertService.playTick()
+        } else {
+            return
+        }
+
+        let remaining = endDate.timeIntervalSince(now)
+        state = .running(
+            stageIndex: stageIndex,
+            startedAt: startedAt,
+            endDate: endDate,
+            preAlertFired: true,
+            nextTickAt: now.addingTimeInterval(geigerCurve.interval(remaining: remaining))
+        )
     }
 
     func remainingSeconds(now: Date) -> Int {
-        guard case .running(_, _, let endDate, _) = state else {
+        guard case .running(_, _, let endDate, _, _) = state else {
             return 0
         }
         return max(0, Int(endDate.timeIntervalSince(now).rounded(.up)))
