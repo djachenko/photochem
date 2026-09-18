@@ -9,7 +9,7 @@ import SwinjectAutoregistration
 struct RunnerView: View {
     @State private var runner: SessionRunner
 
-    private let soundService: SoundService
+    private let alertService: AlertService
     private let resolver: Resolver
 
     @Environment(\.dismiss) private var dismiss
@@ -20,9 +20,9 @@ struct RunnerView: View {
 
     private let tick = Timer.publish(every: 0.25, on: .main, in: .common).autoconnect()
 
-    init(runner: SessionRunner, soundService: SoundService, resolver: Resolver) {
+    init(runner: SessionRunner, alertService: AlertService, resolver: Resolver) {
         _runner = State(initialValue: runner)
-        self.soundService = soundService
+        self.alertService = alertService
         self.resolver = resolver
     }
 
@@ -52,11 +52,11 @@ struct RunnerView: View {
         .interactiveDismissDisabled(true)
         .task {
             await runner.startLiveActivity()
-            soundService.activate()
+            alertService.activate()
             UIApplication.shared.isIdleTimerDisabled = true
         }
         .onDisappear {
-            soundService.deactivate()
+            alertService.deactivate()
             UIApplication.shared.isIdleTimerDisabled = false
         }
         .onReceive(tick) { date in
@@ -75,7 +75,7 @@ struct RunnerView: View {
         switch runner.state {
             case .preparing(let stageIndex):
                 preparing(runner: runner, stageIndex: stageIndex)
-            case .running(let stageIndex, _, _, let preAlertFired):
+            case .running(let stageIndex, _, _, let preAlertFired, _):
                 running(runner: runner, stageIndex: stageIndex, preAlertFired: preAlertFired)
             case .finished:
                 let onFinish: () -> Void = {

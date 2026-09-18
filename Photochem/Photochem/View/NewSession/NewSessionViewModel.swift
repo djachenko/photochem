@@ -57,7 +57,7 @@ final class NewSessionViewModel {
                 prepare: stageTime.stage.prepare,
                 tempC: stageTime.stage.tempC,
                 plannedSeconds: stageTime.seconds,
-                preAlertSeconds: stageTime.stage.preAlertOverrideSeconds ?? settings.preAlertSeconds
+                preAlertSeconds: settings.preAlertSeconds ?? stageTime.stage.preAlertOverrideSeconds ?? Constants.preAlertSeconds
             )
         }
         modelContext.insert(session)

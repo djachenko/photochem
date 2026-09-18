@@ -7,7 +7,7 @@ struct SettingsView: View {
     private let configService: ConfigService
 
     @State private var tankSize = 5
-    @State private var preAlertSeconds = 10
+    @State private var preAlertSeconds: Int?
     @State private var remoteURL = ""
     @State private var isRefreshing = false
     @State private var statusMessage: String?
@@ -23,8 +23,9 @@ struct SettingsView: View {
             Section(String(localized: .settingsDevelopmentSection)) {
                 Stepper(String(localized: .settingsTankSize(tankSize)), value: $tankSize, in: 1...10)
                 Picker(String(localized: .settingsPreAlert), selection: $preAlertSeconds) {
-                    ForEach([5, 10, 15, 20], id: \.self) { seconds in
-                        Text(seconds.formatted()).tag(seconds)
+                    Text(String(localized: .settingsPreAlertFromConfig)).tag(Int?.none)
+                    ForEach([15, 20, 30, 45, 60], id: \.self) { seconds in
+                        Text(seconds.formatted()).tag(Int?.some(seconds))
                     }
                 }
             }

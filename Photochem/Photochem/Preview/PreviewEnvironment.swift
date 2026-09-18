@@ -81,7 +81,7 @@ enum PreviewEnvironment {
                 prepare: time.stage.prepare,
                 tempC: time.stage.tempC,
                 plannedSeconds: time.seconds,
-                preAlertSeconds: time.stage.preAlertOverrideSeconds ?? 10
+                preAlertSeconds: time.stage.preAlertOverrideSeconds ?? Constants.preAlertSeconds
             )
         }
     }

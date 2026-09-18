@@ -9,17 +9,18 @@ final class SettingsStore {
     }
 
     var tankSize: Int {
-        get { defaults.object(forKey: Key.tankSize) as? Int ?? 5 }
+        get { defaults.object(forKey: Key.tankSize) as? Int ?? Constants.tankSize }
         set { defaults.set(newValue, forKey: Key.tankSize) }
     }
 
-    var preAlertSeconds: Int {
-        get { defaults.object(forKey: Key.preAlertSeconds) as? Int ?? 10 }
+    /// nil — пользователь ничего не выставлял, окно берётся из конфига.
+    var preAlertSeconds: Int? {
+        get { defaults.object(forKey: Key.preAlertSeconds) as? Int }
         set { defaults.set(newValue, forKey: Key.preAlertSeconds) }
     }
 
     var remoteURL: String {
-        get { defaults.string(forKey: Key.remoteURL) ?? DefaultConfig.remoteURL }
+        get { defaults.string(forKey: Key.remoteURL) ?? Constants.remoteConfigURL }
         set { defaults.set(newValue, forKey: Key.remoteURL) }
     }
 
@@ -40,8 +41,4 @@ final class SettingsStore {
         static let etag = "config.etag"
         static let lastFetchAt = "config.lastFetchAt"
     }
-}
-
-enum DefaultConfig {
-    static let remoteURL = "https://raw.githubusercontent.com/djachenko/photochem/master/config/processes.json"
 }

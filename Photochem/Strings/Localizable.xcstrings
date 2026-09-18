@@ -1104,7 +1104,18 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Предупик, сек"
+            "value" : "Окно предупика, сек"
+          }
+        }
+      }
+    },
+    "settingsPreAlertFromConfig" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Из конфига"
           }
         }
       }

@@ -1,9 +1,14 @@
 import JustKitDI
+import PhotochemCore
 import Swinject
 import SwinjectAutoregistration
 
 struct AppAssembly: Assembly {
     func assemble(container: Container) {
+        container.register(GeigerCurve.self) { _ in
+            .standard
+        }
+
         container.autoregister(SettingsStore.init)
             .inObjectScope(.container)
 
@@ -11,8 +16,8 @@ struct AppAssembly: Assembly {
             .implements(ConfigService.self)
             .inObjectScope(.container)
 
-        container.autoregister(SoundServiceImpl.init)
-            .implements(SoundService.self)
+        container.autoregister(AlertServiceImpl.init)
+            .implements(AlertService.self)
             .inObjectScope(.container)
 
         container.autoregister(NotificationServiceImpl.init)
