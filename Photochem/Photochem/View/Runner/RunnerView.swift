@@ -91,25 +91,30 @@ struct RunnerView: View {
         VStack(spacing: 24) {
             progressLabel(runner: runner, stageIndex: stageIndex)
             if let stage = runner.stage(at: stageIndex) {
+                CircleTimerView(
+                    progress: 1,
+                    timeText: TimeFormatting.format(seconds: stage.plannedSeconds),
+                    tint: .accentColor
+                )
                 Text(stage.name)
-                    .font(.largeTitle.bold())
-                if let prepare = stage.prepare {
-                    Text(prepare)
-                        .multilineTextAlignment(.center)
-                }
+                    .font(.title2)
+                Spacer()
                 if let tempC = stage.tempC {
                     Text(String(localized: .runnerTemperature(tempC.formatted(.number.precision(.fractionLength(1))))))
                         .foregroundStyle(.secondary)
                 }
-                Text(TimeFormatting.format(seconds: stage.plannedSeconds))
-                    .font(.title.monospacedDigit())
-                Spacer()
-                Button(String(localized: .runnerStart)) {
+                if let prepare = stage.prepare {
+                    Text(prepare)
+                        .multilineTextAlignment(.center)
+                }
+                Button {
                     runner.start()
+                } label: {
+                    Text(String(localized: .runnerStart))
+                        .font(.title2.bold())
+                        .frame(maxWidth: .infinity, minHeight: 60)
                 }
                 .buttonStyle(.borderedProminent)
-                .controlSize(.extraLarge)
-                .frame(maxWidth: .infinity, minHeight: 60)
                 if let next = runner.stage(at: stageIndex + 1) {
                     Text(String(localized: .runnerNextStage(next.name)))
                         .font(.footnote)
@@ -131,10 +136,6 @@ struct RunnerView: View {
                 )
                 Text(stage.name)
                     .font(.title2)
-                if let tempC = stage.tempC {
-                    Text(String(localized: .runnerTemperature(tempC.formatted(.number.precision(.fractionLength(1))))))
-                        .foregroundStyle(.secondary)
-                }
                 Spacer()
                 if let next = runner.stage(at: stageIndex + 1) {
                     Text(String(localized: .runnerNextStageWithPrepare(next.name, next.prepare ?? "")))
