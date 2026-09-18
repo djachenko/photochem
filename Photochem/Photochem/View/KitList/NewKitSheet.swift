@@ -1,6 +1,7 @@
 import PhotochemCore
 import SwiftData
 import SwiftUI
+import SwinjectAutoregistration
 
 struct NewKitSheet: View {
     private let configService: ConfigService
@@ -90,3 +91,10 @@ struct NewKitSheet: View {
         dismiss()
     }
 }
+
+#if DEBUG
+#Preview {
+    (PreviewEnvironment.resolver ~> NewKitSheet.self)
+        .modelContainer(PreviewEnvironment.modelContainer)
+}
+#endif

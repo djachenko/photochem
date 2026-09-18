@@ -73,17 +73,17 @@ struct RunnerView: View {
     @ViewBuilder
     private var content: some View {
         switch runner.state {
-        case .preparing(let stageIndex):
-            preparing(runner: runner, stageIndex: stageIndex)
-        case .running(let stageIndex, _, _, let preAlertFired):
-            running(runner: runner, stageIndex: stageIndex, preAlertFired: preAlertFired)
-        case .finished:
-            let onFinish: () -> Void = {
-                runner.complete()
-                dismiss()
-            }
+            case .preparing(let stageIndex):
+                preparing(runner: runner, stageIndex: stageIndex)
+            case .running(let stageIndex, _, _, let preAlertFired):
+                running(runner: runner, stageIndex: stageIndex, preAlertFired: preAlertFired)
+            case .finished:
+                let onFinish: () -> Void = {
+                    runner.complete()
+                    dismiss()
+                }
 
-            resolver ~> (SummaryView.self, with: runner.session, onFinish)
+                resolver ~> (SummaryView.self, with: runner.session, onFinish)
         }
     }
 
@@ -91,25 +91,30 @@ struct RunnerView: View {
         VStack(spacing: 24) {
             progressLabel(runner: runner, stageIndex: stageIndex)
             if let stage = runner.stage(at: stageIndex) {
+                CircleTimerView(
+                    progress: 1,
+                    timeText: TimeFormatting.format(seconds: stage.plannedSeconds),
+                    tint: .accentColor
+                )
                 Text(stage.name)
-                    .font(.largeTitle.bold())
-                if let prepare = stage.prepare {
-                    Text(prepare)
-                        .multilineTextAlignment(.center)
-                }
+                    .font(.title2)
+                Spacer()
                 if let tempC = stage.tempC {
                     Text(String(localized: .runnerTemperature(tempC.formatted(.number.precision(.fractionLength(1))))))
                         .foregroundStyle(.secondary)
                 }
-                Text(TimeFormatting.format(seconds: stage.plannedSeconds))
-                    .font(.title.monospacedDigit())
-                Spacer()
-                Button(String(localized: .runnerStart)) {
+                if let prepare = stage.prepare {
+                    Text(prepare)
+                        .multilineTextAlignment(.center)
+                }
+                Button {
                     runner.start()
+                } label: {
+                    Text(String(localized: .runnerStart))
+                        .font(.title2.bold())
+                        .frame(maxWidth: .infinity, minHeight: 60)
                 }
                 .buttonStyle(.borderedProminent)
-                .controlSize(.extraLarge)
-                .frame(maxWidth: .infinity, minHeight: 60)
                 if let next = runner.stage(at: stageIndex + 1) {
                     Text(String(localized: .runnerNextStage(next.name)))
                         .font(.footnote)
@@ -131,10 +136,6 @@ struct RunnerView: View {
                 )
                 Text(stage.name)
                     .font(.title2)
-                if let tempC = stage.tempC {
-                    Text(String(localized: .runnerTemperature(tempC.formatted(.number.precision(.fractionLength(1))))))
-                        .foregroundStyle(.secondary)
-                }
                 Spacer()
                 if let next = runner.stage(at: stageIndex + 1) {
                     Text(String(localized: .runnerNextStageWithPrepare(next.name, next.prepare ?? "")))
@@ -160,3 +161,9 @@ struct RunnerView: View {
         return Double(runner.remainingSeconds(now: now)) / Double(stage.plannedSeconds)
     }
 }
+
+#if DEBUG
+#Preview {
+    PreviewEnvironment.resolver ~> (RunnerView.self, with: PreviewEnvironment.session)
+}
+#endif

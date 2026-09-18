@@ -84,6 +84,9 @@ cyclomatic_complexity:
 
 
 
+switch_case_alignment:
+  indented_cases: true
+
 trailing_comma:
   severity: error
   mandatory_comma: true

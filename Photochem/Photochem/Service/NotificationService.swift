@@ -8,7 +8,11 @@ protocol NotificationService: AnyObject {
 }
 
 final class NotificationServiceImpl: NotificationService {
-    private let center = UNUserNotificationCenter.current()
+    private let center: UNUserNotificationCenter
+
+    init(center: UNUserNotificationCenter) {
+        self.center = center
+    }
 
     func requestAuthorization() async -> Bool {
         (try? await center.requestAuthorization(options: [.alert, .sound])) ?? false
@@ -40,7 +44,7 @@ final class NotificationServiceImpl: NotificationService {
     func cancelStageAlerts(sessionID: UUID, stageIndex: Int) {
         center.removePendingNotificationRequests(withIdentifiers: [
             Self.preAlertID(sessionID: sessionID, stageIndex: stageIndex),
-            Self.stageEndID(sessionID: sessionID, stageIndex: stageIndex)
+            Self.stageEndID(sessionID: sessionID, stageIndex: stageIndex),
         ])
     }
 
@@ -48,7 +52,7 @@ final class NotificationServiceImpl: NotificationService {
         let identifiers = (0..<stageCount).flatMap { stageIndex in
             [
                 Self.preAlertID(sessionID: sessionID, stageIndex: stageIndex),
-                Self.stageEndID(sessionID: sessionID, stageIndex: stageIndex)
+                Self.stageEndID(sessionID: sessionID, stageIndex: stageIndex),
             ]
         }
         center.removePendingNotificationRequests(withIdentifiers: identifiers)

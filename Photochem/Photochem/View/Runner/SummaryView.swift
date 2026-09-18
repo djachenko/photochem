@@ -1,3 +1,4 @@
+import ParaMap
 import PhotochemCore
 import SwiftUI
 
@@ -48,3 +49,13 @@ struct SummaryView: View {
         return "\(kit.mileage) из \(process.capacityFilms)"
     }
 }
+
+#if DEBUG
+#Preview {
+    let onFinish: () -> Void = {}
+
+    NavigationStack {
+        PreviewEnvironment.resolver ~> (SummaryView.self, with: PreviewEnvironment.session, onFinish)
+    }
+}
+#endif

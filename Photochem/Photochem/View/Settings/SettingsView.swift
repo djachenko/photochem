@@ -1,5 +1,6 @@
 import PhotochemCore
 import SwiftUI
+import SwinjectAutoregistration
 
 struct SettingsView: View {
     private let settings: SettingsStore
@@ -96,19 +97,27 @@ struct SettingsView: View {
             let result = await configService.refreshFromRemote()
             isRefreshing = false
             switch result {
-            case .upToDate:
-                statusMessage = String(localized: .settingsConfigUpToDate)
-            case .updated(let updatedAt):
-                statusMessage = String(localized: .settingsConfigUpdated(updatedAt))
-            case .rejected(let reason):
-                failureMessage = String(localized: .settingsConfigRejected(reason))
-            case .serverError(let statusCode):
-                failureMessage = String(localized: .settingsServerError(statusCode))
-            case .unreachable:
-                failureMessage = String(localized: .settingsUnreachable)
-            case .insecureURL:
-                failureMessage = String(localized: .settingsInsecureURL)
+                case .upToDate:
+                    statusMessage = String(localized: .settingsConfigUpToDate)
+                case .updated(let updatedAt):
+                    statusMessage = String(localized: .settingsConfigUpdated(updatedAt))
+                case .rejected(let reason):
+                    failureMessage = String(localized: .settingsConfigRejected(reason))
+                case .serverError(let statusCode):
+                    failureMessage = String(localized: .settingsServerError(statusCode))
+                case .unreachable:
+                    failureMessage = String(localized: .settingsUnreachable)
+                case .insecureURL:
+                    failureMessage = String(localized: .settingsInsecureURL)
             }
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    NavigationStack {
+        PreviewEnvironment.resolver ~> SettingsView.self
+    }
+}
+#endif

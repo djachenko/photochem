@@ -1,3 +1,4 @@
+import ParaMap
 import PhotochemCore
 import SwiftData
 import SwiftUI
@@ -72,3 +73,16 @@ struct NewSessionSheet: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    let onStart: (DevelopmentSession) -> Void = { _ in }
+
+    PreviewEnvironment.resolver ~> (
+        NewSessionSheet.self,
+        with: PreviewEnvironment.kit,
+        PreviewEnvironment.process,
+        onStart
+    )
+}
+#endif

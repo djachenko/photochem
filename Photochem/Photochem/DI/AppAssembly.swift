@@ -1,25 +1,26 @@
+import JustKitDI
 import Swinject
 import SwinjectAutoregistration
 
 struct AppAssembly: Assembly {
     func assemble(container: Container) {
-        // Экранам, которые открывают другие экраны, резолвер приходит через init —
-        // как AppCoordinatorView в Cullen, только без координатора.
-        container.register(Resolver.self) { $0 }
-
-        container.autoregister(SettingsStore.self, initializer: SettingsStore.init)
+        container.autoregister(SettingsStore.init)
             .inObjectScope(.container)
 
-        container.autoregister(ConfigService.self, initializer: ConfigServiceImpl.init)
+        container.autoregister(ConfigServiceImpl.init)
+            .implements(ConfigService.self)
             .inObjectScope(.container)
 
-        container.autoregister(SoundService.self, initializer: SoundServiceImpl.init)
+        container.autoregister(SoundServiceImpl.init)
+            .implements(SoundService.self)
             .inObjectScope(.container)
 
-        container.autoregister(NotificationService.self, initializer: NotificationServiceImpl.init)
+        container.autoregister(NotificationServiceImpl.init)
+            .implements(NotificationService.self)
             .inObjectScope(.container)
 
-        container.autoregister(LiveActivityService.self, initializer: LiveActivityServiceImpl.init)
+        container.autoregister(LiveActivityServiceImpl.init)
+            .implements(LiveActivityService.self)
             .inObjectScope(.container)
     }
 }

@@ -62,9 +62,9 @@ final class SessionRunner {
 
     var currentStageIndex: Int? {
         switch state {
-        case .preparing(let stageIndex): stageIndex
-        case .running(let stageIndex, _, _, _): stageIndex
-        case .finished: nil
+            case .preparing(let stageIndex): stageIndex
+            case .running(let stageIndex, _, _, _): stageIndex
+            case .finished: nil
         }
     }
 
