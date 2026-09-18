@@ -10,15 +10,15 @@
 		AA0000000000000000000101 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = AA0000000000000000000001 /* Swinject */; };
 		AA0000000000000000000102 /* SwinjectAutoregistration in Frameworks */ = {isa = PBXBuildFile; productRef = AA0000000000000000000002 /* SwinjectAutoregistration */; };
 		AA0000000000000000000103 /* PhotochemCore in Frameworks */ = {isa = PBXBuildFile; productRef = AA0000000000000000000003 /* PhotochemCore */; };
+		AA0000000000000000000104 /* config in Resources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000004 /* config */; };
 		AA0000000000000000000106 /* JustKit in Frameworks */ = {isa = PBXBuildFile; productRef = AA0000000000000000000006 /* JustKit */; };
 		AA0000000000000000000107 /* JustKitDI in Frameworks */ = {isa = PBXBuildFile; productRef = AA0000000000000000000007 /* JustKitDI */; };
 		AA0000000000000000000108 /* ParaMap in Frameworks */ = {isa = PBXBuildFile; productRef = AA0000000000000000000008 /* ParaMap */; };
-		AA0000000000000000000104 /* config in Resources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000004 /* config */; };
 		AA0000000000000000000506 /* DevelopmentActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000505 /* DevelopmentActivityAttributes.swift */; };
 		AA0000000000000000000507 /* DevelopmentActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000505 /* DevelopmentActivityAttributes.swift */; };
 		AA0000000000000000000508 /* PhotochemWidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000502 /* PhotochemWidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		AA0000000000000000000602 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000601 /* Localizable.xcstrings */; };
-		AA0000000000000000000604 /* Localizable.xcstrings in Resources (widgets) */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000601 /* Localizable.xcstrings */; };
+		AA0000000000000000000604 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000601 /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -218,12 +218,12 @@
 				D09439FF304A0F0000C2084A /* Frameworks */,
 				D0943A00304A0F0000C2084A /* Resources */,
 				AA0000000000000000000510 /* Embed Foundation Extensions */,
-				AA0000000000000000000201 /* SwiftLint */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				AA0000000000000000000511 /* PBXTargetDependency */,
+				AA0000000000000000000412 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				D0943A04304A0F0000C2084A /* Photochem */,
@@ -274,7 +274,8 @@
 				AA0000000000000000000301 /* XCRemoteSwiftPackageReference "Swinject" */,
 				AA0000000000000000000302 /* XCRemoteSwiftPackageReference "SwinjectAutoregistration" */,
 				AA0000000000000000000303 /* XCLocalSwiftPackageReference "PhotochemCore" */,
-				AA0000000000000000000304 /* XCLocalSwiftPackageReference "JustKit" */,
+				AA0000000000000000000304 /* XCLocalSwiftPackageReference "../../justkit-swift" */,
+				AA0000000000000000000305 /* XCRemoteSwiftPackageReference "SwiftLint" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D0943A03304A0F0000C2084A /* Products */;
@@ -300,7 +301,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA0000000000000000000604 /* Localizable.xcstrings in Resources (widgets) */,
+				AA0000000000000000000604 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,28 +315,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		AA0000000000000000000201 /* SwiftLint */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = SwiftLint;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then swiftlint; fi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		AA0000000000000000000405 /* Sources */ = {
@@ -368,6 +347,10 @@
 			isa = PBXTargetDependency;
 			target = D0943A01304A0F0000C2084A /* Photochem */;
 			targetProxy = AA0000000000000000000409 /* PBXContainerItemProxy */;
+		};
+		AA0000000000000000000412 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = AA0000000000000000000009 /* SwiftLintBuildToolPlugin */;
 		};
 		AA0000000000000000000511 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -437,8 +420,8 @@
 				SKIP_INSTALL = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -464,8 +447,8 @@
 				SKIP_INSTALL = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -704,9 +687,9 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = PhotochemCore;
 		};
-		AA0000000000000000000304 /* XCLocalSwiftPackageReference "JustKit" */ = {
+		AA0000000000000000000304 /* XCLocalSwiftPackageReference "../../justkit-swift" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../justkit-swift;
+			relativePath = "../../justkit-swift";
 		};
 /* End XCLocalSwiftPackageReference section */
 
@@ -725,6 +708,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 2.9.0;
+			};
+		};
+		AA0000000000000000000305 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.62.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -747,18 +738,23 @@
 		};
 		AA0000000000000000000006 /* JustKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AA0000000000000000000304 /* XCLocalSwiftPackageReference "JustKit" */;
+			package = AA0000000000000000000304 /* XCLocalSwiftPackageReference "../../justkit-swift" */;
 			productName = JustKit;
 		};
 		AA0000000000000000000007 /* JustKitDI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AA0000000000000000000304 /* XCLocalSwiftPackageReference "JustKit" */;
+			package = AA0000000000000000000304 /* XCLocalSwiftPackageReference "../../justkit-swift" */;
 			productName = JustKitDI;
 		};
 		AA0000000000000000000008 /* ParaMap */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AA0000000000000000000304 /* XCLocalSwiftPackageReference "JustKit" */;
+			package = AA0000000000000000000304 /* XCLocalSwiftPackageReference "../../justkit-swift" */;
 			productName = ParaMap;
+		};
+		AA0000000000000000000009 /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AA0000000000000000000305 /* XCRemoteSwiftPackageReference "SwiftLint" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
