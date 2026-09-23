@@ -24,9 +24,10 @@ final class SettingsStore {
         set { defaults.set(newValue, forKey: Key.remoteURL) }
     }
 
-    var etag: String? {
-        get { defaults.string(forKey: Key.etag) }
-        set { defaults.set(newValue, forKey: Key.etag) }
+    /// ETag по имени файла конфига — remote отдаёт процессы пофайлово.
+    var etags: [String: String] {
+        get { defaults.dictionary(forKey: Key.etags) as? [String: String] ?? [:] }
+        set { defaults.set(newValue, forKey: Key.etags) }
     }
 
     var lastFetchAt: Date? {
@@ -38,7 +39,7 @@ final class SettingsStore {
         static let tankSize = "settings.tankSize"
         static let preAlertSeconds = "settings.preAlertSeconds"
         static let remoteURL = "config.remoteURL"
-        static let etag = "config.etag"
+        static let etags = "config.etags"
         static let lastFetchAt = "config.lastFetchAt"
     }
 }

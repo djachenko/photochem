@@ -84,7 +84,7 @@ struct SettingsView: View {
         }
         .onChange(of: remoteURL) { _, newValue in
             settings.remoteURL = newValue
-            settings.etag = nil
+            settings.etags = [:]
         }
     }
 
