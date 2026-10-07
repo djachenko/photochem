@@ -1,0 +1,31 @@
+{
+  "configurations" : [
+    {
+      "id" : "536132FC-D05E-4189-A53A-C311E0ABF08D",
+      "name" : "Default",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Photochem.xcodeproj",
+        "identifier" : "AA0000000000000000000403",
+        "name" : "PhotochemTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:PhotochemCore",
+        "identifier" : "PhotochemCoreTests",
+        "name" : "PhotochemCoreTests"
+      }
+    }
+  ],
+  "version" : 1
+}
