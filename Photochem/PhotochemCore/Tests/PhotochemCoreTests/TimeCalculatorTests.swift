@@ -5,8 +5,10 @@ struct TimeCalculatorTests {
     private let process = DevelopmentProcess(
         id: "fixture",
         name: "Fixture",
+        updatedAt: "2026-07-04",
         capacityFilms: 10,
         shelfLifeDays: 42,
+        preAlertSeconds: nil,
         stages: [
             ProcessStage(
                 id: "developer",

@@ -1,14 +1,23 @@
 public struct ProcessConfig: Sendable, Equatable {
-    public let schemaVersion: Int
-    public let updatedAt: String
     public let processes: [DevelopmentProcess]
+
+    public init(processes: [DevelopmentProcess]) {
+        self.processes = processes
+    }
+
+    /// Самая свежая дата среди файлов — «версия» набора для экрана настроек.
+    public var updatedAt: String {
+        processes.map(\.updatedAt).max() ?? ""
+    }
 }
 
 public struct DevelopmentProcess: Sendable, Equatable, Identifiable {
     public let id: String
     public let name: String
+    public let updatedAt: String
     public let capacityFilms: Int
     public let shelfLifeDays: Int
+    public let preAlertSeconds: Int?
     public let stages: [ProcessStage]
 }
 

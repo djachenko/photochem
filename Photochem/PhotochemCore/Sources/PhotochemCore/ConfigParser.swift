@@ -1,37 +1,31 @@
 import Foundation
 
+/// Конфиг v2: файл на процесс плюс `index.json` со списком файлов.
+/// Парсер работает по одному файлу; сборка набора и уникальность id — на стороне приложения.
 public enum ConfigParser {
-    public static func parse(_ data: Data) throws -> ProcessConfig {
-        let raw: RawConfig
+    public static let schemaVersion = 2
+
+    public static func parseIndex(_ data: Data) throws -> [String] {
+        do {
+            return try JSONDecoder().decode([String].self, from: data)
+        } catch {
+            throw CoreError.malformedJSON(String(describing: error))
+        }
+    }
+
+    public static func parseProcess(_ data: Data) throws -> DevelopmentProcess {
+        let raw: RawProcess
 
         do {
-            raw = try JSONDecoder().decode(RawConfig.self, from: data)
+            raw = try JSONDecoder().decode(RawProcess.self, from: data)
         } catch {
             throw CoreError.malformedJSON(String(describing: error))
         }
 
-        guard raw.schemaVersion == 1 else {
+        guard raw.schemaVersion == schemaVersion else {
             throw CoreError.unsupportedSchemaVersion(raw.schemaVersion)
         }
 
-        guard !raw.processes.isEmpty else {
-            throw CoreError.validationFailed(rule: "V2", detail: "Список процессов пуст")
-        }
-
-        let processIds = raw.processes.map(\.id)
-
-        guard Set(processIds).count == processIds.count else {
-            throw CoreError.validationFailed(rule: "V3", detail: "Идентификаторы процессов не уникальны")
-        }
-
-        return ProcessConfig(
-            schemaVersion: raw.schemaVersion,
-            updatedAt: raw.updatedAt,
-            processes: try raw.processes.map(process)
-        )
-    }
-
-    private static func process(from raw: RawProcess) throws -> DevelopmentProcess {
         guard raw.capacityFilms >= 1, raw.shelfLifeDays >= 1 else {
             throw CoreError.validationFailed(
                 rule: "V4",
@@ -52,11 +46,20 @@ public enum ConfigParser {
             )
         }
 
+        if let preAlertSeconds = raw.preAlertSeconds, preAlertSeconds < 1 {
+            throw CoreError.validationFailed(
+                rule: "V12",
+                detail: "Процесс \(raw.id): окно предупика должно быть не меньше 1 секунды"
+            )
+        }
+
         return DevelopmentProcess(
             id: raw.id,
             name: raw.name,
+            updatedAt: raw.updatedAt,
             capacityFilms: raw.capacityFilms,
             shelfLifeDays: raw.shelfLifeDays,
+            preAlertSeconds: raw.preAlertSeconds,
             stages: try raw.stages.map { try stage(from: $0, capacityFilms: raw.capacityFilms) }
         )
     }
@@ -82,10 +85,7 @@ public enum ConfigParser {
     private static func timing(from raw: RawStage, capacityFilms: Int) throws -> StageTiming {
         switch (raw.time, raw.timeByFilm) {
             case (let time?, nil):
-                guard let seconds = TimeFormatting.parse(time) else {
-                    throw CoreError.validationFailed(rule: "V8", detail: "Этап \(raw.id): время «\(time)» не в формате M:SS")
-                }
-                return .fixed(seconds: seconds)
+                return .fixed(seconds: try seconds(from: time, stageId: raw.id))
             case (nil, let table?):
                 return .byFilm(ranges: try ranges(from: table, stageId: raw.id, capacityFilms: capacityFilms))
             default:
@@ -97,78 +97,74 @@ public enum ConfigParser {
     }
 
     private static func ranges(
-        from table: [String: String],
+        from table: [RawRange],
         stageId: String,
         capacityFilms: Int
     ) throws -> [FilmRange] {
         let ranges = try table
-            .map { try range(key: $0.key, value: $0.value, stageId: stageId) }
+            .map { try range(from: $0, stageId: stageId) }
             .sorted { $0.lower < $1.lower }
 
-        var expectedLower = 1
+        var previous: FilmRange?
         for range in ranges {
+            let expectedLower = previous.map { $0.upper + 1 } ?? 1
             guard range.lower == expectedLower else {
                 throw CoreError.validationFailed(
                     rule: "V10",
-                    detail: "Этап \(stageId): диапазоны не покрывают 1…\(capacityFilms) сплошным рядом"
+                    detail: "Этап \(stageId): диапазоны \(describe(previous)) и \(describe(range)) не стыкуются — нужен сплошной ряд от 1"
                 )
             }
-            expectedLower = range.upper + 1
+            previous = range
         }
-        guard expectedLower == capacityFilms + 1 else {
+        guard let last = previous, last.upper == capacityFilms else {
             throw CoreError.validationFailed(
                 rule: "V10",
-                detail: "Этап \(stageId): диапазоны не покрывают 1…\(capacityFilms) сплошным рядом"
+                detail: "Этап \(stageId): последний диапазон \(describe(previous)) не доходит до capacity_films = \(capacityFilms)"
             )
         }
         return ranges
     }
 
-    private static func range(key: String, value: String, stageId: String) throws -> FilmRange {
-        let bounds = key.split(separator: "-", omittingEmptySubsequences: false)
-        guard let lower = bounds.first.flatMap({ Int($0) }), lower >= 1, bounds.count <= 2 else {
-            throw CoreError.validationFailed(rule: "V9", detail: "Этап \(stageId): диапазон «\(key)» невалиден")
+    private static func range(from raw: RawRange, stageId: String) throws -> FilmRange {
+        guard raw.from >= 1, raw.from <= raw.to else {
+            throw CoreError.validationFailed(
+                rule: "V9",
+                detail: "Этап \(stageId): диапазон \(raw.from)–\(raw.to) невалиден — нужно 1 ≤ from ≤ to"
+            )
         }
-        let upper: Int
-        if bounds.count == 2 {
-            guard let parsedUpper = Int(bounds[1]), parsedUpper >= lower else {
-                throw CoreError.validationFailed(rule: "V9", detail: "Этап \(stageId): диапазон «\(key)» невалиден")
-            }
-            upper = parsedUpper
-        } else {
-            upper = lower
-        }
-        guard let seconds = TimeFormatting.parse(value) else {
-            throw CoreError.validationFailed(rule: "V8", detail: "Этап \(stageId): время «\(value)» не в формате M:SS")
-        }
-        return FilmRange(lower: lower, upper: upper, seconds: seconds)
+        return FilmRange(lower: raw.from, upper: raw.to, seconds: try seconds(from: raw.time, stageId: stageId))
     }
-}
 
-private struct RawConfig: Decodable {
-    let schemaVersion: Int
-    let updatedAt: String
-    let processes: [RawProcess]
+    private static func seconds(from time: String, stageId: String) throws -> Int {
+        guard let seconds = TimeFormatting.parse(time) else {
+            throw CoreError.validationFailed(rule: "V8", detail: "Этап \(stageId): время «\(time)» не в формате M:SS")
+        }
+        return seconds
+    }
 
-    enum CodingKeys: String, CodingKey {
-        case schemaVersion = "schema_version"
-        case updatedAt = "updated_at"
-        case processes
+    private static func describe(_ range: FilmRange?) -> String {
+        range.map { "\($0.lower)–\($0.upper)" } ?? "—"
     }
 }
 
 private struct RawProcess: Decodable {
+    let schemaVersion: Int
+    let updatedAt: String
     let id: String
     let name: String
     let capacityFilms: Int
     let shelfLifeDays: Int
+    let preAlertSeconds: Int?
     let stages: [RawStage]
 
     enum CodingKeys: String, CodingKey {
+        case schemaVersion = "schema_version"
+        case updatedAt = "updated_at"
         case id
         case name
         case capacityFilms = "capacity_films"
         case shelfLifeDays = "shelf_life_days"
+        case preAlertSeconds = "pre_alert_seconds"
         case stages
     }
 }
@@ -179,7 +175,7 @@ private struct RawStage: Decodable {
     let prepare: String?
     let tempC: Double?
     let time: String?
-    let timeByFilm: [String: String]?
+    let timeByFilm: [RawRange]?
     let preAlertSeconds: Int?
 
     enum CodingKeys: String, CodingKey {
@@ -189,6 +185,12 @@ private struct RawStage: Decodable {
         case tempC = "temp_c"
         case time
         case timeByFilm = "time_by_film"
-        case preAlertSeconds = "pre_alert_s"
+        case preAlertSeconds = "pre_alert_seconds"
     }
+}
+
+private struct RawRange: Decodable {
+    let from: Int
+    let to: Int
+    let time: String
 }

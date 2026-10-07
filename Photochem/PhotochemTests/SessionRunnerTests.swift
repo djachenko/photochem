@@ -132,6 +132,19 @@ struct SessionRunnerTests {
         #expect(context.sound.preAlertCount == 0)
     }
 
+    @Test("R12")
+    func remainingAtStartEqualsPlannedSeconds() throws {
+        let context = try makeRunner()
+        context.runner.start(now: start)
+
+        // Момент старта и момент отрисовки — один и тот же: остаток ровно плановый.
+        #expect(context.runner.remainingSeconds(now: start) == 100)
+
+        // Отрисовка по устаревшему `now` (тик до нажатия) округлялась вверх до 101 —
+        // та самая лишняя секунда, которая промаргивала на экране.
+        #expect(context.runner.remainingSeconds(now: start.addingTimeInterval(-0.2)) == 101)
+    }
+
     private func makeRunner(
         stageSeconds: [Int] = [100, 60],
         preAlertSeconds: Int = 10

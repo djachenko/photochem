@@ -1,0 +1,26 @@
+{
+  "schema_version": 2,
+  "updated_at": "2026-07-04",
+  "id": "test_fast",
+  "name": "Тест (быстрый)",
+  "capacity_films": 99,
+  "shelf_life_days": 9999,
+  "stages": [
+    {
+      "id": "stage1",
+      "name": "Этап с таблицей",
+      "prepare": "Тестовый этап, жми Старт",
+      "time_by_film": [
+        { "from": 1, "to": 5, "time": "0:15" },
+        { "from": 6, "to": 99, "time": "0:20" }
+      ],
+      "pre_alert_seconds": 5
+    },
+    {
+      "id": "stage2",
+      "name": "Фиксированный этап",
+      "prepare": "Слей, залей, жми Старт",
+      "time": "0:10"
+    }
+  ]
+}

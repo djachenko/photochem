@@ -15,6 +15,11 @@ struct SystemAssembly: Assembly {
         }
         .inObjectScope(.weak)
 
+        container.register(URLSession.self) { _ in
+            .shared
+        }
+        .inObjectScope(.weak)
+
         container.register(AVAudioSession.self) { _ in
             .sharedInstance()
         }

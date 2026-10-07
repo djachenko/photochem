@@ -65,7 +65,8 @@ struct RunnerView: View {
         }
         .onChange(of: scenePhase) { _, phase in
             if phase == .active {
-                runner.tick(now: .now)
+                now = .now
+                runner.tick(now: now)
             }
         }
     }
@@ -108,7 +109,10 @@ struct RunnerView: View {
                         .multilineTextAlignment(.center)
                 }
                 Button {
-                    runner.start()
+                    // Тот же момент в раннер и во вью: иначе остаток считается по `now`
+                    // с прошлого тика и первый кадр показывает лишнюю секунду.
+                    now = .now
+                    runner.start(now: now)
                 } label: {
                     Text(String(localized: .runnerStart))
                         .font(.title2.bold())
