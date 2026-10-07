@@ -7,15 +7,24 @@ struct ProcessSpecView: View {
     var body: some View {
         List {
             Section(String(localized: .processSpecKitSection)) {
-                LabeledContent(String(localized: .processSpecCapacity), value: String(localized: .processSpecCapacityValue(process.capacityFilms)))
-                LabeledContent(String(localized: .processSpecShelfLife), value: String(localized: .processSpecShelfLifeValue(process.shelfLifeDays)))
+                LabeledContent(
+                    String(localized: .processSpecCapacity),
+                    value: String(localized: .processSpecCapacityValue(process.capacityFilms))
+                )
+                LabeledContent(
+                    String(localized: .processSpecShelfLife),
+                    value: String(localized: .processSpecShelfLifeValue(process.shelfLifeDays))
+                )
             }
 
             ForEach(process.stages) { stage in
                 Section {
                     switch stage.timing {
                         case .fixed(let seconds):
-                            LabeledContent(String(localized: .processSpecTime), value: TimeFormatting.format(seconds: seconds))
+                            LabeledContent(
+                                String(localized: .processSpecTime),
+                                value: TimeFormatting.format(seconds: seconds)
+                            )
                         case .byFilm(let ranges):
                             ForEach(ranges, id: \.lower) { range in
                                 LabeledContent(filmsText(range), value: TimeFormatting.format(seconds: range.seconds))

@@ -66,9 +66,12 @@ final class SessionRunner {
 
     var currentStageIndex: Int? {
         switch state {
-            case .preparing(let stageIndex): stageIndex
-            case .running(let stageIndex, _, _, _, _): stageIndex
-            case .finished: nil
+            case .preparing(let stageIndex):
+                stageIndex
+            case .running(let stageIndex, _, _, _, _):
+                stageIndex
+            case .finished:
+                nil
         }
     }
 
@@ -77,12 +80,26 @@ final class SessionRunner {
             return
         }
         let endDate = now.addingTimeInterval(TimeInterval(stage.plannedSeconds))
-        state = .running(stageIndex: stageIndex, startedAt: now, endDate: endDate, preAlertFired: false, nextTickAt: nil)
+
+        state = .running(
+            stageIndex: stageIndex,
+            startedAt: now,
+            endDate: endDate,
+            preAlertFired: false,
+            nextTickAt: nil
+        )
+
+        let preAlertAt: Date? = if isPreAlertApplicable(stage) {
+            endDate.addingTimeInterval(-TimeInterval(stage.preAlertSeconds))
+        } else {
+            nil
+        }
+
         notificationService.scheduleStageAlerts(
             sessionID: session.id,
             stageIndex: stageIndex,
             stageName: stage.name,
-            preAlertAt: isPreAlertApplicable(stage) ? endDate.addingTimeInterval(-TimeInterval(stage.preAlertSeconds)) : nil,
+            preAlertAt: preAlertAt,
             endAt: endDate
         )
         publishActivityState(stageIndex: stageIndex, phase: DevelopmentActivityPhase.running, endDate: endDate)

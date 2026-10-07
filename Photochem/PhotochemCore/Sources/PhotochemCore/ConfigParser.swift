@@ -60,7 +60,9 @@ public enum ConfigParser {
             capacityFilms: raw.capacityFilms,
             shelfLifeDays: raw.shelfLifeDays,
             preAlertSeconds: raw.preAlertSeconds,
-            stages: try raw.stages.map { try stage(from: $0, capacityFilms: raw.capacityFilms) }
+            stages: try raw.stages.map {
+                try stage(from: $0, capacityFilms: raw.capacityFilms)
+            }
         )
     }
 
@@ -108,20 +110,27 @@ public enum ConfigParser {
         var previous: FilmRange?
         for range in ranges {
             let expectedLower = previous.map { $0.upper + 1 } ?? 1
+
             guard range.lower == expectedLower else {
                 throw CoreError.validationFailed(
                     rule: "V10",
-                    detail: "Этап \(stageId): диапазоны \(describe(previous)) и \(describe(range)) не стыкуются — нужен сплошной ряд от 1"
+                    detail: "Этап \(stageId): диапазоны \(describe(previous)) и \(describe(range)) "
+                        + "не стыкуются — нужен сплошной ряд от 1"
                 )
             }
+
             previous = range
         }
-        guard let last = previous, last.upper == capacityFilms else {
+
+        guard let last = previous,
+              last.upper == capacityFilms else {
             throw CoreError.validationFailed(
                 rule: "V10",
-                detail: "Этап \(stageId): последний диапазон \(describe(previous)) не доходит до capacity_films = \(capacityFilms)"
+                detail: "Этап \(stageId): последний диапазон \(describe(previous)) "
+                    + "не доходит до capacity_films = \(capacityFilms)"
             )
         }
+
         return ranges
     }
 

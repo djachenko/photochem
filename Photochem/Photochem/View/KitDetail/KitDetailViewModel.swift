@@ -32,9 +32,11 @@ final class KitDetailViewModel {
     }
 
     var expiryWarning: String? {
-        guard let process, kit.ageDays >= process.shelfLifeDays else {
+        guard let process,
+              kit.ageDays >= process.shelfLifeDays else {
             return nil
         }
+
         return String(localized: .kitDetailExpiryWarning(kit.ageDays, process.shelfLifeDays))
     }
 

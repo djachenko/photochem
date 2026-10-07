@@ -1,5 +1,5 @@
-import Testing
 @testable import PhotochemCore
+import Testing
 
 struct TimeCalculatorTests {
     private let process = DevelopmentProcess(

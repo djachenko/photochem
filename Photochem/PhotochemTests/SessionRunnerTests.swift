@@ -1,8 +1,8 @@
 import Foundation
+@testable import Photochem
 import PhotochemCore
 import SwiftData
 import Testing
-@testable import Photochem
 
 @MainActor
 struct SessionRunnerTests {
@@ -150,7 +150,10 @@ struct SessionRunnerTests {
         preAlertSeconds: Int = 10
     ) throws -> RunnerContext {
         let container = try ModelContainer(
-            for: ChemistryKit.self, DevelopmentSession.self, FilmRecord.self, StageSnapshot.self,
+            for: ChemistryKit.self,
+            DevelopmentSession.self,
+            FilmRecord.self,
+            StageSnapshot.self,
             configurations: ModelConfiguration(isStoredInMemoryOnly: true)
         )
         let context = ModelContext(container)

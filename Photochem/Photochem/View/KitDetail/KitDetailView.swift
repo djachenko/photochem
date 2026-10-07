@@ -42,37 +42,7 @@ struct KitDetailView: View {
 
     private func content(viewModel: KitDetailViewModel) -> some View {
         List {
-            Section {
-                LabeledContent(
-                    String(localized: .kitDetailMixedAt),
-                    value: String(localized: .kitDetailMixedAtValue(kit.mixedAt.formatted(.dateOnly), kit.ageDays))
-                )
-                LabeledContent(String(localized: .kitDetailMileage)) {
-                    if viewModel.process == nil {
-                        Text(String(localized: .kitDetailMileageWithoutProcess(viewModel.mileageText)))
-                            .foregroundStyle(.red)
-                    } else {
-                        Text(viewModel.mileageText)
-                    }
-                }
-                if let remainingFilms = viewModel.remainingFilms {
-                    LabeledContent(String(localized: .kitDetailRemaining), value: String(localized: .kitDetailRemainingValue(remainingFilms)))
-                }
-                if let process = viewModel.process {
-                    NavigationLink {
-                        ProcessSpecView(process: process)
-                    } label: {
-                        LabeledContent(String(localized: .kitDetailProcess), value: process.name)
-                    }
-                }
-                if let expiryWarning = viewModel.expiryWarning {
-                    Text(expiryWarning)
-                        .font(.subheadline)
-                        .padding(8)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(.yellow.opacity(0.25), in: .rect(cornerRadius: 8))
-                }
-            }
+            kitSection(viewModel: viewModel)
 
             Section {
                 Button(String(localized: .kitDetailNewSession)) {
@@ -102,6 +72,47 @@ struct KitDetailView: View {
         }
     }
 
+    private func kitSection(viewModel: KitDetailViewModel) -> some View {
+        Section {
+            LabeledContent(
+                String(localized: .kitDetailMixedAt),
+                value: String(localized: .kitDetailMixedAtValue(kit.mixedAt.formatted(.dateOnly), kit.ageDays))
+            )
+
+            LabeledContent(String(localized: .kitDetailMileage)) {
+                if viewModel.process == nil {
+                    Text(String(localized: .kitDetailMileageWithoutProcess(viewModel.mileageText)))
+                        .foregroundStyle(.red)
+                } else {
+                    Text(viewModel.mileageText)
+                }
+            }
+
+            if let remainingFilms = viewModel.remainingFilms {
+                LabeledContent(
+                    String(localized: .kitDetailRemaining),
+                    value: String(localized: .kitDetailRemainingValue(remainingFilms))
+                )
+            }
+
+            if let process = viewModel.process {
+                NavigationLink {
+                    ProcessSpecView(process: process)
+                } label: {
+                    LabeledContent(String(localized: .kitDetailProcess), value: process.name)
+                }
+            }
+
+            if let expiryWarning = viewModel.expiryWarning {
+                Text(expiryWarning)
+                    .font(.subheadline)
+                    .padding(8)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(.yellow.opacity(0.25), in: .rect(cornerRadius: 8))
+            }
+        }
+    }
+
     private func sessionsSection(viewModel: KitDetailViewModel) -> some View {
         Section(String(localized: .kitDetailSessionsSection)) {
             if viewModel.sessions.isEmpty {
@@ -113,7 +124,15 @@ struct KitDetailView: View {
                         SessionHistoryView(session: session)
                     } label: {
                         VStack(alignment: .leading, spacing: 2) {
-                            Text(String(localized: .kitDetailSessionRow(session.startedAt.formatted(.dateAndTime), session.films.count)))
+                            Text(
+                                String(
+                                    localized: .kitDetailSessionRow(
+                                        session.startedAt.formatted(.dateAndTime),
+                                        session.films.count
+                                    )
+                                )
+                            )
+
                             Label(session.status.title, systemImage: session.status.iconName)
                                 .font(.caption)
                                 .foregroundStyle(session.status == .aborted ? .orange : .secondary)

@@ -1,11 +1,12 @@
 import Foundation
-import Testing
 @testable import PhotochemCore
+import Testing
 
 struct ConfigParserTests {
     @Test("Канонические файлы репозитория")
     func parsesCanonicalFiles() throws {
-        let files = try FileManager.default.contentsOfDirectory(at: Self.configDirectory, includingPropertiesForKeys: nil)
+        let files = try FileManager.default
+            .contentsOfDirectory(at: Self.configDirectory, includingPropertiesForKeys: nil)
             .filter { $0.pathExtension == "json" && $0.lastPathComponent != "index.json" }
 
         #expect(!files.isEmpty)

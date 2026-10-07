@@ -1,7 +1,7 @@
 import Foundation
+@testable import Photochem
 import PhotochemCore
 import Testing
-@testable import Photochem
 
 // Стаб ответов и кэш на диске общие — тесты не должны идти параллельно.
 @Suite(.serialized)
