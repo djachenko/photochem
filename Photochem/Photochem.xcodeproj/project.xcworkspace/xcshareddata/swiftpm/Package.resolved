@@ -1,5 +1,5 @@
 {
-  "originHash" : "1ff71c519562dd86e1a6e468865775cf24af9a4edc32a055c2e4322538afe530",
+  "originHash" : "ea456211b0bf801c5b93b76920b0ead62dc694da6efd808b156b0bff340c8fc0",
   "pins" : [
     {
       "identity" : "collectionconcurrencykit",
@@ -17,6 +17,15 @@
       "state" : {
         "revision" : "f2a627b84c1ff96f21ac2fcb623ab36142dd5512",
         "version" : "1.10.0"
+      }
+    },
+    {
+      "identity" : "justkit-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/djachenko/justkit-swift",
+      "state" : {
+        "revision" : "1fe2de4f1322140bedb5071d78c2bfb8276cf84d",
+        "version" : "0.1.0"
       }
     },
     {
