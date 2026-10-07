@@ -1,0 +1,3 @@
+# The SwiftLint build plugin only looks for a config inside the package directory,
+# so point it at the project config to lint PhotochemCore the same way as CI.
+parent_config: ../.swiftlint.yml
