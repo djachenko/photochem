@@ -13,13 +13,13 @@ struct DevelopmentActivityWidget: Widget {
                     lockScreenView(context: context)
                 }
             } compactLeading: {
-                Text("\(context.state.stageIndex + 1)/\(context.attributes.totalStages)")
+                Text(verbatim: "\(context.state.stageIndex + 1)/\(context.attributes.totalStages)")
                     .background(.green)
             } compactTrailing: {
                 countdown(context: context)
                     .background(.red)
             } minimal: {
-                Text("\(context.state.stageIndex + 1)")
+                Text(verbatim: "\(context.state.stageIndex + 1)")
                     .background(.yellow)
             }
         }
