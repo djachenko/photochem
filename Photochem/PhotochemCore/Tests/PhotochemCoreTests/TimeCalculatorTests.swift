@@ -1,5 +1,5 @@
-import Testing
 @testable import PhotochemCore
+import Testing
 
 struct TimeCalculatorTests {
     private let process = DevelopmentProcess(
@@ -16,9 +16,9 @@ struct TimeCalculatorTests {
                 prepare: nil,
                 tempC: nil,
                 timing: .byFilm(ranges: [
-                    FilmRange(lower: 1, upper: 5, seconds: 195),
-                    FilmRange(lower: 6, upper: 8, seconds: 210),
-                    FilmRange(lower: 9, upper: 10, seconds: 225)
+                    FilmRange(films: 1...5, seconds: 195),
+                    FilmRange(films: 6...8, seconds: 210),
+                    FilmRange(films: 9...10, seconds: 225),
                 ]),
                 preAlertOverrideSeconds: nil
             ),
@@ -28,8 +28,8 @@ struct TimeCalculatorTests {
                 prepare: nil,
                 tempC: nil,
                 timing: .byFilm(ranges: [
-                    FilmRange(lower: 1, upper: 6, seconds: 390),
-                    FilmRange(lower: 7, upper: 10, seconds: 480)
+                    FilmRange(films: 1...6, seconds: 390),
+                    FilmRange(films: 7...10, seconds: 480),
                 ]),
                 preAlertOverrideSeconds: nil
             ),
@@ -40,7 +40,7 @@ struct TimeCalculatorTests {
                 tempC: nil,
                 timing: .fixed(seconds: 180),
                 preAlertOverrideSeconds: nil
-            )
+            ),
         ]
     )
 

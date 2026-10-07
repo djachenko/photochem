@@ -7,17 +7,26 @@ struct ProcessSpecView: View {
     var body: some View {
         List {
             Section(String(localized: .processSpecKitSection)) {
-                LabeledContent(String(localized: .processSpecCapacity), value: String(localized: .processSpecCapacityValue(process.capacityFilms)))
-                LabeledContent(String(localized: .processSpecShelfLife), value: String(localized: .processSpecShelfLifeValue(process.shelfLifeDays)))
+                LabeledContent(
+                    String(localized: .processSpecCapacity),
+                    value: String(localized: .processSpecCapacityValue(process.capacityFilms))
+                )
+                LabeledContent(
+                    String(localized: .processSpecShelfLife),
+                    value: String(localized: .processSpecShelfLifeValue(process.shelfLifeDays))
+                )
             }
 
             ForEach(process.stages) { stage in
                 Section {
                     switch stage.timing {
                         case .fixed(let seconds):
-                            LabeledContent(String(localized: .processSpecTime), value: TimeFormatting.format(seconds: seconds))
+                            LabeledContent(
+                                String(localized: .processSpecTime),
+                                value: TimeFormatting.format(seconds: seconds)
+                            )
                         case .byFilm(let ranges):
-                            ForEach(ranges, id: \.lower) { range in
+                            ForEach(ranges, id: \.films) { range in
                                 LabeledContent(filmsText(range), value: TimeFormatting.format(seconds: range.seconds))
                             }
                     }
@@ -45,9 +54,9 @@ struct ProcessSpecView: View {
     }
 
     private func filmsText(_ range: FilmRange) -> String {
-        range.lower == range.upper
-            ? String(localized: .processSpecFilm(range.lower))
-            : String(localized: .processSpecFilmRange(range.lower, range.upper))
+        range.films.count == 1
+            ? String(localized: .processSpecFilm(range.films.lowerBound))
+            : String(localized: .processSpecFilmRange(range.films.lowerBound, range.films.upperBound))
     }
 }
 

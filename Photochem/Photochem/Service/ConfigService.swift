@@ -41,9 +41,9 @@ final class ConfigServiceImpl: ConfigService {
 
     func availableProcesses() -> [DevelopmentProcess] {
         #if DEBUG
-        return config.processes
+        config.processes
         #else
-        return config.processes.filter { !$0.id.hasPrefix("test_") }
+        config.processes.filter { !$0.id.hasPrefix("test_") }
         #endif
     }
 
@@ -191,8 +191,10 @@ final class ConfigServiceImpl: ConfigService {
         guard let directory = Bundle.main.url(forResource: "config", withExtension: nil) else {
             fatalError(String(localized: .configBundledMissing))
         }
+
         do {
             let names = try ConfigParser.parseIndex(try Data(contentsOf: directory.appending(path: "index.json")))
+
             return try Dictionary(uniqueKeysWithValues: names.map { name in
                 (name, try ConfigParser.parseProcess(try Data(contentsOf: directory.appending(path: name))))
             })

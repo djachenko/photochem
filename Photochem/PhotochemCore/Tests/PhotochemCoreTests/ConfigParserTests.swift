@@ -1,11 +1,12 @@
 import Foundation
-import Testing
 @testable import PhotochemCore
+import Testing
 
 struct ConfigParserTests {
     @Test("Канонические файлы репозитория")
     func parsesCanonicalFiles() throws {
-        let files = try FileManager.default.contentsOfDirectory(at: Self.configDirectory, includingPropertiesForKeys: nil)
+        let files = try FileManager.default
+            .contentsOfDirectory(at: Self.configDirectory, includingPropertiesForKeys: nil)
             .filter { $0.pathExtension == "json" && $0.lastPathComponent != "index.json" }
 
         #expect(!files.isEmpty)
@@ -148,7 +149,7 @@ struct ConfigParserTests {
     @Test("Один диапазон на всю ёмкость")
     func acceptsSingleFullRange() throws {
         let parsed = try parse(process(stages: [byFilmStage([range(1, 10, "3:00")])]))
-        #expect(parsed.stages[0].timing == .byFilm(ranges: [FilmRange(lower: 1, upper: 10, seconds: 180)]))
+        #expect(parsed.stages[0].timing == .byFilm(ranges: [FilmRange(films: 1...10, seconds: 180)]))
     }
 
     @Test("Неотсортированный массив сортируется")
@@ -157,9 +158,9 @@ struct ConfigParserTests {
             byFilmStage([range(9, 10, "3:45"), range(1, 5, "3:15"), range(6, 8, "3:30")]),
         ]))
         #expect(parsed.stages[0].timing == .byFilm(ranges: [
-            FilmRange(lower: 1, upper: 5, seconds: 195),
-            FilmRange(lower: 6, upper: 8, seconds: 210),
-            FilmRange(lower: 9, upper: 10, seconds: 225),
+            FilmRange(films: 1...5, seconds: 195),
+            FilmRange(films: 6...8, seconds: 210),
+            FilmRange(films: 9...10, seconds: 225),
         ]))
     }
 

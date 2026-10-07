@@ -24,8 +24,13 @@ struct SessionRecoveryModifier: ViewModifier {
     }
 
     private func description(of session: DevelopmentSession) -> String {
-        let kitName = session.kit?.processName ?? ""
-        return String(localized: .recoveryMessage(kitName, session.films.count, session.startedAt.formatted(.dateAndTime)))
+        String(
+            localized: .recoveryMessage(
+                session.kit?.processName ?? "",
+                session.films.count,
+                session.startedAt.formatted(.dateAndTime)
+            )
+        )
     }
 
     private func finish(status: SessionStatus) {
@@ -34,6 +39,7 @@ struct SessionRecoveryModifier: ViewModifier {
         }
         session.status = status
         session.finishedAt = .now
+
         try? modelContext.save()
     }
 }

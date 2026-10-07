@@ -1,5 +1,5 @@
-import Testing
 @testable import PhotochemCore
+import Testing
 
 struct TimeFormattingTests {
     @Test(arguments: [(195, "3:15"), (600, "10:00"), (60, "1:00"), (5, "0:05"), (0, "0:00")])

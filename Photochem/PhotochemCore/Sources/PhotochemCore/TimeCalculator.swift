@@ -38,7 +38,7 @@ public enum TimeCalculator {
                 return seconds
             case .byFilm(let ranges):
                 let sum = filmNumbers.reduce(0) { total, filmNumber in
-                    total + (ranges.first { $0.lower <= filmNumber && filmNumber <= $0.upper }?.seconds ?? 0)
+                    total + (ranges.first { $0.films.contains(filmNumber) }?.seconds ?? 0)
                 }
 
                 let average = Double(sum) / Double(filmNumbers.count)

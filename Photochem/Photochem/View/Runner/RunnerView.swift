@@ -39,11 +39,16 @@ struct RunnerView: View {
                     }
                 }
             }
-            .confirmationDialog(String(localized: .runnerAbortConfirmation), isPresented: $isConfirmingAbort, titleVisibility: .visible) {
+            .confirmationDialog(
+                String(localized: .runnerAbortConfirmation),
+                isPresented: $isConfirmingAbort,
+                titleVisibility: .visible
+            ) {
                 Button(String(localized: .runnerAbort), role: .destructive) {
                     runner.abort()
                     dismiss()
                 }
+
                 Button(String(localized: .runnerResume), role: .cancel) {}
             } message: {
                 Text(String(localized: .runnerAbortWarning))

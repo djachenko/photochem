@@ -1,5 +1,5 @@
-import Testing
 @testable import PhotochemCore
+import Testing
 
 struct GeigerCurveTests {
     private let curve = GeigerCurve.standard

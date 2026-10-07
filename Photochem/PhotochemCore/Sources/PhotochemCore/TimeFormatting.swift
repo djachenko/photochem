@@ -2,7 +2,7 @@ public enum TimeFormatting {
     public static func format(seconds: Int) -> String {
         let minutes = seconds / 60
         let remainder = seconds % 60
-        
+
         return "\(minutes):\(remainder < 10 ? "0" : "")\(remainder)"
     }
 
@@ -19,7 +19,7 @@ public enum TimeFormatting {
         guard (1...2).contains(minutesPart.count),
               minutesPart.allSatisfy(\.isASCIIDigit),
               let minutes = Int(minutesPart),
-              secondsPart.count == 2 ,
+              secondsPart.count == 2,
               secondsPart.allSatisfy(\.isASCIIDigit),
               let seconds = Int(secondsPart),
               seconds < 60 else {

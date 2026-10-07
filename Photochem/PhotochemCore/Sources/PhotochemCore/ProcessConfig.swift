@@ -36,7 +36,6 @@ public enum StageTiming: Sendable, Equatable {
 }
 
 public struct FilmRange: Sendable, Equatable {
-    public let lower: Int
-    public let upper: Int
+    public let films: ClosedRange<Int>
     public let seconds: Int
 }
