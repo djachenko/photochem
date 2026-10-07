@@ -10,6 +10,6 @@ let package = Package(
     ],
     targets: [
         .target(name: "PhotochemCore"),
-        .testTarget(name: "PhotochemCoreTests", dependencies: ["PhotochemCore"])
+        .testTarget(name: "PhotochemCoreTests", dependencies: ["PhotochemCore"]),
     ]
 )

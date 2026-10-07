@@ -18,7 +18,7 @@ struct TimeCalculatorTests {
                 timing: .byFilm(ranges: [
                     FilmRange(lower: 1, upper: 5, seconds: 195),
                     FilmRange(lower: 6, upper: 8, seconds: 210),
-                    FilmRange(lower: 9, upper: 10, seconds: 225)
+                    FilmRange(lower: 9, upper: 10, seconds: 225),
                 ]),
                 preAlertOverrideSeconds: nil
             ),
@@ -29,7 +29,7 @@ struct TimeCalculatorTests {
                 tempC: nil,
                 timing: .byFilm(ranges: [
                     FilmRange(lower: 1, upper: 6, seconds: 390),
-                    FilmRange(lower: 7, upper: 10, seconds: 480)
+                    FilmRange(lower: 7, upper: 10, seconds: 480),
                 ]),
                 preAlertOverrideSeconds: nil
             ),
@@ -40,7 +40,7 @@ struct TimeCalculatorTests {
                 tempC: nil,
                 timing: .fixed(seconds: 180),
                 preAlertOverrideSeconds: nil
-            )
+            ),
         ]
     )
 
