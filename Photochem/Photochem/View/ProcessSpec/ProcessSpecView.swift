@@ -26,7 +26,7 @@ struct ProcessSpecView: View {
                                 value: TimeFormatting.format(seconds: seconds)
                             )
                         case .byFilm(let ranges):
-                            ForEach(ranges, id: \.lower) { range in
+                            ForEach(ranges, id: \.films) { range in
                                 LabeledContent(filmsText(range), value: TimeFormatting.format(seconds: range.seconds))
                             }
                     }
@@ -54,9 +54,9 @@ struct ProcessSpecView: View {
     }
 
     private func filmsText(_ range: FilmRange) -> String {
-        range.lower == range.upper
-            ? String(localized: .processSpecFilm(range.lower))
-            : String(localized: .processSpecFilmRange(range.lower, range.upper))
+        range.films.count == 1
+            ? String(localized: .processSpecFilm(range.films.lowerBound))
+            : String(localized: .processSpecFilmRange(range.films.lowerBound, range.films.upperBound))
     }
 }
 

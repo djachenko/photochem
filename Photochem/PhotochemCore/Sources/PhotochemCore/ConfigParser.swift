@@ -105,13 +105,13 @@ public enum ConfigParser {
     ) throws -> [FilmRange] {
         let ranges = try table
             .map { try range(from: $0, stageId: stageId) }
-            .sorted { $0.lower < $1.lower }
+            .sorted { $0.films.lowerBound < $1.films.lowerBound }
 
         var previous: FilmRange?
         for range in ranges {
-            let expectedLower = previous.map { $0.upper + 1 } ?? 1
+            let expectedLower = previous.map { $0.films.upperBound + 1 } ?? 1
 
-            guard range.lower == expectedLower else {
+            guard range.films.lowerBound == expectedLower else {
                 throw CoreError.validationFailed(
                     rule: "V10",
                     detail: "Этап \(stageId): диапазоны \(describe(previous)) и \(describe(range)) "
@@ -123,7 +123,7 @@ public enum ConfigParser {
         }
 
         guard let last = previous,
-              last.upper == capacityFilms else {
+              last.films.upperBound == capacityFilms else {
             throw CoreError.validationFailed(
                 rule: "V10",
                 detail: "Этап \(stageId): последний диапазон \(describe(previous)) "
@@ -141,7 +141,7 @@ public enum ConfigParser {
                 detail: "Этап \(stageId): диапазон \(raw.from)–\(raw.to) невалиден — нужно 1 ≤ from ≤ to"
             )
         }
-        return FilmRange(lower: raw.from, upper: raw.to, seconds: try seconds(from: raw.time, stageId: stageId))
+        return FilmRange(films: raw.from...raw.to, seconds: try seconds(from: raw.time, stageId: stageId))
     }
 
     private static func seconds(from time: String, stageId: String) throws -> Int {
@@ -152,7 +152,7 @@ public enum ConfigParser {
     }
 
     private static func describe(_ range: FilmRange?) -> String {
-        range.map { "\($0.lower)–\($0.upper)" } ?? "—"
+        range.map { "\($0.films.lowerBound)–\($0.films.upperBound)" } ?? "—"
     }
 }
 
