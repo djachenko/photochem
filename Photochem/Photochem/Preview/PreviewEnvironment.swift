@@ -22,7 +22,7 @@ enum PreviewEnvironment {
             SettingsAssembly(),
         ]).resolver
 
-        seed(into: resolver ~> ModelContext.self)
+        seed(into: resolver ~> ModelContext.self, process: process(from: resolver))
 
         return resolver
     }()
@@ -32,11 +32,7 @@ enum PreviewEnvironment {
     }
 
     static var process: DevelopmentProcess {
-        guard let process = (resolver ~> ConfigService.self).availableProcesses().first else {
-            fatalError("В бандле нет ни одного процесса")
-        }
-
-        return process
+        process(from: resolver)
     }
 
     static var kit: ChemistryKit {
@@ -48,7 +44,15 @@ enum PreviewEnvironment {
         first(DevelopmentSession.self)
     }
 
-    private static func seed(into context: ModelContext) {
+    private static func process(from resolver: Resolver) -> DevelopmentProcess {
+        guard let process = (resolver ~> ConfigService.self).availableProcesses().first else {
+            fatalError("В бандле нет ни одного процесса")
+        }
+
+        return process
+    }
+
+    private static func seed(into context: ModelContext, process: DevelopmentProcess) {
         let kit = ChemistryKit(
             processID: process.id,
             processName: process.name,
@@ -61,12 +65,12 @@ enum PreviewEnvironment {
 
         session.kit = kit
         session.films = [FilmRecord(orderIndex: 0), FilmRecord(orderIndex: 1)]
-        session.stages = stages(filmsInTank: session.films.count)
+        session.stages = stages(process: process, filmsInTank: session.films.count)
 
         context.insert(session)
     }
 
-    private static func stages(filmsInTank: Int) -> [StageSnapshot] {
+    private static func stages(process: DevelopmentProcess, filmsInTank: Int) -> [StageSnapshot] {
         let times = (try? TimeCalculator.stageTimes(
             process: process,
             currentMileage: 0,
