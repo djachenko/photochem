@@ -8,18 +8,11 @@ let package = Package(
     products: [
         .library(name: "PhotochemCore", targets: ["PhotochemCore"])
     ],
-    dependencies: [
-        .package(url: "https://github.com/realm/SwiftLint", from: "0.62.2"),
-    ],
     targets: [
-        .target(
-            name: "PhotochemCore",
-            plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")]
-        ),
+        .target(name: "PhotochemCore"),
         .testTarget(
             name: "PhotochemCoreTests",
-            dependencies: ["PhotochemCore"],
-            plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")]
+            dependencies: ["PhotochemCore"]
         ),
     ]
 )
