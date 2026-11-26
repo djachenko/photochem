@@ -224,7 +224,6 @@
 			);
 			dependencies = (
 				AA0000000000000000000511 /* PBXTargetDependency */,
-				AA0000000000000000000412 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				D0943A04304A0F0000C2084A /* Photochem */,
@@ -276,7 +275,6 @@
 				AA0000000000000000000302 /* XCRemoteSwiftPackageReference "SwinjectAutoregistration" */,
 				AA0000000000000000000303 /* XCLocalSwiftPackageReference "PhotochemCore" */,
 				AA0000000000000000000304 /* XCRemoteSwiftPackageReference "justkit-swift" */,
-				AA0000000000000000000305 /* XCRemoteSwiftPackageReference "SwiftLint" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D0943A03304A0F0000C2084A /* Products */;
@@ -371,10 +369,6 @@
 			isa = PBXTargetDependency;
 			target = D0943A01304A0F0000C2084A /* Photochem */;
 			targetProxy = AA0000000000000000000409 /* PBXContainerItemProxy */;
-		};
-		AA0000000000000000000412 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = AA0000000000000000000009 /* SwiftLintBuildToolPlugin */;
 		};
 		AA0000000000000000000511 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -740,14 +734,6 @@
 				minimumVersion = 0.1.0;
 			};
 		};
-		AA0000000000000000000305 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/SwiftLint";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.62.2;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -780,11 +766,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AA0000000000000000000304 /* XCRemoteSwiftPackageReference "justkit-swift" */;
 			productName = ParaMap;
-		};
-		AA0000000000000000000009 /* SwiftLintBuildToolPlugin */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AA0000000000000000000305 /* XCRemoteSwiftPackageReference "SwiftLint" */;
-			productName = "plugin:SwiftLintBuildToolPlugin";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
