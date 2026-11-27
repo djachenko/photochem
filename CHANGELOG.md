@@ -2,6 +2,16 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.1.1 - 2026-11-27
+#### Bug Fixes
+- correct 2TANK C-41 blix times - (0fdbeed) - Igor Djachenko
+#### Tests
+- account for bundled configuration dates in refresh result - (08b2aef) - Igor Djachenko
+#### Miscellaneous Chores
+- replace SwiftLint build plugins with CLI linting - (5f92e37) - Igor Djachenko
+
+- - -
+
 ## 0.1.0 - 2026-10-20
 #### Features
 - pre-alert window as a two-tier setting - (f1f657f) - Igor Djachenko
