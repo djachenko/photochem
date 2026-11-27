@@ -6,17 +6,20 @@ import Testing
 // Стаб ответов и кэш на диске общие — тесты не должны идти параллельно.
 @Suite(.serialized)
 struct ConfigServiceTests {
+    private let remoteUpdatedAt = "2026-09-19"
+
     @Test("C1: битый файл откатывается, остальные применяются")
     func appliesValidFilesAndKeepsPreviousVersionOfBrokenOne() async throws {
         let (service, settings) = try makeService()
         defer { service.resetToBundled() }
+        let expectedUpdatedAt = max(service.config.updatedAt, remoteUpdatedAt)
 
         StubURLProtocol.responses = [
             "index.json": .ok(#"["c41_generic.json", "extra.json"]"#),
             "c41_generic.json": .ok(processJSON(id: "c41_generic", name: "C-41 remote")),
             "extra.json": .ok(processJSON(id: "extra", name: "Extra v1")),
         ]
-        #expect(await service.refreshFromRemote() == .updated(updatedAt: "2026-09-19"))
+        #expect(await service.refreshFromRemote() == .updated(updatedAt: expectedUpdatedAt))
         #expect(service.process(id: "c41_generic")?.name == "C-41 remote")
         #expect(service.process(id: "extra")?.name == "Extra v1")
         #expect(settings.etags.keys.sorted() == ["c41_generic.json", "extra.json"])
@@ -70,7 +73,7 @@ struct ConfigServiceTests {
         """
         {
           "schema_version": 2,
-          "updated_at": "2026-09-19",
+          "updated_at": "\(remoteUpdatedAt)",
           "id": "\(id)",
           "name": "\(name)",
           "capacity_films": 10,

@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-07-04",
+  "updated_at": "2026-11-27",
   "id": "c41_2tank",
   "name": "2TANK RENEW C-41",
   "capacity_films": 10,
@@ -24,10 +24,10 @@
       "prepare": "Слей проявитель обратно в бутылку, промой, залей бликс 38°",
       "temp_c": 38.0,
       "time_by_film": [
-        { "from": 1, "to": 5, "time": "7:30" },
-        { "from": 6, "to": 7, "time": "8:00" },
-        { "from": 8, "to": 9, "time": "8:45" },
-        { "from": 10, "to": 10, "time": "10:00" }
+        { "from": 1, "to": 5, "time": "4:00" },
+        { "from": 6, "to": 7, "time": "4:30" },
+        { "from": 8, "to": 9, "time": "5:15" },
+        { "from": 10, "to": 10, "time": "5:30" }
       ]
     },
     {
