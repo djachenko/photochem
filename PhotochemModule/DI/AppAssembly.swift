@@ -1,4 +1,4 @@
-import JustKitDI
+import JustKittenDI
 import PhotochemCore
 import Swinject
 import SwinjectAutoregistration

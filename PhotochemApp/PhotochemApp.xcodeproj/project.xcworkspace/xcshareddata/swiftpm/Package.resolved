@@ -1,13 +1,13 @@
 {
-  "originHash" : "aa3104b71157a2c6d2fe828f9ebf7b863a855a9b1a6aa4133e6dde338bcb8379",
+  "originHash" : "1f834f24f6b263493743ab76566e8bbac986eb4c9b0b57c3b7fa58d56a4e8e17",
   "pins" : [
     {
-      "identity" : "justkit-swift",
+      "identity" : "justkitten-swift",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/djachenko/justkit-swift",
+      "location" : "https://github.com/djachenko/justkitten-swift",
       "state" : {
-        "revision" : "1fe2de4f1322140bedb5071d78c2bfb8276cf84d",
-        "version" : "0.1.0"
+        "revision" : "a766ed818db0d59176688a723bec7d149aeead66",
+        "version" : "0.2.0"
       }
     },
     {

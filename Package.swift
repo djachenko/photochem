@@ -32,8 +32,8 @@ let package = Package(
             from: "2.9.1"
         ),
         .package(
-            url: "https://github.com/djachenko/justkit-swift",
-            .upToNextMinor(from: "0.1.0")
+            url: "https://github.com/djachenko/justkitten-swift",
+            .upToNextMinor(from: "0.2.0")
         ),
     ],
     targets: [
@@ -53,12 +53,12 @@ let package = Package(
                 "Swinject",
                 "SwinjectAutoregistration",
                 .product(
-                    name: "JustKitDI",
-                    package: "justkit-swift"
+                    name: "JustKittenDI",
+                    package: "justkitten-swift"
                 ),
                 .product(
                     name: "ParaMap",
-                    package: "justkit-swift"
+                    package: "justkitten-swift"
                 ),
             ],
             path: "PhotochemModule",

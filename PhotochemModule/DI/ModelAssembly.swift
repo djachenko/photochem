@@ -1,4 +1,4 @@
-import JustKitDI
+import JustKittenDI
 import SwiftData
 import Swinject
 import SwinjectAutoregistration
