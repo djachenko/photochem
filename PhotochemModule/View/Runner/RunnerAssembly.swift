@@ -1,4 +1,4 @@
-import JustKitDI
+import JustKittenDI
 import Swinject
 import SwinjectAutoregistration
 

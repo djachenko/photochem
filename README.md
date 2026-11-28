@@ -35,7 +35,7 @@ Photochem — таймер для проявки плёнки на iPhone. Ра�
 - SwiftUI и Observation — интерфейс и состояние экранов.
 - SwiftData — хранение данных.
 - ActivityKit и WidgetKit — Live Activity.
-- Swinject, SwinjectAutoregistration и JustKitDI — внедрение зависимостей.
+- Swinject, SwinjectAutoregistration и JustKittenDI — внедрение зависимостей.
 - Swift Testing — тесты.
 - SwiftLint — проверка стиля кода.
 
