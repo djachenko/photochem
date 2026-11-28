@@ -1,2 +1,0 @@
-# Share the project rules when linting this package directly or from CI.
-parent_config: ../.swiftlint.yml

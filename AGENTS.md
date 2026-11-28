@@ -14,12 +14,13 @@ iOS-приложение для проявки фотоплёнки: журна�
 
 ## Структура
 
-- `Photochem/Photochem.xcworkspace` — workspace приложения и локального пакета ядра. Открывать его, чтобы видеть оба набора тестов.
-- `Photochem/Photochem/` — приложение: `Model/`, `Service/`, `DI/` и `View/`.
-- `Photochem/PhotochemCore/` — Swift-пакет расчёта времён и валидации конфигурации, с собственными тестами.
-- `Photochem/PhotochemTests/` — тесты приложения, сервисов и раннера.
-- `Photochem/PhotochemWidgets/` — расширение виджетов.
-- `config/` — JSON-файлы процессов; `index.json` генерируется при сборке, вручную его не менять.
+- `Photochem.xcworkspace` — workspace оболочки и локального пакета Photochem. Открывать его, чтобы видеть оба набора тестов.
+- `PhotochemModule/` — модуль приложения: `Model/`, `Service/`, `DI/` и `View/`.
+- `PhotochemModule/Core/` — Swift-пакет расчёта времён и валидации конфигурации, с собственными тестами.
+- `PhotochemModule/Tests/` — тесты приложения, сервисов и раннера.
+- `PhotochemModule/Activity/` и `PhotochemModule/Widgets/` — атрибуты Live Activity и UI виджета.
+- `PhotochemApp/Widgets/` — тонкое расширение виджетов.
+- `PhotochemModule/Resources/Config/` — JSON-файлы процессов, включённые в ресурсы пакета. Индекс для remote-доставки генерирует `PhotochemModule/Scripts/generate_config_index.sh`; вручную его не менять.
 
 ## Архитектура и правила данных
 
@@ -35,12 +36,12 @@ iOS-приложение для проявки фотоплёнки: журна�
 Тесты ядра:
 
 ```sh
-swift test --package-path Photochem/PhotochemCore
+swift test --package-path PhotochemModule/Core
 ```
 
-Схема `Photochem` использует `Photochem/Photochem.xctestplan`: в нём тесты приложения и PhotochemCore. Для запуска через Xcode используй workspace и эту схему. В CI проверки запускают workflows из `.github/workflows/` через RepoKit.
+Схема `Photochem` использует `PhotochemApp/PhotochemApp.xctestplan`: в нём тесты приложения и PhotochemCore. Для запуска через Xcode используй workspace и эту схему. В CI проверки запускают workflows из `.github/workflows/` через RepoKit.
 
-Свой конфиг линтера — `Photochem/.swiftlint.yml`, он наследует базовый. Проектные исключения и правила добавляй в свой конфиг.
+Свой конфиг линтера — `.swiftlint.yml`, он наследует базовый. Проектные исключения и правила добавляй в свой конфиг.
 
 ## Git
 

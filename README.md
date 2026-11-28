@@ -39,10 +39,19 @@ Photochem — таймер для проявки плёнки на iPhone. Ра�
 - Swift Testing — тесты.
 - SwiftLint — проверка стиля кода.
 
-Архитектура — MVVM. Расчётное ядро выделено в локальный Swift-пакет.
+Архитектура — MVVM. Экраны, сервисы, расчётное ядро и ресурсы собраны в Swift-пакет с продуктами `PhotochemModule`, `PhotochemCore` и `PhotochemWidgetsUI`. Отдельная оболочка подключает модуль и показывает его корневой экран.
 
 | Компонент | Ответственность |
 |---|---|
-| [Photochem](Photochem/Photochem/) | SwiftUI-экраны, выполнение сеанса, звуки, уведомления и хранение данных |
-| [PhotochemCore](Photochem/PhotochemCore/) | Расчёт времени и валидация процессов; не зависит от SwiftUI и SwiftData |
-| [PhotochemWidgets](Photochem/PhotochemWidgets/) | Отображение Live Activity |
+| [PhotochemModule](PhotochemModule/) | SwiftUI-экраны, выполнение сеанса, звуки, уведомления и хранение данных |
+| [PhotochemCore](PhotochemModule/Core/) | Расчёт времени и валидация процессов; не зависит от SwiftUI и SwiftData |
+| [PhotochemWidgetsUI](PhotochemModule/Widgets/) | Отображение Live Activity |
+| [PhotochemApp](PhotochemApp/) | Точка входа приложения, assets и тонкое расширение виджета |
+
+## Разработка
+
+Открывать `Photochem.xcworkspace`, схема `Photochem`. Корневой `Package.swift` описывает переиспользуемые targets; исходники оболочки находятся непосредственно в `PhotochemApp/`. Тесты приложения из `PhotochemModule/Tests/` запускаются вместе с тестами ядра через общий test plan.
+
+Самостоятельные тесты ядра: `swift test --package-path PhotochemModule/Core`. Линтер запускается командой `swiftlint` из корня репозитория.
+
+Канонические JSON процессов находятся в `PhotochemModule/Resources/Config/` и включаются в ресурсы пакета. Bundled-загрузка не требует индекса; для remote-доставки его генерирует `bash PhotochemModule/Scripts/generate_config_index.sh`. Общий каталог строк приложения и виджета — `PhotochemModule/Resources/Strings/Localizable.xcstrings`.
