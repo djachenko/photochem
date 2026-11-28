@@ -29,6 +29,30 @@ struct StringCatalogTests {
 }
 
 struct PackageResourceTests {
+    @Test("В bundle включены все канонические JSON без изменений")
+    func bundledProcessesMatchCanonicalFiles() throws {
+        let sourceDirectory = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent()   // Tests
+            .deletingLastPathComponent()   // PhotochemModule
+            .appendingPathComponent("Resources/Config")
+        let bundledDirectory = try #require(Bundle.module.url(forResource: "Config", withExtension: nil))
+        let fileManager = FileManager()
+        let sourceNames = try fileManager.contentsOfDirectory(atPath: sourceDirectory.path)
+            .filter { $0.hasSuffix(".json") && $0 != "index.json" }
+            .sorted()
+        let bundledNames = try fileManager.contentsOfDirectory(atPath: bundledDirectory.path)
+            .filter { $0.hasSuffix(".json") && $0 != "index.json" }
+            .sorted()
+
+        #expect(!sourceNames.isEmpty)
+        #expect(bundledNames == sourceNames)
+        for name in sourceNames {
+            let source = try Data(contentsOf: sourceDirectory.appending(path: name))
+            let bundled = try Data(contentsOf: bundledDirectory.appending(path: name))
+            #expect(bundled == source, "В bundle изменился процесс \(name)")
+        }
+    }
+
     @Test("Встроенные процессы доступны без ресурсов оболочки")
     @MainActor
     func bundledProcessesLoadFromPackage() throws {
