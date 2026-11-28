@@ -1,0 +1,125 @@
+name: Sideload
+
+on:
+  pull_request:
+    branches: [master]
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Published stable release tag to build
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    if: github.event_name != 'release' || (!github.event.release.prerelease && !github.event.release.draft)
+    runs-on: macos-latest
+    timeout-minutes: 30
+    outputs:
+      tag: ${{ steps.release.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Test source generation
+        run: python3 -m unittest discover -s scripts/tests
+
+      - name: Resolve published release
+        if: github.event_name != 'pull_request'
+        id: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.tag || github.event.release.tag_name }}
+        run: |
+          gh api "repos/$GITHUB_REPOSITORY/releases/tags/$RELEASE_TAG" > "$RUNNER_TEMP/release.json"
+          python3 - "$RUNNER_TEMP/release.json" >> "$GITHUB_OUTPUT" <<'PY'
+          import json, re, sys
+          release = json.load(open(sys.argv[1]))
+          tag = release['tag_name']
+          assert not release['draft'] and not release['prerelease'], 'Expected a published stable release'
+          assert re.fullmatch(r'v?\d+\.\d+\.\d+', tag), 'Expected a semantic version tag'
+          print(f'tag={tag}')
+          PY
+
+      # Keep tooling from the workflow revision, while building the exact tag.
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ steps.release.outputs.tag || github.sha }}
+          path: app
+          persist-credentials: false
+
+      - name: Build unsigned device IPA
+        run: bash scripts/build-ipa.sh "$RUNNER_TEMP/sideload" "$GITHUB_WORKSPACE/app"
+
+      - name: Validate source against release IPA
+        if: github.event_name != 'pull_request'
+        run: |
+          python3 scripts/altstore-source.py \
+            --ipa "$RUNNER_TEMP/sideload/Photochem.ipa" \
+            --release "$RUNNER_TEMP/release.json" \
+            --output "$RUNNER_TEMP/sideload/source.json"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Photochem-IPA
+          path: ${{ runner.temp }}/sideload/Photochem.ipa
+          if-no-files-found: error
+
+  publish:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    concurrency:
+      group: altstore-source
+      cancel-in-progress: false
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: Photochem-IPA
+          path: ${{ runner.temp }}/sideload
+
+      - name: Upload IPA and publish source
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ needs.build.outputs.tag }}
+        run: |
+          set -euo pipefail
+          gh api "repos/$GITHUB_REPOSITORY/releases/tags/$RELEASE_TAG" > "$RUNNER_TEMP/release.json"
+          # An independent branch keeps the last working source available while
+          # a newer release is still building. Never commit feed updates to master.
+          feed="$RUNNER_TEMP/altstore-source"
+          git init "$feed"
+          git -C "$feed" remote add origin "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git"
+          auth=$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)
+          git -C "$feed" config http.extraheader "AUTHORIZATION: basic $auth"
+          if [[ -n "$(git -C "$feed" ls-remote --heads origin refs/heads/altstore)" ]]; then
+            git -C "$feed" fetch --depth=1 origin altstore
+            git -C "$feed" checkout -b altstore FETCH_HEAD
+          else
+            git -C "$feed" checkout --orphan altstore
+          fi
+          python3 scripts/altstore-source.py \
+            --ipa "$RUNNER_TEMP/sideload/Photochem.ipa" \
+            --release "$RUNNER_TEMP/release.json" \
+            --previous "$feed/source.json" \
+            --output "$RUNNER_TEMP/source.json"
+          gh release upload "$RELEASE_TAG" "$RUNNER_TEMP/sideload/Photochem.ipa" --clobber
+          cp "$RUNNER_TEMP/source.json" "$feed/source.json"
+          git -C "$feed" config user.name 'github-actions[bot]'
+          git -C "$feed" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C "$feed" add source.json
+          if ! git -C "$feed" diff --cached --quiet; then
+            git -C "$feed" commit -m "chore: update AltStore source for $RELEASE_TAG"
+            git -C "$feed" push origin HEAD:refs/heads/altstore
+          fi
