@@ -3,6 +3,7 @@ xcuserdata/
 *.xcuserstate
 DerivedData/
 .build/
+__pycache__/
 ConvenienTimer/
 *.pdf
 PhotochemModule/Resources/Config/index.json
